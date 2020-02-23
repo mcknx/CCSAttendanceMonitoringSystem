@@ -31,8 +31,16 @@ class AuthController extends Controller
  
         $credentials = $request->only('username', 'password');
         if (Auth::attempt($credentials)) {
-            // Authentication passed...
+          $user = Auth::user();
+          if($user->role == 1) {
             return redirect()->intended('dashboard');
+          }
+
+          if($user->role == 2) {
+            return redirect()->intended('user-dashboard');
+          }
+            // Authentication passed...
+            
         }
         return redirect("login")->withSuccess('Oppes! You have entered invalid credentials');
     }
