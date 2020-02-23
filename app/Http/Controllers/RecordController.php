@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use App\Record;
 
 class RecordController extends Controller
 {
@@ -13,7 +14,8 @@ class RecordController extends Controller
      */
     public function index()
     {
-        //
+        $records = Record::all() ;
+        return view('record',['records'=>$records,'layout'=>'recordIndex']);
     }
 
     /**
@@ -23,7 +25,8 @@ class RecordController extends Controller
      */
     public function create()
     {
-        //
+        $records = Record::all() ;
+        return view('record',['records'=>$records,'layout'=>'recordCreate']);
     }
 
     /**
@@ -34,7 +37,14 @@ class RecordController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $record = new Record() ;
+        $record->Rec_dateCreated = $request->input('currentDate') ;
+        $record->Rec_noProf = 0;
+        $record->Rec_noPresent = 0;
+        $record->Rec_noAbsent = 0;
+        $record->Rec_noLate = 0;
+        $record->save() ;
+        return redirect('/record') ;
     }
 
     /**
@@ -45,7 +55,9 @@ class RecordController extends Controller
      */
     public function show($id)
     {
-        //
+        $record = Record::find($id);
+        $records = Record::all() ;
+        return view('record',['records'=>$records,'record'=>$record,'layout'=>'recordShow']);
     }
 
     /**
@@ -56,7 +68,9 @@ class RecordController extends Controller
      */
     public function edit($id)
     {
-        //
+        $record = Record::find($id);
+        $records = Record::all() ;
+        return view('record',['records'=>$records,'record'=>$record,'layout'=>'recordEdit']);
     }
 
     /**
@@ -68,7 +82,14 @@ class RecordController extends Controller
      */
     public function update(Request $request, $id)
     {
-        //
+        $record = Record::find($id);
+        $record->Rec_dateCreated = $request->input('currentDate') ;
+        $record->Rec_noProf = 0;
+        $record->Rec_noPresent = 0;
+        $record->Rec_noAbsent = 0;
+        $record->Rec_noLate = 0;
+        $record->save() ;
+        return redirect('/record') ;
     }
 
     /**
@@ -79,6 +100,8 @@ class RecordController extends Controller
      */
     public function destroy($id)
     {
-        //
+        $record = Record::find($id);
+        $record->delete() ;
+        return redirect('/record') ;
     }
 }

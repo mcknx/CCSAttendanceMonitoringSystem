@@ -6,18 +6,7 @@
   <title>CCS Attendance</title>
   <!-- Tell the browser to be responsive to screen width -->
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <!-- Font Awesome -->
-  <!-- <link rel="stylesheet" href="plugins/fontawesome-free/css/all.min.css"> -->
-  <link rel="stylesheet" href="{{asset('/AdminLTE-master/plugins/fontawesome-free/css/all.min.css')}}">
 
-  <!-- Favicon -->
-  <link href="img/favicon.ico" rel="shortcut icon" />
-
-  <!-- Google font -->
-  <link
-    href="https://fonts.googleapis.com/css?family=Montserrat:300,300i,400,400i,500,500i,600,600i,700,700i&display=swap"
-    rel="stylesheet"
-  />
 
   <!-- Stylesheets -->
   <link rel="stylesheet" href="{{asset('solmusic/css/bootstrap.min.css')}}" />
@@ -27,6 +16,9 @@
 
   <!-- Main Stylesheets -->
   <link rel="stylesheet" href="{{asset('solmusic/css/style.css')}}" />
+  <!-- Font Awesome -->
+  <!-- <link rel="stylesheet" href="plugins/fontawesome-free/css/all.min.css"> -->
+  <link rel="stylesheet" href="{{asset('/AdminLTE-master/plugins/fontawesome-free/css/all.min.css')}}">
 
   <!-- Ionicons -->
   <link rel="stylesheet" href="https://code.ionicframework.com/ionicons/2.0.1/css/ionicons.min.css">
@@ -63,11 +55,11 @@
 
 </head>
 <body class="hold-transition sidebar-mini layout-fixed">
-
- <!-- Page Preloder -->
+  <!-- Page Preloder -->
  <div id="preloder">
     <div class="loader"></div>
   </div>
+<div class="wrapper">
 <div class="wrapper">
 
   <!-- Navbar -->
@@ -87,13 +79,12 @@
     <div class="sidebar">
       <!-- Sidebar user panel (optional) -->
       <div class="user-panel mt-3 pb-3 mb-3 d-flex">
-        <!-- <div class="image">
+        <div class="image">
           <img src="/AdminLTE-master/dist/img/asma.jpg" class="img-circle elevation-2" alt="User Image">
-        </div> -->
-      <div class="info">
-        <span class="text-white">Welcome! {{ ucfirst(Auth()->user()->name) }}</span>
-      </div>
-          
+        </div>
+        <div class="info">
+          <a href="#" class="d-block">Mckeen Asma</a>
+        </div>
       </div>
 
       <!-- Sidebar Menu -->
@@ -111,7 +102,7 @@
             </a>
             <ul class="nav nav-treeview">
               <li class="nav-item">
-                <a href="{{url('/record')}}" class="nav-link text-white">
+                <a href="{{url('/record')}}" class="nav-link active">
                   <i class="far fa-circle nav-icon"></i>
                   <p>Attendance Management</p>
                 </a>
@@ -135,157 +126,137 @@
     </div>
     <!-- /.sidebar -->
   </aside>
+
+  <!-- /.content-wrapper -->
   
-  <!-- Content Wrapper. Contains page content -->
   <div class="content-wrapper">
-  <!-- Content Header (Page header) -->
-  <section class="content-header">
+    <!-- Content Header (Page header) -->
+    <section class="content-header">
       <div class="container-fluid">
         <div class="row mb-2">
           <div class="col-sm-6">
-            <h1>Dashboard</h1>
+            <h1>Attendance Management</h1>
           </div>
           <div class="col-sm-6">
             <ol class="breadcrumb float-sm-right">
               <li class="breadcrumb-item"><a href="">Home</a></li>
-              <li class="breadcrumb-item active"></li>
+              <li class="breadcrumb-item active">Attendance Management</li>
             </ol>
           </div>
         </div>
       </div><!-- /.container-fluid -->
     </section>
-     <!-- Hero section -->
-     <section class="hero-section">
-      <div class="hero-slider owl-carousel">
-        <div class="hs-item">
-          <div class="container">
-            <div class="row">
-              <div class="col-lg-6">
-                <div class="hs-text">
-                  <h2><span>Attendance</span> Management</h2>
-                  <p>
-                    Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed
-                    do eiusmod tempor incididunt ut labore et dolore magna
-                    aliqua. Quis ipsum suspendisse ultrices gravida.
-                  </p>
-                  <a href="/attendance" class="site-btn">Let's Check!</a>
-                  <!-- <a href="#" class="site-btn sb-c2">Start free trial</a> -->
-                </div>
-              </div>
-              <div class="col-lg-6">
-                <div class="hr-img">
-                  <img src="/solmusic/img/attendance.png" alt="" />
-                </div>
-              </div>
+    @if($layout == 'attendanceIndex')
+    <div class="container-fluid mt-4">
+        <div class="container-fluid mt-4">
+            <div class="row justify-content-center">
+                <section class="col-md-12">
+                    @include("attendancelist")
+                </section>
             </div>
-          </div>
         </div>
-        <div class="hs-item">
-          <div class="container">
-            <div class="row">
-              <div class="col-lg-6">
-                <div class="hs-text">
-                  <h2><span>Manage </span> Professor.</h2>
-                  <p>
-                    Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed
-                    do eiusmod tempor incididunt ut labore et dolore magna
-                    aliqua. Quis ipsum suspendisse ultrices gravida.
-                  </p>
-                  <a href="/professor" class="site-btn">Let's create a professor!</a>
-                  <!-- <a href="#" class="site-btn sb-c2">Start free trial</a> -->
-                </div>
-              </div>
-              <div class="col-lg-6">
-                <div class="hr-img">
-                  <img src="/solmusic/img/professor.png" alt="" />
-                </div>
-              </div>
-            </div>
-          </div>
-        </div>
-        <div class="hs-item">
-          <div class="container">
-            <div class="row">
-              <div class="col-lg-6">
-                <div class="hs-text">
-                  <h2><span>Manage </span> Subject.</h2>
-                  <p>
-                    Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed
-                    do eiusmod tempor incididunt ut labore et dolore magna
-                    aliqua. Quis ipsum suspendisse ultrices gravida.
-                  </p>
-                  <a href="/subject" class="site-btn">Let's create a subject!</a>
-                  <!-- <a href="#" class="site-btn sb-c2">Start free trial</a> -->
-                </div>
-              </div>
-              <div class="col-lg-6">
-                <div class="hr-img">
-                  <img src="/solmusic/img/subject.png" alt="" />
-                </div>
-              </div>
-            </div>
-          </div>
-        </div>
-      </div>
-    </section>
-    <!-- Hero section end -->
-    <!-- Premium section end -->
-    <section class="premium-section spad">
-      <div class="container">
+    </div>
+@elseif($layout == 'attendanceCreate')
+    <div class="container-fluid mt-4 " id="create-form">
         <div class="row">
-          <div class="col-lg-6">
-            <div class="section-title">
-              <h2>Here is help!</h2>
-            </div>
-          </div>
-          <div class="col-lg-6">
-            <p>
-              Consectetur adipiscing elit, sed do eiusmod tempor incididunt ut
-              labore et dolore magna aliqua. Quis ipsum suspendisse ultrices
-              gravida. Risus commodo viverra maecenas accumsan lacus vel
-              facilisis. Lorem ipsum dolor sit amet, consectetur adipiscing
-              elit, sed do eiusmod tempor incididunt ut labore et dolore magna
-              aliqua.
-            </p>
-          </div>
-        </div>
-        <div class="row">
-          <div class="col-lg-3 col-sm-6">
-            <div class="premium-item">
-              <img src="/solmusic/img/system.png" alt="" />
-              <h4>System flow</h4>
-              <p>Consectetur adipiscing elit</p>
-            </div>
-          </div>
-          <div class="col-lg-3 col-sm-6">
-            <div class="premium-item">
-              <img src="/solmusic/img/attendance.png" alt="" />
-              <h4>How to manage attendance</h4>
-              <p>Ectetur adipiscing elit</p>
-            </div>
-          </div>
-          <div class="col-lg-3 col-sm-6">
-            <div class="premium-item">
-              <img src="/solmusic/img/professor.png" alt="" />
-              <h4>How to manage professor</h4>
-              <p>Sed do eiusmod tempor</p>
-            </div>
-          </div>
-          <div class="col-lg-3 col-sm-6">
-            <div class="premium-item">
-              <img src="/solmusic/img/subject.png" alt="" />
-              <h4>How to manage subject</h4>
-              <p>Adipiscing elit</p>
-            </div>
-          </div>
-        </div>
-      </div>
-    </section>
-    <!-- Premium section end -->
+            <section class="col-md-7">
+                @include("attendancelist")
+            </section>
+            <section class="col-md-5">
 
-    
-</div>
-  <!-- /.content-wrapper -->
+                <div class="card mb-3">
+                    <div class="card-body">
+                        <blockquote class="card-title">Enter the informations of the new attendance</blockquote>
+                        <br>
+                        <form action="{{ url('/attendanceStore') }}" method="post">
+                            @csrf
+                            <br>
+                            <br>
+                            <div class="form-group">
+                                <label>First Name</label>
+                                <input name="Prof_fname" type="text" class="form-control"  placeholder="Enter First Name">
+                            </div>
+                            <div class="form-group">
+                                <label>Last Name</label>
+                                <input name="Prof_lname" type="text" class="form-control"  placeholder="Enter Last Name">
+                            </div>
+
+                            
+                            <div class="form-group">
+                                <label>Middle Name</label>
+                                <input name="Prof_mname" type="text" class="form-control"  placeholder="Enter Middle Name">
+                            </div>
+                            
+                            <!-- <div class="form-group">
+                                <label>Subject(s)</label>
+                                <input name="Subj_ID" type="text" class="form-control"  placeholder="Enter Subject ID">
+                            </div> -->
+                            
+                            <input type="submit" class="btn btn-info" value="Save">
+                            <input type="reset" class="btn btn-warning" value="Reset">
+                        </form>
+                    </div>
+                </div>
+
+            </section>
+        </div>
+    </div>
+@elseif($layout == 'attendanceShow')
+    <div class="container-fluid mt-4">
+        <div class="row">
+            <section class="col">
+                @include("attendancelist")
+            </section>
+            <section class="col"></section>
+        </div>
+    </div>
+@elseif($layout == 'attendanceEdit')
+    <div class="container-fluid mt-4">
+        <div class="row">
+            <section class="col-md-7">
+                @include("attendancelist")
+            </section>
+            <section class="col-md-5">
+
+                <div class="card mb-3">
+                    <div class="card-body">
+                        <h5 class="card-title">Update informations of attendance</h5>
+                        <form action="{{ url('/attendanceUpdate/'.$attendance->id) }}" method="post">
+                            @csrf
+                            <br>
+                            <div class="form-group">
+                                <label>First Name</label>
+                                <input value="{{ $attendance->Prof_fname }}" name="Prof_fname" type="text" class="form-control"  placeholder="Enter First Name">
+                            </div>
+                            <div class="form-group">
+                                <label>Last Name</label>
+                                <input value="{{ $attendance->Prof_lname }}" name="Prof_lname" type="text" class="form-control"  placeholder="Enter Last Name">
+                            </div>
+
+                            
+                            <div class="form-group">
+                                <label>Middle Name</label>
+                                <input value="{{ $attendance->Prof_mname }}" name="Prof_mname" type="text" class="form-control"  placeholder="Enter Middle Name">
+                            </div>
+                            
+                            <!-- <div class="form-group">
+                                <label>Subject(s)</label>
+                                <input value="{{ $attendance->Subj_ID }}" name="Subj_ID" type="text" class="form-control"  placeholder="Enter Subject ID">
+                            </div> -->
+
+                            <input type="submit" class="btn btn-info" value="Update">
+                            <input type="reset" class="btn btn-warning" value="Reset">
+
+                        </form>
+                    </div>
+                </div>
+
+            </section>
+        </div>
+    </div>
+@endif
+
+    </div>
   @include("footer")
   
 
@@ -371,5 +342,11 @@
 <script src="{{asset('/solmusic/js/mixitup.min.js')}}"></script>
 <script src="{{asset('/solmusic/js/main.js')}}"></script>
 
+<script type="text/javascript">
+    $('#datepicker').datepicker({
+        autoclose: true,
+        format: 'yyyy-mm-dd'
+      });
+</script>
 </body>
 </html>

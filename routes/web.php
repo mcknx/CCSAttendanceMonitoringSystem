@@ -47,10 +47,20 @@ Route::post('/subjectStore',"SubjectController@store") ;
 Route::post('/subjectUpdate/{id}',"SubjectController@update") ;
 Route::post('/subjectDelete/{id}',"SubjectController@destroy") ;
 
-//Attendance
-Route::get('/attendance',"AttendanceController@index") ;
-Route::get('/attendanceEdit/{id}',"AttendanceController@edit") ;
-Route::get('/attendanceShow/{id}',"AttendanceController@show") ;
-Route::get('/attendanceCreate',"AttendanceController@create") ;
-Route::post('/attendanceStore',"AttendanceController@store") ;
-Route::post('/attendanceUpdate/{id}',"AttendanceController@update") ;
+//record
+Route::get('/record',"RecordController@index") ;
+Route::get('/recordEdit/{id}',"RecordController@edit") ;
+Route::get('/recordShow/{id}',"RecordController@show") ;
+Route::get('/recordCreate',"RecordController@create") ;
+Route::post('/recordStore',"RecordController@store") ;
+Route::post('/recordUpdate/{id}',"RecordController@update") ;
+Route::post('/recordDelete/{id}',"RecordController@destroy") ;
+
+//session
+Route::get('/session',"SessionController@index") ;
+Route::get('/sessionEdit/{id}',"SessionController@edit") ;
+Route::get('/sessionShow/{id}',"SessionController@show") ;
+Route::get('/sessionCreate',"SessionController@create") ;
+Route::post('/sessionStore',"SessionController@store") ;
+Route::post('/sessionUpdate/{id}',"SessionController@update") ;
+Route::post('/sessionDelete/{id}',"SessionController@destroy") ;

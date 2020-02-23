@@ -15,6 +15,8 @@ class CreateSessionsTable extends Migration
     {
         Schema::create('sessions', function (Blueprint $table) {
             $table->bigIncrements('id');
+            $table->integer('Prof_ID');
+            $table->string('Prof_code');
             $table->integer('Ses_status') ; //IF 1 present, 2 absent, 3 late, 4 excused
             $table->string('Ses_remarks') ;
             $table->dateTime('Ses_timeCreated');

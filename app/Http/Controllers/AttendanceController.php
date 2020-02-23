@@ -36,11 +36,6 @@ class AttendanceController extends Controller
      */
     public function store(Request $request)
     {
-        $attendance = new Attendance() ;
-        $attendance->Prof_fname = $request->input('Prof_fname') ;
-        $attendance->Prof_lname = $request->input('Prof_lname') ;
-        $attendance->Prof_mname = $request->input('Prof_mname') ;
-        $attendance->Subj_ID = 0;
         
         // $attendance->Subj_ID = $request->input('Subj_ID') ;
         $attendance->save() ;

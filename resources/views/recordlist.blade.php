@@ -3,11 +3,9 @@
 <div class="card mb-3">
     <div class="card-body">
         <h5 class="card-title"><b>List of attendances</b></h5>
-        <input class="card-title" style="float:right;" class="form-control"  type="date" id="currentDate" name="currentDate" required pattern="\d{4}-\d{2}-\d{2}">
-        <label class="card-title" style="float:right;" class="form-control"  for="currentDate">Date:</label>
         <br>
         <blockquote class="card-text">You can find here all the informations about attendances in the system.
-        You can also create a attendance <a href="{{ url('/attendanceCreate/') }}"><b> here.</b></a>
+        You can also create a attendance <a href="{{ url('/recordCreate') }}"><b> here.</b></a>
         </blockquote>
 
         <table class="table table-responsive">
@@ -19,25 +17,29 @@
                 <th scope="col">No. Present</th>
                 <th scope="col">No. Absent</th>
                 <th scope="col">No. Late</th>
-                <th scope="col">Action</th>
+                <th scope="col">Edit record</th>
+                <th scope="col">Delete record</th>
             </tr>
             </thead>
             <tbody>
-            @foreach($attendances as $attendance)
+            @foreach($records as $record)
                 <tr>
-                    <td>{{ $attendance->id }}</td>
-                    <td>{{ $attendance->Prof_fname }}</td>
-                    <td>{{ $attendance->Prof_lname }}</td>
-                    <td>{{ $attendance->Prof_mname }}</td>
-                    <td>{{ $attendance->Subj_ID }}</td>
+                    <td>{{ $record->id }}</td>
+                    <td>{{ $record->Rec_dateCreated }}</td>
+                    <td>{{ $record->Rec_noProf }}</td>
+                    <td>{{ $record->Rec_noPresent }}</td>
+                    <td>{{ $record->Rec_noAbsent }}</td>
+                    <td>{{ $record->Rec_noLate }}</td>
                     <td>
 
-                        <a href="{{ url('/attendanceEdit/'.$attendance->id) }}" class="btn btn-sm btn-warning">Edit</a>
+                        <a href="{{url('/session')}}" class="btn btn-sm btn-warning">Edit</a>
 
                     </td>
                     <td>
-
-                        <a href="{{ url('/attendanceEdit/'.$attendance->id) }}" class="btn btn-sm btn-warning">Open</a>
+                    <form action="{{ url('/recordDelete/'.$record->id) }}" method="post">
+                        @csrf
+                        <input type="submit" class="btn btn-sm btn-danger" value="Delete">
+                    </form>
 
                     </td>
 

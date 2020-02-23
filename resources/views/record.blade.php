@@ -102,7 +102,7 @@
             </a>
             <ul class="nav nav-treeview">
               <li class="nav-item">
-                <a href="{{url('/attendance')}}" class="nav-link active">
+                <a href="{{url('/record')}}" class="nav-link active">
                   <i class="far fa-circle nav-icon"></i>
                   <p>Attendance Management</p>
                 </a>
@@ -148,7 +148,7 @@
         </div>
       </div><!-- /.container-fluid -->
     </section>
-    @if($layout == 'attendanceIndex')
+    @if($layout == 'recordIndex')
     <div class="container-fluid mt-4">
         <div class="container-fluid mt-4">
             <div class="row justify-content-center">
@@ -158,8 +158,8 @@
             </div>
         </div>
     </div>
-@elseif($layout == 'attendanceCreate')
-    <div class="container-fluid mt-4 " id="create-form">
+@elseif($layout == 'recordCreate')
+<div class="container-fluid mt-4 " id="create-form">
         <div class="row">
             <section class="col-md-7">
                 @include("recordlist")
@@ -168,29 +168,17 @@
 
                 <div class="card mb-3">
                     <div class="card-body">
-                        <blockquote class="card-title">Enter the informations of the new attendance</blockquote>
+                        <blockquote class="card-title">Enter the informations of the new Record</blockquote>
                         <br>
-                        <form action="{{ url('/attendanceStore') }}" method="post">
+                        <form action="{{ url('/recordStore') }}" method="post">
                             @csrf
                             <br>
                             <br>
                             <div class="form-group">
-                                <label>First Name</label>
-                                <input name="Prof_fname" type="text" class="form-control"  placeholder="Enter First Name">
+                                <label  for="currentDate">Date:</label>
+                                <input  type="date" id="currentDate" name="currentDate">
                             </div>
-                            <div class="form-group">
-                                <label>Last Name</label>
-                                <input name="Prof_lname" type="text" class="form-control"  placeholder="Enter Last Name">
-                            </div>
-
-                            
-                            <div class="form-group">
-                                <label>Middle Name</label>
-                                <input name="Prof_mname" type="text" class="form-control"  placeholder="Enter Middle Name">
-                            </div>
-
                             <input type="submit" class="btn btn-info" value="Save">
-                            <input type="reset" class="btn btn-warning" value="Reset">
                         </form>
                     </div>
                 </div>
@@ -198,7 +186,7 @@
             </section>
         </div>
     </div>
-@elseif($layout == 'attendanceShow')
+@elseif($layout == 'recordShow')
     <div class="container-fluid mt-4">
         <div class="row">
             <section class="col">
@@ -207,7 +195,7 @@
             <section class="col"></section>
         </div>
     </div>
-@elseif($layout == 'attendanceEdit')
+@elseif($layout == 'recordEdit')
     <div class="container-fluid mt-4">
         <div class="row">
             <section class="col-md-7">
@@ -217,27 +205,27 @@
                 <div class="card mb-3">
                     <div class="card-body">
                         <h5 class="card-title">Update informations of attendance</h5>
-                        <form action="{{ url('/attendanceUpdate/'.$attendance->id) }}" method="post">
+                        <form action="{{ url('/recordUpdate/'.$record->id) }}" method="post">
                             @csrf
                             <br>
                             <div class="form-group">
                                 <label>First Name</label>
-                                <input value="{{ $attendance->Prof_fname }}" name="Prof_fname" type="text" class="form-control"  placeholder="Enter First Name">
+                                <input value="{{ $record->Prof_fname }}" name="Prof_fname" type="text" class="form-control"  placeholder="Enter First Name">
                             </div>
                             <div class="form-group">
                                 <label>Last Name</label>
-                                <input value="{{ $attendance->Prof_lname }}" name="Prof_lname" type="text" class="form-control"  placeholder="Enter Last Name">
+                                <input value="{{ $record->Prof_lname }}" name="Prof_lname" type="text" class="form-control"  placeholder="Enter Last Name">
                             </div>
 
                             
                             <div class="form-group">
                                 <label>Middle Name</label>
-                                <input value="{{ $attendance->Prof_mname }}" name="Prof_mname" type="text" class="form-control"  placeholder="Enter Middle Name">
+                                <input value="{{ $record->Prof_mname }}" name="Prof_mname" type="text" class="form-control"  placeholder="Enter Middle Name">
                             </div>
                             
                             <!-- <div class="form-group">
                                 <label>Subject(s)</label>
-                                <input value="{{ $attendance->Subj_ID }}" name="Subj_ID" type="text" class="form-control"  placeholder="Enter Subject ID">
+                                <input value="{{ $record->Subj_ID }}" name="Subj_ID" type="text" class="form-control"  placeholder="Enter Subject ID">
                             </div> -->
 
                             <input type="submit" class="btn btn-info" value="Update">

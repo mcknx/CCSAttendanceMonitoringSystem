@@ -104,7 +104,7 @@
             </a>
             <ul class="nav nav-treeview">
               <li class="nav-item">
-                <a href="{{url('/attendance')}}" class="nav-link text-white">
+                <a href="{{url('/record')}}" class="nav-link text-white">
                   <i class="far fa-circle nav-icon"></i>
                   <p>Attendance Management</p>
                 </a>
@@ -286,7 +286,7 @@
                             </div>
 
                             <input type="submit" class="btn btn-info" value="Update">
-                            <input type="submit" class="btn btn-warning" formaction="{{ url('/subjectDelete/'.$subject->id) }}" value="Delete">
+                            <input type="submit" class="btn btn-danger" formaction="{{ url('/subjectDelete/'.$subject->id) }}" value="Delete">
 
                         </form>
                     </div>
