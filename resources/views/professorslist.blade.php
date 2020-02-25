@@ -27,7 +27,7 @@
                     <td>{{ $professor->Prof_lname }}</td>
                     <td>{{ $professor->Prof_mname }}</td>
                     <td>{{ $professor->Prof_code }}</td>
-                    <td>{{ $professor->Subj_ID }}</td>
+                    <td>{{ $professor->subjects->count() }}</td>
                     <td>
 
                         <a href="{{ url('/professorEdit/'.$professor->id) }}" class="btn btn-sm btn-warning">Edit</a>

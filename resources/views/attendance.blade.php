@@ -44,7 +44,12 @@
   
 
 </head>
-<body class="hold-transition sidebar-mini layout-fixed">
+<script type="text/javascript">
+        function zoom() {
+            document.body.style.zoom = "80%" 
+        }
+</script>
+<body onload="zoom()" class="hold-transition sidebar-mini layout-fixed">
   <!-- Page Preloder -->
  <div id="preloder">
     <div class="loader"></div>

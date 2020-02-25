@@ -4,6 +4,9 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Session;
+use App\Record;
+use App\Professor;
+use App\Subject;
 
 class SessionController extends Controller
 {
@@ -16,7 +19,6 @@ class SessionController extends Controller
     {
         $sessions = Session::all() ;
         return view('session',['sessions'=>$sessions,'layout'=>'sessionIndex']);
-       
     }
 
     /**
@@ -54,11 +56,25 @@ class SessionController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function show($id)
-    {
+    public function show($rec_id)
+    {   
+        $sessions = Session::with(['record', 'subject'])->get();
+        $record = Session::find($rec_id);
+
+        // foreach ($sessions as $session) {
+        //   var_dump($session->subject->professor->Prof_fname);
+        // }
+        // // $subject = Subject::find(1);
+        // // var_dump($subject->professor);
+        // dd('');
+        return view('session',['sessions'=>$sessions, 'record'=>$record,'layout'=>'sessionShow']);
+        // return view('session',['professors'=>$professors,'sessions'=>$sessions, 'record'=>$record, 'layout'=>'sessionShow']);
+    }
+
+    public function showSessionData($id)
+    {   
         $session = Session::find($id);
-        $sessions = Session::all() ;
-        return view('session',['sessions'=>$sessions,'session'=>$session,'layout'=>'sessionShow']);
+        return $session;
     }
 
     /**
@@ -84,13 +100,22 @@ class SessionController extends Controller
     public function update(Request $request, $id)
     {
         $session = Session::find($id);
-        $session->Prof_ID = $request->input('Prof_ID');
-        $session->Prof_code = $request->input('Prof_code'); //IF 1 present, 2 absent, 3 late, 4 excused
         $session->Ses_status = $request->input('Ses_status');
-        $session->Ses_remarks = $request->input('Ses_remarks');
-        $session->Ses_timeCreated = $request->input('Ses_timeCreated');        
+        // $session->Ses_remarks = $request->input('Ses_remarks');
         $session->save() ;
-        return redirect('/session') ;
+        return "success";
+        // return redirect('/session') ;
+    }
+
+    public function updateRemarks(Request $request, $id)
+    {
+        $session = Session::find($id);
+        $session->Ses_status = $session->Ses_status;
+        $session->Ses_remarks = $request->input('Ses_remarks');
+        // $session->Ses_remarks = $request->input('Ses_remarks');
+        $session->save() ;
+        return "success";
+        // return redirect('/session') ;
     }
 
     /**

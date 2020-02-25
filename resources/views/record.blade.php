@@ -54,12 +54,19 @@
   
 
 </head>
-<body class="hold-transition sidebar-mini layout-fixed">
+
+<script type="text/javascript">
+        function zoom() {
+            document.body.style.zoom = "80%" 
+        }
+</script>
+
+
+<body onload="zoom()" class="hold-transition sidebar-mini layout-fixed">
   <!-- Page Preloder -->
  <div id="preloder">
     <div class="loader"></div>
   </div>
-<div class="wrapper">
 <div class="wrapper">
 
   <!-- Navbar -->
@@ -326,11 +333,6 @@
 <script src="{{asset('/solmusic/js/mixitup.min.js')}}"></script>
 <script src="{{asset('/solmusic/js/main.js')}}"></script>
 
-<script type="text/javascript">
-    $('#datepicker').datepicker({
-        autoclose: true,
-        format: 'yyyy-mm-dd'
-      });
-</script>
+
 </body>
 </html>

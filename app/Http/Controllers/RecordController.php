@@ -4,6 +4,8 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Record;
+use App\Subject;
+use App\Session;
 
 class RecordController extends Controller
 {
@@ -44,6 +46,18 @@ class RecordController extends Controller
         $record->Rec_noAbsent = 0;
         $record->Rec_noLate = 0;
         $record->save() ;
+
+        // Loop Subjects and then 
+        // Display items based on the same day of the week only
+        // Professor can be duplicated if section is different
+        $subjects = Subject::all();
+        foreach ($subjects as $subject){
+            $session = new Session();
+            $session->record_id =  $record->id;
+            $session->subject_id = $subject->id;
+            $session->save() ;
+        }
+
         return redirect('/record') ;
     }
 

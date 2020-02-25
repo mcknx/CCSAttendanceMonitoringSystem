@@ -56,7 +56,12 @@
   
 
 </head>
-<body class="hold-transition sidebar-mini layout-fixed">
+<script type="text/javascript">
+        function zoom() {
+            document.body.style.zoom = "75%" 
+        }
+</script>
+<body onload="zoom()" class="hold-transition sidebar-mini layout-fixed">
   <!-- Page Preloder -->
  <div id="preloder">
     <div class="loader"></div>
@@ -175,17 +180,67 @@
                             <br>
                             <div class="form-group">
                                 <label>Subject Title</label>
-                                <input name="Subj_title" type="text" class="form-control"  placeholder="Enter First Name">
+                                <input name="Subj_title" type="text" class="form-control"  placeholder="Enter Subject Title">
                             </div>
                             <div class="form-group">
                                 <label>Subject Day</label>
-                                <input name="Subj_day" type="text" class="form-control"  placeholder="Enter Last Name">
+                                <div class="form-group clearfix">
+                                  <blockquote>
+                                  <div class="icheck-primary d-inline">
+                                    <input type="checkbox" id="Mon"  name="Subj_dayM" value="1">
+                                    <label for="Mon">
+                                      Mon
+                                    </label>
+                                  </div>
+                                  <div class="icheck-primary d-inline">
+                                    <input type="checkbox" id="Tue" name="Subj_dayT" value="1">
+                                    <label for="Tue">
+                                      Tue
+                                    </label>
+                                  </div>
+                                  <div class="icheck-primary d-inline">
+                                    <input type="checkbox" id="Wed" name="Subj_dayW" value="1">
+                                    <label for="Wed">
+                                      Wed
+                                    </label>
+                                  </div>
+                                  <div class="icheck-primary d-inline">
+                                    <input type="checkbox" id="Thu" name="Subj_dayTH" value="1">
+                                    <label for="Thu">
+                                      Thu
+                                    </label>
+                                  </div>
+                                  <div class="icheck-primary d-inline">
+                                    <input type="checkbox" id="Fri" name="Subj_dayF" value="1">
+                                    <label for="Fri">
+                                      Fri
+                                    </label>
+                                  </div>
+                                  <div class="icheck-primary d-inline">
+                                    <input type="checkbox" id="Sat" name="Subj_dayS" value="1">
+                                    <label for="Sat">
+                                    Sat
+                                    </label>
+                                  </div>
+                                  <div class="icheck-primary d-inline">
+                                    <input type="checkbox" id="Sun" name="Subj_daySu" value="1">
+                                    <label for="Sun">
+                                    Sun
+                                    </label>
+                                  </div>
+                                  </blockquote>
+                                </div>
+                                
+                                <!-- <input name="Subj_day" type="text" class="form-control"  placeholder="Enter Subject Day"> -->
                             </div>
 
                             
                             <div class="form-group">
-                                <label>Subject Time</label>
-                                <input name="Subj_time" type="text" class="form-control"  placeholder="Enter Middle Name">
+                                <label>Subject Time</label><br>
+                                <blockquote class="d-inline"> From</blockquote>
+                                <input type="time" class="d-inline" name="Subj_timein" required>
+                                <blockquote class="d-inline">to</blockquote><input type="time" class="d-inline" name="Subj_timeout" required>
+                                <!-- <input name="Subj_time" type="text" class="form-control"  placeholder="Enter Subject Time"> -->
                             </div>
                             
                             <div class="form-group">
@@ -195,7 +250,7 @@
 
                             <div class="form-group">
                                 <label>Subject Units</label>
-                                <input name="Subj_units" type="text" class="form-control"  placeholder="Subject Units">
+                                <input name="Subj_units" type="number" class="form-control"  placeholder="Subject Units">
                             </div>
 
                             <div class="form-group">
@@ -210,7 +265,12 @@
 
                             <div class="form-group">
                                 <label>Professor Code</label>
-                                <input name="Prof_code" type="text" class="form-control"  placeholder="Professor Code">
+                                <select id="code" name="Prof_code" class="form-control" >
+                                <!-- <input name="Prof_code" type="text" class="form-control"  placeholder="Professor Code"> -->
+                                @foreach($professors as $professor)
+                                  <option value="{{$professor->Prof_code}}">{{$professor->Prof_code}}</option>
+                                @endforeach
+                                </select>
                             </div>
 
                             <input type="submit" class="btn btn-info" value="Save">
@@ -251,13 +311,62 @@
                             </div>
                             <div class="form-group">
                                 <label>Subject Day</label>
-                                <input value="{{ $subject->Subj_day }}" name="Subj_day" type="text" class="form-control"  placeholder="Enter Last Name">
+                                <div class="form-group clearfix">
+                                  <blockquote>
+                                  <div class="icheck-primary d-inline">
+                                    <input type="checkbox" id="Mon"  name="Subj_dayM" value="1" @if($subject->Subj_dayM == 1 ) checked @endif>
+                                    <label for="Mon">
+                                      Mon
+                                    </label>
+                                  </div>
+                                  <div class="icheck-primary d-inline">
+                                    <input type="checkbox" id="Tue" name="Subj_dayT" value="1" @if($subject->Subj_dayT == 1 ) checked @endif>
+                                    <label for="Tue">
+                                      Tue
+                                    </label>
+                                  </div>
+                                  <div class="icheck-primary d-inline">
+                                    <input type="checkbox" id="Wed" name="Subj_dayW" value="1" @if($subject->Subj_dayW == 1 ) checked @endif>
+                                    <label for="Wed">
+                                      Wed
+                                    </label>
+                                  </div>
+                                  <div class="icheck-primary d-inline">
+                                    <input type="checkbox" id="Thu" name="Subj_dayTH" value="1" @if($subject->Subj_dayTH == 1 ) checked @endif>
+                                    <label for="Thu">
+                                      Thu
+                                    </label>
+                                  </div>
+                                  <div class="icheck-primary d-inline">
+                                    <input type="checkbox" id="Fri" name="Subj_dayF" value="1" @if($subject->Subj_dayF == 1 ) checked @endif>
+                                    <label for="Fri">
+                                      Fri
+                                    </label>
+                                  </div>
+                                  <div class="icheck-primary d-inline">
+                                    <input type="checkbox" id="Sat" name="Subj_dayS" value="1" @if($subject->Subj_dayS == 1 ) checked @endif>
+                                    <label for="Sat">
+                                    Sat
+                                    </label>
+                                  </div>
+                                  <div class="icheck-primary d-inline">
+                                    <input type="checkbox" id="Sun" name="Subj_daySu" value="1" @if($subject->Subj_daySu == 1 ) checked @endif>
+                                    <label for="Sun">
+                                    Sun
+                                    </label>
+                                  </div>
+                                  </blockquote>
+                                </div>
+                                <!-- <input  name="Subj_day" type="text" class="form-control"  placeholder="Enter Last Name"> -->
                             </div>
 
                             
                             <div class="form-group">
-                                <label>Subject Time</label>
-                                <input value="{{ $subject->Subj_time }}"name="Subj_time" type="text" class="form-control"  placeholder="Enter Middle Name">
+                                <label>Subject Time</label><br>
+                                <blockquote class="d-inline"> From</blockquote>
+                                <input type="time" class="d-inline" value="{{ $subject->Subj_timein }}" name="Subj_timein" required>
+                                <blockquote class="d-inline">to</blockquote><input type="time" class="d-inline" value="{{ $subject->Subj_timeout }}" name="Subj_timeout" required>
+                                <!-- <input name="Subj_time" type="text" class="form-control"  placeholder="Enter Middle Name"> -->
                             </div>
                             
                             <div class="form-group">
@@ -267,7 +376,7 @@
 
                             <div class="form-group">
                                 <label>Subject Units</label>
-                                <input value="{{ $subject->Subj_units }}" name="Subj_units" type="text" class="form-control"  placeholder="Subject Units">
+                                <input value="{{ $subject->Subj_units }}" name="Subj_units" type="number" class="form-control"  placeholder="Subject Units">
                             </div>
 
                             <div class="form-group">
@@ -282,7 +391,13 @@
 
                             <div class="form-group">
                                 <label>Professor Code</label>
-                                <input value="{{ $subject->Prof_code }}" name="Prof_code" type="text" class="form-control"  placeholder="Professor Code">
+                                <select id="code" class="form-control" name="Prof_code">
+                                  <option value="{{ $subject->Prof_code }}">{{ $subject->Prof_code }}</option>
+                                  @foreach($professors as $professor)
+                                    <option value="{{$professor->Prof_code}}">{{$professor->Prof_code}}</option>
+                                  @endforeach
+                                </select>
+                                <!-- <input  name="Prof_code" type="text" class="form-control"  placeholder="Professor Code"> -->
                             </div>
 
                             <input type="submit" class="btn btn-info" value="Update">

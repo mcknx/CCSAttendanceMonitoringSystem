@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Professor;
 use App\Subject;
+use Auth;
 use Illuminate\Http\Request;
 
 class SubjectController extends Controller
@@ -16,7 +17,8 @@ class SubjectController extends Controller
     public function index()
     {
         $subjects = Subject::all() ;
-        return view('subject',['subjects'=>$subjects,'layout'=>'subjectIndex']);
+        $professors = Professor::all() ;
+        return view('subject',['subjects'=>$subjects,'professors'=>$professors,'layout'=>'subjectIndex']);
     }
 
     /**
@@ -27,7 +29,8 @@ class SubjectController extends Controller
     public function create()
     {
         $subjects = Subject::all() ;
-        return view('subject',['subjects'=>$subjects,'layout'=>'subjectCreate']);
+        $professors = Professor::all() ;
+        return view('subject',['subjects'=>$subjects,'professors'=>$professors,'layout'=>'subjectCreate']);
     }
 
     /**
@@ -38,26 +41,26 @@ class SubjectController extends Controller
      */
     public function store(Request $request)
     {
+        $professor = Professor::where('prof_code', $request->input('Prof_code'))->first();
         $subject = new Subject() ;
+        $subject->prof_id = $professor->id;
         $subject->Subj_title = $request->input('Subj_title') ;
-        $subject->Subj_day = $request->input('Subj_day') ;
-        $subject->Subj_time = $request->input('Subj_time') ;
+        $subject->Subj_dayM = $request->input('Subj_dayM') ;
+        $subject->Subj_dayT = $request->input('Subj_dayT') ;
+        $subject->Subj_dayW = $request->input('Subj_dayW') ;
+        $subject->Subj_dayTH = $request->input('Subj_dayTH') ;
+        $subject->Subj_dayF = $request->input('Subj_dayF') ;
+        $subject->Subj_dayS = $request->input('Subj_dayS') ;
+        $subject->Subj_daySu = $request->input('Subj_daySu') ;
+        $subject->Subj_timein = $request->input('Subj_timein') ;
+        $subject->Subj_timeout = $request->input('Subj_timeout') ;
         $subject->Subj_desc = $request->input('Subj_desc') ;
         $subject->Subj_units = $request->input('Subj_units') ;
         $subject->Subj_room = $request->input('Subj_room') ;
         $subject->Subj_yr_sec = $request->input('Subj_yr_sec') ;
         $subject->Prof_code = $request->input('Prof_code') ;
-        $professors = Professor::all() ;
-
-        foreach ($professors as $professor) {
-            if ($professor->Prof_code === $subject->Prof_code) {
-                $professor->Subj_ID += 1;
-                $professor->save() ;
-                break;
-            }
-        }
-        
         $subject->save() ;
+     
         return redirect('/subject') ;
     }
 
@@ -84,7 +87,8 @@ class SubjectController extends Controller
     {
         $subject = Subject::find($id);
         $subjects = Subject::all() ;
-        return view('subject',['subjects'=>$subjects,'subject'=>$subject,'layout'=>'subjectEdit']);
+        $professors = Professor::all() ;
+        return view('subject',['subjects'=>$subjects,'subject'=>$subject,'professors'=>$professors,'layout'=>'subjectEdit']);
     }
 
     /**
@@ -97,34 +101,21 @@ class SubjectController extends Controller
     public function update(Request $request, $id)
     {
         $subject = Subject::find($id);
-        $subject->Subj_day = $request->input('Subj_title') ;
-        $subject->Subj_day = $request->input('Subj_day') ;
-        $subject->Subj_time = $request->input('Subj_time') ;
+        $subject->Subj_title = $request->input('Subj_title') ;
+        $subject->Subj_dayM = $request->input('Subj_dayM') ;
+        $subject->Subj_dayT = $request->input('Subj_dayT') ;
+        $subject->Subj_dayW = $request->input('Subj_dayW') ;
+        $subject->Subj_dayTH = $request->input('Subj_dayTH') ;
+        $subject->Subj_dayF = $request->input('Subj_dayF') ;
+        $subject->Subj_dayS = $request->input('Subj_dayS') ;
+        $subject->Subj_daySu = $request->input('Subj_daySu') ;
+        $subject->Subj_timein = $request->input('Subj_timein') ;
+        $subject->Subj_timeout = $request->input('Subj_timeout') ;
         $subject->Subj_desc = $request->input('Subj_desc') ;
         $subject->Subj_units = $request->input('Subj_units') ;
         $subject->Subj_room = $request->input('Subj_room') ;
         $subject->Subj_yr_sec = $request->input('Subj_yr_sec') ;
-
-        $professors = Professor::all() ;
-
-        // Old one
-        foreach ($professors as $professor) {
-            if ($professor->Prof_code === $subject->Prof_code) {
-                $professor->Subj_ID -= 1;
-                $professor->save() ;
-                break;
-            }
-        }
-        // New one
-        $subject->Prof_code = $request->input('Prof_code') ;
-
-        foreach ($professors as $professor) {
-            if ($professor->Prof_code === $subject->Prof_code) {
-                $professor->Subj_ID += 1;
-                $professor->save() ;
-                break;
-            }
-        }
+        // $subject->Prof_code = $request->input('Prof_code') ;
         $subject->save() ;
         return redirect('/subject') ;
     }
@@ -138,6 +129,7 @@ class SubjectController extends Controller
     public function destroy($id)
     {
         $subject = Subject::find($id);
+        $professors = Professor::all() ;
         $subject->delete() ;
         return redirect('/subject') ;
     }

@@ -1,11 +1,16 @@
 
+<script type="text/javascript">
+        function zoom() {
+            document.body.style.zoom = "80%" 
+        }
+</script>
 
 <div class="card mb-3">
     <div class="card-body">
         <h5 class="card-title"><b>List of attendances</b></h5>
         <br>
         <blockquote class="card-text">You can find here all the informations about attendances in the system.
-        You can also create a attendance <a href="{{ url('/recordCreate') }}"><b> here.</b></a>
+        You can also create attendance <a href="{{ url('/recordCreate') }}"><b> here.</b></a>
         </blockquote>
 
         <table class="table table-responsive">
@@ -32,7 +37,7 @@
                     <td>{{ $record->Rec_noLate }}</td>
                     <td>
 
-                        <a href="{{url('/session')}}" class="btn btn-sm btn-warning">Edit</a>
+                        <a href="{{url('/sessionShow/' .$record->id)}}" class="btn btn-sm btn-warning">Edit</a>
 
                     </td>
                     <td>

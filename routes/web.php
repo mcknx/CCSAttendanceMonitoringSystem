@@ -64,4 +64,6 @@ Route::get('/sessionShow/{id}',"SessionController@show") ;
 Route::get('/sessionCreate',"SessionController@create") ;
 Route::post('/sessionStore',"SessionController@store") ;
 Route::post('/sessionUpdate/{id}',"SessionController@update") ;
+Route::post('/sessionUpdateRemarks/{id}',"SessionController@updateRemarks") ;
 Route::post('/sessionDelete/{id}',"SessionController@destroy") ;
+Route::get('/showSessionData/{id}',"SessionController@showSessionData") ;

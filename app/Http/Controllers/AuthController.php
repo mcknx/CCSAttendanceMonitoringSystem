@@ -68,10 +68,13 @@ class AuthController extends Controller
     }
      
     public function dashboard()
-    {
- 
+    { 
       if(Auth::check()){
-        return view('dashboard');
+        $user = Auth::user();
+        $professor = $user->professor;
+        $subjects = $user->subjects;
+
+        return view('dashboard', ['professor' => $professor]);
       }
       return redirect("login")->withSuccess('Opps! You do not have access');
       //  return Redirect::to("login")->withSuccess('Opps! You do not have access');

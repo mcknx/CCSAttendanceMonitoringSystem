@@ -3,6 +3,8 @@
 namespace App\Http\Controllers;
 
 use App\Professor;
+use App\User;
+use Auth;
 use App\Subject;
 use Illuminate\Http\Request;
 
@@ -15,15 +17,20 @@ class ProfessorController extends Controller
      */
     public function index()
     {
-        $professors = Professor::all() ;
+        $professors = Professor::with('subjects')->get();
+        // foreach ($professors as $professor){
+        //     var_dump($professor->subjects->count());
+        // }
+        // dd($professors);
+        
         // foreach ($professors as $professor) {
 
         //     $subject = Subject::where('Prof_code', '=', $professor->Prof_code);
         //     if ($subject->Prof_code === null) {
-        //         $professor->Subj_ID = 0;
+        //         $professor->Subj_count = 0;
         //     }
         //     if ($subject->Prof_code === $professor->Prof_code) {
-        //         $professor->Subj_ID += 1;
+        //         $professor->Subj_count += 1;
         //     }
         //     if ($subject) {
         //     }
@@ -51,14 +58,21 @@ class ProfessorController extends Controller
      */
     public function store(Request $request)
     {
+        $user = User::create([
+            'name' => $request->input('Prof_fname') ." ". $request->input('Prof_mname') ." ". $request->input('Prof_lname'),
+            'username' => $request->input('Prof_code'),
+            'password' => $request->input('Prof_code'),
+            'role' => 2
+          ]);
+
         $professor = new Professor() ;
-        $professor->Prof_fname = $request->input('Prof_fname') ;
-        $professor->Prof_lname = $request->input('Prof_lname') ;
-        $professor->Prof_mname = $request->input('Prof_mname') ;
-        $professor->Prof_code = $request->input('Prof_code') ;
-        $professor->Subj_ID = 0;
-        
-        // $professor->Subj_ID = $request->input('Subj_ID') ;
+        $professor->user_id = $user->id;
+        $professor->Prof_fname = $request->input('Prof_fname');
+        $professor->Prof_lname = $request->input('Prof_lname');
+        $professor->Prof_mname = $request->input('Prof_mname');
+        $professor->Prof_code = $request->input('Prof_code');
+        // $professor->Subj_count = 0;        
+        // $professor->Subj_count = $request->input('Subj_count') ;
         $professor->save() ;
         return redirect('/professor') ;
     }
@@ -103,8 +117,8 @@ class ProfessorController extends Controller
         $professor->Prof_lname = $request->input('Prof_lname') ;
         $professor->Prof_mname = $request->input('Prof_mname') ;
         $professor->Prof_code = $request->input('Prof_code') ;
-        $professor->Subj_ID = 0;
-        // $professor->Subj_ID = $request->input('Subj_ID') ;
+        $professor->Subj_count = 0;
+        // $professor->Subj_count = $request->input('Subj_count') ;
         $professor->save() ;
         return redirect('/professor') ;
     }

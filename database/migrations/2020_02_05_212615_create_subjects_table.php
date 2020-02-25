@@ -15,15 +15,25 @@ class CreateSubjectsTable extends Migration
     {
         Schema::create('subjects', function (Blueprint $table) {
             $table->bigIncrements('id');
+            $table->unsignedBigInteger('prof_id');
             $table->string('Subj_title') ;
-            $table->string('Subj_day') ;
-            $table->string('Subj_time') ;
+            $table->integer('Subj_dayM')->nullable()->default(0) ;
+            $table->integer('Subj_dayT')->nullable()->default(0) ;
+            $table->integer('Subj_dayW')->nullable()->default(0) ;
+            $table->integer('Subj_dayTH')->nullable()->default(0) ;
+            $table->integer('Subj_dayF')->nullable()->default(0) ;
+            $table->integer('Subj_dayS')->nullable()->default(0) ;
+            $table->integer('Subj_daySu')->nullable()->default(0) ;
+            $table->string('Subj_timein') ;
+            $table->string('Subj_timeout') ;
             $table->string('Subj_desc') ;
             $table->string('Subj_units') ;
             $table->string('Subj_room') ;
             $table->string('Subj_yr_sec');
             $table->string('Prof_code');
-          $table->timestamps();
+            $table->timestamps();
+
+            $table->foreign('prof_id')->references('id')->on('professors');
         });
     }
 

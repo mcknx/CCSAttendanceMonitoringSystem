@@ -6,7 +6,18 @@
   <title>CCS Attendance</title>
   <!-- Tell the browser to be responsive to screen width -->
   <meta name="viewport" content="width=device-width, initial-scale=1">
+  <!-- Font Awesome -->
+  <!-- <link rel="stylesheet" href="plugins/fontawesome-free/css/all.min.css"> -->
+  <link rel="stylesheet" href="{{asset('/AdminLTE-master/plugins/fontawesome-free/css/all.min.css')}}">
 
+  <!-- Favicon -->
+  <link href="img/favicon.ico" rel="shortcut icon" />
+
+  <!-- Google font -->
+  <link
+    href="https://fonts.googleapis.com/css?family=Montserrat:300,300i,400,400i,500,500i,600,600i,700,700i&display=swap"
+    rel="stylesheet"
+  />
 
   <!-- Stylesheets -->
   <link rel="stylesheet" href="{{asset('solmusic/css/bootstrap.min.css')}}" />
@@ -16,9 +27,8 @@
 
   <!-- Main Stylesheets -->
   <link rel="stylesheet" href="{{asset('solmusic/css/style.css')}}" />
-  <!-- Font Awesome -->
-  <!-- <link rel="stylesheet" href="plugins/fontawesome-free/css/all.min.css"> -->
-  <link rel="stylesheet" href="{{asset('/AdminLTE-master/plugins/fontawesome-free/css/all.min.css')}}">
+<!-- toastr -->
+<link rel="stylesheet" href="{{asset('/AdminLTE-master/plugins/toastr/toastr.min.css')}}">
 
   <!-- Ionicons -->
   <link rel="stylesheet" href="https://code.ionicframework.com/ionicons/2.0.1/css/ionicons.min.css">
@@ -54,12 +64,18 @@
   
 
 </head>
-<body class="hold-transition sidebar-mini layout-fixed">
-  <!-- Page Preloder -->
+<script type="text/javascript">
+        function zoom() {
+            document.body.style.zoom = "75%" 
+        }
+</script>
+
+<body onload="zoom()" class="hold-transition sidebar-mini layout-fixed">
+
+ <!-- Page Preloder -->
  <div id="preloder">
     <div class="loader"></div>
   </div>
-<div class="wrapper">
 <div class="wrapper">
 
   <!-- Navbar -->
@@ -79,12 +95,13 @@
     <div class="sidebar">
       <!-- Sidebar user panel (optional) -->
       <div class="user-panel mt-3 pb-3 mb-3 d-flex">
-        <div class="image">
+        <!-- <div class="image">
           <img src="/AdminLTE-master/dist/img/asma.jpg" class="img-circle elevation-2" alt="User Image">
-        </div>
-        <div class="info">
-          <a href="#" class="d-block">Mckeen Asma</a>
-        </div>
+        </div> -->
+      <div class="info">
+        <span class="text-white">Welcome! {{ ucfirst(Auth()->user()->name) }}</span>
+      </div>
+          
       </div>
 
       <!-- Sidebar Menu -->
@@ -102,7 +119,7 @@
             </a>
             <ul class="nav nav-treeview">
               <li class="nav-item">
-                <a href="{{url('/record')}}" class="nav-link active">
+                <a href="{{url('/record')}}" class="nav-link text-white">
                   <i class="far fa-circle nav-icon"></i>
                   <p>Attendance Management</p>
                 </a>
@@ -127,138 +144,38 @@
     <!-- /.sidebar -->
   </aside>
 
-  <!-- /.content-wrapper -->
-  
+
   <div class="content-wrapper">
     <!-- Content Header (Page header) -->
     <section class="content-header">
       <div class="container-fluid">
         <div class="row mb-2">
-          <div class="col-sm-6">
-            <h1>Attendance Management</h1>
+          <div class="col-sm-5">
+            <h1>
+            <?php $dt = strtotime($record->Rec_dateCreated);
+                $record = date("l, M d, Y", $dt);
+                $day = date("l", $dt);
+                $dayAbbrv = date("D", $dt);
+              ?>
+              <?=ucfirst($record);?>    
+            </h1>
           </div>
-          <div class="col-sm-6">
+          <div class="col-sm-2">
+          </div>
+          <div class="col-sm-5">
             <ol class="breadcrumb float-sm-right">
               <li class="breadcrumb-item"><a href="">Home</a></li>
-              <li class="breadcrumb-item active">Attendance Management</li>
+              <li class="breadcrumb-item"><a href="">Attendance Management</a></li>
+              <li class="breadcrumb-item active"><?=ucfirst($record);?></li>
             </ol>
           </div>
         </div>
       </div><!-- /.container-fluid -->
     </section>
-    @if($layout == 'attendanceIndex')
-    <div class="container-fluid mt-4">
-        <div class="container-fluid mt-4">
-            <div class="row justify-content-center">
-                <section class="col-md-12">
-                    @include("attendancelist")
-                </section>
-            </div>
-        </div>
-    </div>
-@elseif($layout == 'attendanceCreate')
-    <div class="container-fluid mt-4 " id="create-form">
-        <div class="row">
-            <section class="col-md-7">
-                @include("attendancelist")
-            </section>
-            <section class="col-md-5">
-
-                <div class="card mb-3">
-                    <div class="card-body">
-                        <blockquote class="card-title">Enter the informations of the new attendance</blockquote>
-                        <br>
-                        <form action="{{ url('/attendanceStore') }}" method="post">
-                            @csrf
-                            <br>
-                            <br>
-                            <div class="form-group">
-                                <label>First Name</label>
-                                <input name="Prof_fname" type="text" class="form-control"  placeholder="Enter First Name">
-                            </div>
-                            <div class="form-group">
-                                <label>Last Name</label>
-                                <input name="Prof_lname" type="text" class="form-control"  placeholder="Enter Last Name">
-                            </div>
-
-                            
-                            <div class="form-group">
-                                <label>Middle Name</label>
-                                <input name="Prof_mname" type="text" class="form-control"  placeholder="Enter Middle Name">
-                            </div>
-                            
-                            <!-- <div class="form-group">
-                                <label>Subject(s)</label>
-                                <input name="Subj_ID" type="text" class="form-control"  placeholder="Enter Subject ID">
-                            </div> -->
-                            
-                            <input type="submit" class="btn btn-info" value="Save">
-                            <input type="reset" class="btn btn-warning" value="Reset">
-                        </form>
-                    </div>
-                </div>
-
-            </section>
-        </div>
-    </div>
-@elseif($layout == 'attendanceShow')
-    <div class="container-fluid mt-4">
-        <div class="row">
-            <section class="col">
-                @include("attendancelist")
-            </section>
-            <section class="col"></section>
-        </div>
-    </div>
-@elseif($layout == 'attendanceEdit')
-    <div class="container-fluid mt-4">
-        <div class="row">
-            <section class="col-md-7">
-                @include("attendancelist")
-            </section>
-            <section class="col-md-5">
-
-                <div class="card mb-3">
-                    <div class="card-body">
-                        <h5 class="card-title">Update informations of attendance</h5>
-                        <form action="{{ url('/attendanceUpdate/'.$attendance->id) }}" method="post">
-                            @csrf
-                            <br>
-                            <div class="form-group">
-                                <label>First Name</label>
-                                <input value="{{ $attendance->Prof_fname }}" name="Prof_fname" type="text" class="form-control"  placeholder="Enter First Name">
-                            </div>
-                            <div class="form-group">
-                                <label>Last Name</label>
-                                <input value="{{ $attendance->Prof_lname }}" name="Prof_lname" type="text" class="form-control"  placeholder="Enter Last Name">
-                            </div>
-
-                            
-                            <div class="form-group">
-                                <label>Middle Name</label>
-                                <input value="{{ $attendance->Prof_mname }}" name="Prof_mname" type="text" class="form-control"  placeholder="Enter Middle Name">
-                            </div>
-                            
-                            <!-- <div class="form-group">
-                                <label>Subject(s)</label>
-                                <input value="{{ $attendance->Subj_ID }}" name="Subj_ID" type="text" class="form-control"  placeholder="Enter Subject ID">
-                            </div> -->
-
-                            <input type="submit" class="btn btn-info" value="Update">
-                            <input type="reset" class="btn btn-warning" value="Reset">
-
-                        </form>
-                    </div>
-                </div>
-
-            </section>
-        </div>
-    </div>
-@endif
-
-    </div>
+  @include("sessionlist")
+  </div>
   @include("footer")
-  
+</div>
 
   <!-- Control Sidebar -->
   <aside class="control-sidebar control-sidebar-dark">
@@ -342,11 +259,5 @@
 <script src="{{asset('/solmusic/js/mixitup.min.js')}}"></script>
 <script src="{{asset('/solmusic/js/main.js')}}"></script>
 
-<script type="text/javascript">
-    $('#datepicker').datepicker({
-        autoclose: true,
-        format: 'yyyy-mm-dd'
-      });
-</script>
 </body>
 </html>

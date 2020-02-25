@@ -62,7 +62,12 @@
   
 
 </head>
-<body class="hold-transition sidebar-mini layout-fixed">
+<script type="text/javascript">
+        function zoom() {
+            document.body.style.zoom = "80%" 
+        }
+</script>
+<body onload="zoom()" class="hold-transition sidebar-mini layout-fixed">
 
  <!-- Page Preloder -->
  <div id="preloder">
@@ -106,6 +111,7 @@
               <!-- <i class="nav-icon fas fa-tachometer-alt"></!-->
               <p>
                 Dashboard
+              
                 <i class="right fas fa-angle-left"></i>
               </p>
             </a>
@@ -144,6 +150,7 @@
         <div class="row mb-2">
           <div class="col-sm-6">
             <h1>Dashboard</h1>
+            {{ $professor }}
           </div>
           <div class="col-sm-6">
             <ol class="breadcrumb float-sm-right">
