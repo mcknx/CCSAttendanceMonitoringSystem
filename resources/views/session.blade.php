@@ -66,7 +66,7 @@
 </head>
 <script type="text/javascript">
         function zoom() {
-            document.body.style.zoom = "75%" 
+            document.body.style.zoom = "80%" 
         }
 </script>
 
@@ -152,7 +152,8 @@
         <div class="row mb-2">
           <div class="col-sm-5">
             <h1>
-            <?php $dt = strtotime($record->Rec_dateCreated);
+            <?php 
+                $dt = strtotime($record->Rec_dateCreated);
                 $record = date("l, M d, Y", $dt);
                 $day = date("l", $dt);
                 $dayAbbrv = date("D", $dt);

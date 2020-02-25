@@ -59,7 +59,38 @@ class SessionController extends Controller
      */
     public function show($rec_id)
     {   
-        $sessions = Session::with(['record', 'subject'])->get();
+        $dayOfWeek = Carbon::now()->dayOfWeek;
+        $sessions = Session::with(['record', 'subject'])->whereHas('subject', function($q) use($dayOfWeek) {
+            // Monday
+            if ($dayOfWeek == 1){
+                $q->where('Subj_dayM', '=', 1);
+            }
+            // Tue
+            if ($dayOfWeek == 2){
+                $q->where('Subj_dayT', '=', 1);
+            }
+            // Wed
+            if ($dayOfWeek == 3){
+                $q->where('Subj_dayW', '=', 1);
+            }
+            // Thu
+            if ($dayOfWeek == 4){
+                $q->where('Subj_dayTH', '=', 1);
+            }
+            // Fri
+            if ($dayOfWeek == 5){
+                $q->where('Subj_dayF', '=', 1);
+            }
+            // Sat
+            if ($dayOfWeek == 6){
+                $q->where('Subj_dayS', '=', 1);
+            }
+            // Sun
+            if ($dayOfWeek == 0){
+                $q->where('Subj_daySu', '=', 1);
+            }
+        })->get();
+        // dd($sessions);
         $record = Record::find($rec_id);
         // dd(Carbon::now()->dayOfWeek);
         // dd(Carbon::now()->format('Y-m-d '));

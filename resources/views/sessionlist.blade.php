@@ -22,7 +22,16 @@
                 <p class=" text-active"><b>Room: </b> {{ucfirst($session->subject->Subj_room)}} </p>
                 <p class=" text-active"><b>Section: </b> {{ucfirst($session->subject->Subj_yr_sec)}} </p>
                 <p class="text-active "><b>Subject: </b> {{ucfirst($session->subject->Subj_desc)}} </p>
-                <p class="text-active "><b>Schedule: </b> Web Designer </p>
+                <p class="text-active "><b>Schedule: </b> <br>
+                @if($session->subject->Subj_dayM == 1 ) Mon,  @endif
+                @if($session->subject->Subj_dayT == 1 ) Tue,  @endif
+                @if($session->subject->Subj_dayW == 1 ) Wed,  @endif
+                @if($session->subject->Subj_dayTH == 1 ) Thu,  @endif
+                @if($session->subject->Subj_dayF == 1 ) Fri,  @endif
+                @if($session->subject->Subj_dayS == 1 ) Sat,  @endif
+                @if($session->subject->Subj_daySu == 1 ) Sun,  @endif
+
+                </p>
               </div>
               <div class="col-7 text-center">
                 <img src="/AdminLTE-master/dist/img/user.png" alt="" width="120px;" class="img-circle img-fluid">
