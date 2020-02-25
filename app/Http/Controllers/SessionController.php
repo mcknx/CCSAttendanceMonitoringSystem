@@ -61,15 +61,10 @@ class SessionController extends Controller
     {   
         $sessions = Session::with(['record', 'subject'])->get();
         $record = Record::find($rec_id);
-
-        // foreach ($sessions as $session) {
-        //   var_dump($session->subject->professor->Prof_fname);
-        // }
-        // // $subject = Subject::find(1);
-        // // var_dump($subject->professor);
-        // dd('');
+        // dd(Carbon::now()->dayOfWeek);
+        // dd(Carbon::now()->format('Y-m-d '));
+        // dd(Carbon::now()->toDateTimeString());
         return view('session',['sessions'=>$sessions, 'record'=>$record,'layout'=>'sessionShow']);
-        // return view('session',['professors'=>$professors,'sessions'=>$sessions, 'record'=>$record, 'layout'=>'sessionShow']);
     }
 
     public function showSessionData($id)
