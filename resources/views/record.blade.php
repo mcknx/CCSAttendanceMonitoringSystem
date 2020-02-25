@@ -60,8 +60,6 @@
             document.body.style.zoom = "80%" 
         }
 </script>
-
-
 <body onload="zoom()" class="hold-transition sidebar-mini layout-fixed">
   <!-- Page Preloder -->
  <div id="preloder">
@@ -268,9 +266,6 @@
 <script src="{{asset('/AdminLTE-master/plugins/jquery-ui/jquery-ui.min.js')}}"></script>
 
 <!-- Resolve conflict in jQuery UI tooltip with Bootstrap tooltip -->
-<script>
-  $.widget.bridge('uibutton', $.ui.button)
-</script>
 <!-- Bootstrap 4 -->
 <!-- <script src="plugins/bootstrap/js/bootstrap.bundle.min.js"></script> -->
 <script src="{{asset('/AdminLTE-master/plugins/bootstrap/js/bootstrap.bundle.min.js')}}"></script>
@@ -282,7 +277,6 @@
 <!-- Sparkline -->
 <!-- <script src="plugins/sparklines/sparkline.js"></script> -->
 <script src="{{asset('/AdminLTE-master/plugins/sparklines/sparkline.js')}}"></script>
-
 <!-- JQVMap -->
 <!-- <script src="plugins/jqvmap/jquery.vmap.min.js"></script> -->
 <script src="{{asset('/AdminLTE-master/plugins/jqvmap/jquery.vmap.min.js')}}"></script>

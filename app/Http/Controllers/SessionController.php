@@ -7,6 +7,7 @@ use App\Session;
 use App\Record;
 use App\Professor;
 use App\Subject;
+use Carbon\Carbon;
 
 class SessionController extends Controller
 {
@@ -59,7 +60,7 @@ class SessionController extends Controller
     public function show($rec_id)
     {   
         $sessions = Session::with(['record', 'subject'])->get();
-        $record = Session::find($rec_id);
+        $record = Record::find($rec_id);
 
         // foreach ($sessions as $session) {
         //   var_dump($session->subject->professor->Prof_fname);
@@ -101,6 +102,8 @@ class SessionController extends Controller
     {
         $session = Session::find($id);
         $session->Ses_status = $request->input('Ses_status');
+        $current_date_time = Carbon::now()->toDateTimeString(); 
+        $session->notified_at = $current_date_time;
         // $session->Ses_remarks = $request->input('Ses_remarks');
         $session->save() ;
         return "success";

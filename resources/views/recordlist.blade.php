@@ -1,10 +1,3 @@
-
-<script type="text/javascript">
-        function zoom() {
-            document.body.style.zoom = "80%" 
-        }
-</script>
-
 <div class="card mb-3">
     <div class="card-body">
         <h5 class="card-title"><b>List of attendances</b></h5>
@@ -54,28 +47,3 @@
         </table>
     </div>
 </div>
-<script>
-    function getDate() {
-        var today = new Date();
-        var dd = today.getDate();
-        var mm = today.getMonth()+1; //January is 0!
-        var yyyy = today.getFullYear();
-
-        if(dd<10) {
-            dd = '0'+dd
-        } 
-
-        if(mm<10) {
-            mm = '0'+mm
-        } 
-
-        today = yyyy + '-' + mm + '-' + dd ;
-        console.log(today);
-        document.getElementById("currentDate").value = today;
-    }
-
-
-    window.onload = function() {
-        getDate();
-    };
-</script>

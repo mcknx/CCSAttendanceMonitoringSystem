@@ -19,9 +19,9 @@
           <div class="card-body pt-0" style="padding: 5px !important;">
             <div class="row">
               <div class="col-5 text-right">
-                <p class=" text-active"><b>Room: </b> Web Designer</p>
-                <p class=" text-active"><b>Section: </b> Web Designer </p>
-                <p class="text-active "><b>Subject: </b> Web Designer </p>
+                <p class=" text-active"><b>Room: </b> {{ucfirst($session->subject->Subj_room)}} </p>
+                <p class=" text-active"><b>Section: </b> {{ucfirst($session->subject->Subj_yr_sec)}} </p>
+                <p class="text-active "><b>Subject: </b> {{ucfirst($session->subject->Subj_desc)}} </p>
                 <p class="text-active "><b>Schedule: </b> Web Designer </p>
               </div>
               <div class="col-7 text-center">
@@ -29,8 +29,8 @@
                 <h2 class="lead"><b>{{ucfirst($session->subject->professor->Prof_fname)}} {{ucfirst($session->subject->professor->Prof_lname)}}</b></h2>
                 <blockquote class="md-12">
                 <ul class="ml-4 mb-0 fa-ul text-left">
-                      <li class="small"><span class="fa-li"><i class="fas fa-lg fa-clock"></i></span> <b>Timein:</b><br> Demo Street</li>
-                      <li class="small"><span class="fa-li"><i class="fas fa-lg fa-clock"></i></span> <b>Timeout:</b><br> Demo Street</li>
+                      <li class="small"><span class="fa-li"><i class="fas fa-lg fa-clock"></i></span> <b>Timein:</b><br> {{ucfirst($session->subject->Subj_timein)}}</li>
+                      <li class="small"><span class="fa-li"><i class="fas fa-lg fa-clock"></i></span> <b>Timeout:</b><br> {{ucfirst($session->subject->Subj_timeout)}}</li>
                 </ul>
                 </blockquote>
               </div>
