@@ -23,13 +23,63 @@
                 <p class=" text-active"><b>Section: </b> {{ucfirst($session->subject->Subj_yr_sec)}} </p>
                 <p class="text-active "><b>Subject: </b> {{ucfirst($session->subject->Subj_desc)}} </p>
                 <p class="text-active "><b>Schedule: </b> <br>
-                @if($session->subject->Subj_dayM == 1 ) Mon,  @endif
-                @if($session->subject->Subj_dayT == 1 ) Tue,  @endif
-                @if($session->subject->Subj_dayW == 1 ) Wed,  @endif
-                @if($session->subject->Subj_dayTH == 1 ) Thu,  @endif
-                @if($session->subject->Subj_dayF == 1 ) Fri,  @endif
-                @if($session->subject->Subj_dayS == 1 ) Sat,  @endif
-                @if($session->subject->Subj_daySu == 1 ) Sun,  @endif
+                
+               
+                @if($session->subject->Subj_dayM == 1 )
+                  @if($day == "Monday" )
+                    <kbd><strong>Mon</strong></kbd>,  
+                  @else 
+                    Mon,
+                  @endif
+                @endif
+
+                @if($session->subject->Subj_dayT == 1 )   
+                  @if($day == "Tuesday" )
+                    <kbd><strong>Tue</strong></kbd>,  
+                  @else 
+                    Tue,
+                  @endif
+                @endif
+
+                @if($session->subject->Subj_dayW == 1 ) 
+                  @if($day == "Wednesday" )
+                    <kbd><strong>Wed</strong></kbd>,  
+                  @else 
+                    Wed,
+                  @endif
+                @endif
+
+                @if($session->subject->Subj_dayTH == 1 ) 
+                  @if($day == "Thursday" )
+                    <kbd><strong>Thu</strong></kbd>,  
+                  @else 
+                    Thu,
+                  @endif
+                @endif
+
+                @if($session->subject->Subj_dayF == 1 ) 
+                  @if($day == "Friday" )
+                    <kbd><strong>Fri</strong></kbd>,  
+                  @else 
+                    Fri,
+                  @endif
+                @endif
+
+                @if($session->subject->Subj_dayS == 1 ) 
+                  @if($day == "Saturday" )
+                    <kbd><strong>Sat</strong></kbd>,  
+                  @else 
+                  Sat,
+                  @endif
+                @endif
+
+                @if($session->subject->Subj_daySu == 1 ) 
+                  @if($day == "Sunday" )
+                    <kbd><strong>Sun</strong></kbd>,  
+                  @else 
+                  Sun.
+                  @endif
+                @endif
 
                 </p>
               </div>

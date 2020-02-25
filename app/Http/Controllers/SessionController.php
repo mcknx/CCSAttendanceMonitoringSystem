@@ -59,7 +59,9 @@ class SessionController extends Controller
      */
     public function show($rec_id)
     {   
-        $dayOfWeek = Carbon::now()->dayOfWeek;
+        $record = Record::find($rec_id);
+        $cabon_record_dateCreated = new Carbon($record->Rec_dateCreated);
+        $dayOfWeek = $cabon_record_dateCreated->dayOfWeek;
         $sessions = Session::with(['record', 'subject'])->whereHas('subject', function($q) use($dayOfWeek) {
             // Monday
             if ($dayOfWeek == 1){
@@ -91,7 +93,6 @@ class SessionController extends Controller
             }
         })->get();
         // dd($sessions);
-        $record = Record::find($rec_id);
         // dd(Carbon::now()->dayOfWeek);
         // dd(Carbon::now()->format('Y-m-d '));
         // dd(Carbon::now()->toDateTimeString());
