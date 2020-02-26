@@ -1,8 +1,15 @@
+<script>
+function clickOnPrint(){
+    window.open('http://127.0.0.1:8000/pdf', '_blank');
+}
+
+</script>
+
 
 <div class="card mb-3">
     <div class="card-body">
         <h5 class="card-title"><b>List of attendances</b></h5>
-        <input class="card-title float-right btn btn-info d-inline" style="margin-top: -5px; margin-left: 10px;" type="button" value="Print" href="#">
+        <input class="card-title float-right btn btn-info d-inline" style="margin-top: -5px; margin-left: 10px;" type="button" value="Print" onclick="clickOnPrint()">
             <div class="d-inline float-right">
                 <blockquote class="float-left card-text" style="margin-top: -5px;">To</blockquote>
                 <input type="date" class=" d-inline float-left" value="2012-04-05">
