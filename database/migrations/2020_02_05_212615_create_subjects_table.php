@@ -24,8 +24,8 @@ class CreateSubjectsTable extends Migration
             $table->integer('Subj_dayF')->nullable()->default(0) ;
             $table->integer('Subj_dayS')->nullable()->default(0) ;
             $table->integer('Subj_daySu')->nullable()->default(0) ;
-            $table->string('Subj_timein') ;
-            $table->string('Subj_timeout') ;
+            $table->time('Subj_timein') ;
+            $table->time('Subj_timeout') ;
             $table->string('Subj_desc') ;
             $table->string('Subj_units') ;
             $table->string('Subj_room') ;

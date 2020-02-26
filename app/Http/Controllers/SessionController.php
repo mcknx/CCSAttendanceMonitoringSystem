@@ -91,11 +91,15 @@ class SessionController extends Controller
             if ($dayOfWeek == 0){
                 $q->where('Subj_daySu', '=', 1);
             }
-        })->get();
+        })->whereHas('record', function($q) use($rec_id) {
+                $q->where('id', '=', $rec_id);
+        })->orderBy('timein', 'ASC')->get();
+        $record->Rec_noProf = count($sessions);
+        $record->Rec_noPresent = count($sessions->where('Ses_status', '=' ,'1'));
+        $record->Rec_noAbsent = count($sessions->where('Ses_status', '=' ,'2'));
+        $record->Rec_noLate = count($sessions->where('Ses_status', '=' ,'3'));
+        $record->save();
         // dd($sessions);
-        // dd(Carbon::now()->dayOfWeek);
-        // dd(Carbon::now()->format('Y-m-d '));
-        // dd(Carbon::now()->toDateTimeString());
         return view('session',['sessions'=>$sessions, 'record'=>$record,'layout'=>'sessionShow']);
     }
 
@@ -128,9 +132,32 @@ class SessionController extends Controller
     public function update(Request $request, $id)
     {
         $session = Session::find($id);
+        $record = Record::find($session->record->id);
+        if ($session->Ses_status == 1) {
+            $record->Rec_noPresent -= 1;
+        }
+        if ($session->Ses_status == 2) {
+            $record->Rec_noAbsent -= 1;
+        }
+        if ($session->Ses_status == 3) {
+            $record->Rec_noLate -= 1;
+        }
+
         $session->Ses_status = $request->input('Ses_status');
         $current_date_time = Carbon::now()->toDateTimeString(); 
         $session->notified_at = $current_date_time;
+
+        if ($session->Ses_status == 1) {
+            $record->Rec_noPresent += 1;
+        }
+        if ($session->Ses_status == 2) {
+            $record->Rec_noAbsent += 1;
+        }
+        if ($session->Ses_status == 3) {
+            $record->Rec_noLate += 1;
+        }
+        $record->save();
+        
         // $session->Ses_remarks = $request->input('Ses_remarks');
         $session->save() ;
         return "success";

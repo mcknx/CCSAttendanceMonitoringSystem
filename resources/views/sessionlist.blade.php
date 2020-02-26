@@ -10,8 +10,31 @@
   <div class="card-body pb-0" >
     <h5><blockquote><?= $day ?> Schedules</blockquote></h5>
     <div class="row d-flex align-items-stretch">
-      @foreach($sessions as $session)
+
+      <?php 
+      // $timein = array();
+      // $i = 0;
+
+      // $clength = count($sessions);
       
+      // foreach($sessions as $session) {
+      //   $timein[$i] = $session->subject->Subj_timein;
+      //   $i++;
+      // }
+  
+      // for($x = 0; $x < $clength; $x++) {
+      //     echo "unSorted->". $timein[$x];
+      // }
+      // sort($timein);
+
+      // for($x = 0; $x < $clength; $x++) {
+      //     echo "Sorted->". $timein[$x];
+      // }
+      ?>
+      @foreach($sessions as $session)
+      <?php
+      
+      ?>
       <div class="col-12 col-sm-6 col-md-3 d-flex align-items-stretch">
         <div class="card bg-light">
           <div class="card-header  border-bottom-0">
@@ -23,6 +46,7 @@
                 <p class=" text-active"><b>Section: </b> {{ucfirst($session->subject->Subj_yr_sec)}} </p>
                 <p class="text-active "><b>Subject: </b> {{ucfirst($session->subject->Subj_desc)}} </p>
                 <p class="text-active "><b>Schedule: </b> <br>
+
                 
                
                 @if($session->subject->Subj_dayM == 1 )
@@ -134,6 +158,10 @@
         </div>
       </div>
       @endforeach
+
+      <?php
+      
+      ?>
       <!-- Present -->
 
       <!-- Absent -->

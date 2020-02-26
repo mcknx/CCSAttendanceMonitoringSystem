@@ -20,16 +20,7 @@
 // });
 
 // Route::get('/', 'TestController@index');
-
-Route::get('pdf', function() {
-  $pdf = App::make('dompdf.wrapper');
-  $pdf->loadHTML('<h1>Hello Earth!</h1>');
-  // $pdf = PDF::loadView('pdf.invoice', $data);
-
-  // return $pdf->download('invoice.pdf');
-  return $pdf->stream();
-
-});
+Route::get('pdf', 'PdfController@show');
 
 Route::get('login', 'AuthController@index');
 Route::post('post-login', 'AuthController@postLogin'); 

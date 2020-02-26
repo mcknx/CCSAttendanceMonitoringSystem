@@ -55,9 +55,12 @@ class RecordController extends Controller
             $session = new Session();
             $session->record_id =  $record->id;
             $session->subject_id = $subject->id;
+            $session->timein = $subject->Subj_timein;
+            $session->timeout = $subject->Subj_timeout;
             $session->save() ;
         }
-
+        $record->Rec_noProf = count($record->sessions);
+        $record->save() ;
         return redirect('/record') ;
     }
 
@@ -115,6 +118,7 @@ class RecordController extends Controller
     public function destroy($id)
     {
         $record = Record::find($id);
+        $record->sessions()->delete();
         $record->delete() ;
         return redirect('/record') ;
     }

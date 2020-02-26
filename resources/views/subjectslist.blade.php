@@ -8,7 +8,7 @@
         <table class="table table-responsive">
             <thead class="thead-light">
             <tr>
-                <th scope="col">Prof_ID</th>
+                <th scope="col">Professor ID</th>
                 <th scope="col">Title</th>
                 <th scope="col">Day</th>
                 <th scope="col">Time-in</th>
@@ -27,7 +27,49 @@
                 <tr>
                     <td>{{ $subject->prof_id }}</td>
                     <td>{{ $subject->Subj_title }}</td>
-                    <td>{{ $subject->Subj_day }}</td>
+                    <td>
+                    @if($subject->Subj_dayM == 1 )
+                  
+                    <kbd><strong>Mon</strong></kbd>,  
+               
+                @endif
+
+                @if($subject->Subj_dayT == 1 )   
+                 
+                    <kbd><strong>Tue</strong></kbd>,  
+               
+                @endif
+
+                @if($subject->Subj_dayW == 1 ) 
+                
+                    <kbd><strong>Wed</strong></kbd>,  
+             
+                @endif
+
+                @if($subject->Subj_dayTH == 1 ) 
+          
+                    <kbd><strong>Thu</strong></kbd>,  
+              
+                @endif
+
+                @if($subject->Subj_dayF == 1 ) 
+         
+                    <kbd><strong>Fri</strong></kbd>,  
+            
+                @endif
+
+                @if($subject->Subj_dayS == 1 ) 
+            
+                    <kbd><strong>Sat</strong></kbd>,  
+      
+                @endif
+
+                @if($subject->Subj_daySu == 1 ) 
+             
+                    <kbd><strong>Sun</strong></kbd>. 
+            
+                @endif
+                    </td>
                     <td>{{ $subject->Subj_timein }}</td>
                     <td>{{ $subject->Subj_timeout }}</td>
                     <td>{{ $subject->Subj_desc }}</td>

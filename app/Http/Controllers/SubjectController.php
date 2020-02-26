@@ -117,6 +117,14 @@ class SubjectController extends Controller
         $subject->Subj_yr_sec = $request->input('Subj_yr_sec') ;
         // $subject->Prof_code = $request->input('Prof_code') ;
         $subject->save() ;
+        
+        $sessions = $subject->sessions;
+        foreach($sessions as $session) {
+            $session->timein = $subject->Subj_timein;
+            $session->timeout = $subject->Subj_timeout;
+            $session->save();
+        }
+
         return redirect('/subject') ;
     }
 

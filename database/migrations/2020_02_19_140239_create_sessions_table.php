@@ -20,6 +20,8 @@ class CreateSessionsTable extends Migration
             $table->integer('Ses_status')->nullable()->default(2) ; //IF 1 present, 2 absent, 3 late, 4 excused
             $table->string('Ses_remarks')->nullable() ;
             $table->timestamps();
+            $table->time('timein') ;
+            $table->time('timeout') ;
 
             $table->foreign('record_id')->references('id')->on('records');
             $table->foreign('subject_id')->references('id')->on('subjects');
