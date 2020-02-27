@@ -21,14 +21,21 @@
 
 // Route::get('/', 'TestController@index');
 Route::get('pdf', 'PdfController@show');
+Route::get('importProfExcel', 'AuthController@professorImport');
+Route::get('exportProfExcel', 'AuthController@professorExport');
 
+// Login
 Route::get('login', 'AuthController@index');
 Route::post('post-login', 'AuthController@postLogin'); 
 Route::get('registration', 'AuthController@registration');
 Route::post('post-registration', 'AuthController@postRegistration'); 
+
+// Admin Dashnoard
 Route::get('dashboard', 'AuthController@dashboard');
 Route::get('logout', 'AuthController@logout');
-Route::get('user-dashboard', 'UserController@userDashboard'); 
+
+// User Dashboard
+Route::get('userdashboard', 'UserController@userDashboard'); 
 
 // Professors
 Route::get('/',"ProfessorController@index") ;

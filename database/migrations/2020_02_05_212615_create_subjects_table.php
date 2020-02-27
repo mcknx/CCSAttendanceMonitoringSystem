@@ -31,7 +31,7 @@ class CreateSubjectsTable extends Migration
             $table->string('Subj_room') ;
             $table->string('Subj_yr_sec');
             $table->string('Prof_code');
-            $table->timestamps();
+            // $table->timestamps();
 
             $table->foreign('prof_id')->references('id')->on('professors');
         });

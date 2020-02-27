@@ -16,20 +16,20 @@
 </head>
 <body>
 <div class="container-fluid">
-  <div class="row no-gutter">
-    <div class="d-none d-md-flex col-md-4 col-lg-6 bg-image"></div>
-    <div class="col-md-8 col-lg-6">
+  <div class="row no-gutter" style="border-left: 50px solid #007bff;">
+    <div class="d-none d-md-flex col-md-4 col-lg-6" style="padding-top: 200px;"><img src="/AdminLTE-master/dist/img/ccs.jpg" width="500px" height="200px"  alt=""></div>
+    <div class="col-md-8 col-lg-6" style="border-left: 30x solid #007bff;">
       <div class="login d-flex align-items-center py-5">
-        <div class="container">
+        <div class="container" style="border-top: 5px solid #007bff; border-bottom: 5px solid #007bff; padding: 100px 10px 100px 0; background: white;">
           <div class="row">
             <div class="col-md-9 col-lg-8 mx-auto">
-              <h3 class="login-heading mb-4">Welcome back!</h3>
+              <center><h3 class="login-heading mb-4">College of Computer Science Faculty Attendance Login</h3></center>
                <form action="{{url('post-login')}}" method="POST" id="logForm">
  
                  {{ csrf_field() }}
  
                 <div class="form-label-group">
-                  <input type="username" name="username" id="inputEmail" class="form-control" placeholder="Username" >
+                  <input type="username" name="username" id="inputEmail" class="form-control" placeholder="Username" autocomplete ="off" required>
                   <label for="inputEmail">Username</label>
  
                   @if ($errors->has('username'))
@@ -38,7 +38,7 @@
                 </div> 
  
                 <div class="form-label-group">
-                  <input type="password" name="password" id="inputPassword" class="form-control" placeholder="Password">
+                  <input type="password" name="password" id="inputPassword" class="form-control" placeholder="Password" required>
                   <label for="inputPassword">Password</label>
                    
                   @if ($errors->has('password'))

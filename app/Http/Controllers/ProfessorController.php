@@ -7,6 +7,7 @@ use App\User;
 use Auth;
 use App\Subject;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Hash;
 
 class ProfessorController extends Controller
 {
@@ -61,7 +62,7 @@ class ProfessorController extends Controller
         $user = User::create([
             'name' => $request->input('Prof_fname') ." ". $request->input('Prof_mname') ." ". $request->input('Prof_lname'),
             'username' => $request->input('Prof_code'),
-            'password' => $request->input('Prof_code'),
+            'password' => Hash::make($request->input('Prof_code')),
             'role' => 2
           ]);
 

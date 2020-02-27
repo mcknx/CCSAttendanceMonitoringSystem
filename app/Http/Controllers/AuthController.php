@@ -1,6 +1,9 @@
 <?php
 
 namespace App\Http\Controllers;
+use App\Imports\Professors1Import;
+use App\Exports\ProfessorsExport;
+use Maatwebsite\Excel\Facades\Excel;
 use App\Providers\RouteServiceProvider;
 use App\User;
 use Auth;
@@ -12,6 +15,17 @@ use Illuminate\Http\Request;
 
 class AuthController extends Controller
 {
+    public function professorExport() 
+    {
+        return Excel::download(new ProfessorsExport, 'professorsExample.xlsx');
+    }
+    public function professorImport() 
+    {
+        // Excel::import(new ProfessorsImport, request()->file('C:\Users\TrueLife\Desktop\example.xlsx'));
+        Excel::import(new Professors1Import, 'C:\Users\TrueLife\Desktop\example.xlsx');
+        
+        return redirect('/')->with('success', 'All good!');
+    }
     public function index()
     {
         return view('login');
@@ -32,15 +46,16 @@ class AuthController extends Controller
         $credentials = $request->only('username', 'password');
         if (Auth::attempt($credentials)) {
           $user = Auth::user();
+          // dd($user);
           if($user->role == 1) {
             return redirect()->intended('dashboard');
           }
 
           if($user->role == 2) {
-            return redirect()->intended('user-dashboard');
+            return redirect()->intended('userdashboard');
           }
             // Authentication passed...
-            
+          
         }
         return redirect("login")->withSuccess('Oppes! You have entered invalid credentials');
     }
@@ -85,6 +100,7 @@ class AuthController extends Controller
       return User::create([
         'name' => $data['name'],
         'username' => $data['username'],
+        // 'password' => $data['password']
         'password' => Hash::make($data['password'])
       ]);
     }

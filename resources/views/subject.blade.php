@@ -180,7 +180,7 @@
                             <br>
                             <div class="form-group">
                                 <label>Subject Title</label>
-                                <input name="Subj_title" type="text" class="form-control"  placeholder="Enter Subject Title">
+                                <input name="Subj_title" type="text" class="form-control"  placeholder="Enter Subject Title" required>
                             </div>
                             <div class="form-group">
                                 <label>Subject Day</label>
@@ -245,22 +245,22 @@
                             
                             <div class="form-group">
                                 <label>Subject Description</label>
-                                <input name="Subj_desc" type="text" class="form-control"  placeholder="Subject Description">
+                                <input name="Subj_desc" type="text" class="form-control"  placeholder="Subject Description" required>
                             </div>
 
                             <div class="form-group">
                                 <label>Subject Units</label>
-                                <input name="Subj_units" type="number" class="form-control"  placeholder="Subject Units">
+                                <input name="Subj_units" type="number" class="form-control"  placeholder="Subject Units" required>
                             </div>
 
                             <div class="form-group">
                                 <label>Subject Room</label>
-                                <input name="Subj_room" type="text" class="form-control"  placeholder="Subject Room">
+                                <input name="Subj_room" type="text" class="form-control"  placeholder="Subject Room" required>
                             </div>
 
                             <div class="form-group">
                                 <label>Subject Year & Section</label>
-                                <input name="Subj_yr_sec" type="text" class="form-control"  placeholder="Subject Year & Section">
+                                <input name="Subj_yr_sec" type="text" class="form-control"  placeholder="Subject Year & Section" required>
                             </div>
 
                             <div class="form-group">
@@ -307,7 +307,7 @@
                             <br>
                             <div class="form-group">
                                 <label>Subject Title</label>
-                                <input value="{{ $subject->Subj_title }}" name="Subj_title" type="text" class="form-control"  placeholder="Enter First Name">
+                                <input value="{{ $subject->Subj_title }}" name="Subj_title" type="text" class="form-control"  placeholder="Enter First Name" required>
                             </div>
                             <div class="form-group">
                                 <label>Subject Day</label>
@@ -371,22 +371,22 @@
                             
                             <div class="form-group">
                                 <label>Subject Description</label>
-                                <input value="{{ $subject->Subj_desc }}" name="Subj_desc" type="text" class="form-control"  placeholder="Subject Description">
+                                <input value="{{ $subject->Subj_desc }}" name="Subj_desc" type="text" class="form-control"  placeholder="Subject Description" required>
                             </div>
 
                             <div class="form-group">
                                 <label>Subject Units</label>
-                                <input value="{{ $subject->Subj_units }}" name="Subj_units" type="number" class="form-control"  placeholder="Subject Units">
+                                <input value="{{ $subject->Subj_units }}" name="Subj_units" type="number" class="form-control"  placeholder="Subject Units" required>
                             </div>
 
                             <div class="form-group">
                                 <label>Subject Room</label>
-                                <input value="{{ $subject->Subj_room }}" name="Subj_room" type="text" class="form-control"  placeholder="Subject Room">
+                                <input value="{{ $subject->Subj_room }}" name="Subj_room" type="text" class="form-control"  placeholder="Subject Room" required>
                             </div>
 
                             <div class="form-group">
                                 <label>Subject Year & Section</label>
-                                <input value="{{ $subject->Subj_yr_sec }}" name="Subj_yr_sec" type="text" class="form-control"  placeholder="Subject Year & Section">
+                                <input value="{{ $subject->Subj_yr_sec }}" name="Subj_yr_sec" type="text" class="form-control"  placeholder="Subject Year & Section" required>
                             </div>
 
                             <div class="form-group">
@@ -401,7 +401,7 @@
                             </div>
 
                             <input type="submit" class="btn btn-info" value="Update">
-                            <input type="submit" class="btn btn-danger" formaction="{{ url('/subjectDelete/'.$subject->id) }}" value="Delete">
+                            <input type="submit" onclick="return confirm('Are you sure?')"  class="btn btn-danger" formaction="{{ url('/subjectDelete/'.$subject->id) }}" value="Delete">
 
                         </form>
                     </div>

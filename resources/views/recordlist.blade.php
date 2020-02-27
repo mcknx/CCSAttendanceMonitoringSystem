@@ -12,11 +12,11 @@ function clickOnPrint(){
         <input class="card-title float-right btn btn-info d-inline" style="margin-top: -5px; margin-left: 10px;" type="button" value="Print" onclick="clickOnPrint()">
             <div class="d-inline float-right">
                 <blockquote class="float-left card-text" style="margin-top: -5px;">To</blockquote>
-                <input type="date" class=" d-inline float-left" value="2012-04-05">
+                <input type="date" class=" d-inline float-left" value="2020-02-28">
             </div>
             <div class="d-inline float-right">
                 <blockquote class="d-inline float-left card-text" style="margin-top: -5px;">From</blockquote>
-                <input type="date" class=" d-inline float-left" value="2012-04-19">
+                <input type="date" class=" d-inline float-left" value="2020-02-28">
             </div>
         <br>
         <blockquote class="card-text">You can find here all the informations about attendances in the system.
@@ -59,7 +59,7 @@ function clickOnPrint(){
                     <td>
                     <form action="{{ url('/recordDelete/'.$record->id) }}" method="post">
                         @csrf
-                        <input type="submit" class="btn btn-sm btn-danger" value="Delete">
+                        <input onclick="return confirm('Are you sure?')"  type="submit" class="btn btn-sm btn-danger" value="Delete">
                     </form>
 
                     </td>
@@ -70,4 +70,5 @@ function clickOnPrint(){
         </table>
     </div>
 </div>
+
 

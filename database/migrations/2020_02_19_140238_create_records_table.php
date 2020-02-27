@@ -20,7 +20,7 @@ class CreateRecordsTable extends Migration
             $table->integer('Rec_noPresent') ;
             $table->integer('Rec_noAbsent') ;
             $table->integer('Rec_noLate') ;
-            $table->timestamps();
+            // $table->timestamps();
         });
     }
 

@@ -19,7 +19,7 @@ class CreateAttendancesTable extends Migration
             $table->string('Prof_lname') ;
             $table->string('Prof_mname') ;
             $table->integer('Subj_ID') ;
-          $table->timestamps();
+        //   $table->timestamps();
         });
     }
 

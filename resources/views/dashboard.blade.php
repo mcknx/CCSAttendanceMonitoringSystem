@@ -83,8 +83,8 @@
   <aside class="main-sidebar sidebar-dark-primary elevation-4">
     <!-- Brand Logo -->
     <a href="{{url('/dashboard')}}" class="brand-link">
-      <img src="/AdminLTE-master/dist/img/AdminLTELogo.png" alt="AdminLTE Logo" class="brand-image img-circle elevation-3"
-           style="opacity: .8">
+      <img src="/AdminLTE-master/dist/img/ccs.jpg" alt="AdminLTE Logo" class="brand-image img-circle elevation-3"
+           style="opacity: .8; width: 50px; height: 150px;">
       <span class="brand-text font-weight-light">CCS Attendance</span>
     </a>
 
@@ -108,7 +108,7 @@
                with font-awesome or any other icon font library -->
           <li class="nav-item has-treeview menu-open">
             <a href="#" class="nav-link active text-white">
-              <!-- <i class="nav-icon fas fa-tachometer-alt"></!-->
+              <i class="nav-icon fas fa-tachometer-alt"></i>
               <p>
                 Dashboard
               
@@ -133,6 +133,13 @@
                   <i class="far fa-circle nav-icon"></i>
                   <p>Subject Management</p>
                 </a>
+              </li>
+              <li class="nav-item">
+                <a href="{{url('/activity-request')}}" class="nav-link text-white">
+                  <i class="far fa-circle nav-icon"></i>
+                  <p>Activity Request Mgt.</p>
+                </a>
+              </li>
             </ul>
           </li>
         </ul>
@@ -257,32 +264,41 @@
           </div>
         </div>
         <div class="row">
-          <div class="col-lg-3 col-sm-6">
+          
+        <div class="col-12 col-sm-6 col-md-3 d-flex align-items-stretch">
+          <div class="card bg-light">
             <div class="premium-item">
               <img src="/solmusic/img/system.png" alt="" />
               <h4>System flow</h4>
               <p>Consectetur adipiscing elit</p>
+              </div>
             </div>
           </div>
-          <div class="col-lg-3 col-sm-6">
+          <div class="col-12 col-sm-6 col-md-3 d-flex align-items-stretch">
+          <div class="card bg-light">
             <div class="premium-item">
               <img src="/solmusic/img/attendance.png" alt="" />
               <h4>How to manage attendance</h4>
               <p>Ectetur adipiscing elit</p>
             </div>
+            </div>
           </div>
-          <div class="col-lg-3 col-sm-6">
+          <div class="col-12 col-sm-6 col-md-3 d-flex align-items-stretch">
+          <div class="card bg-light">
             <div class="premium-item">
               <img src="/solmusic/img/professor.png" alt="" />
               <h4>How to manage professor</h4>
               <p>Sed do eiusmod tempor</p>
+              </div>
             </div>
           </div>
-          <div class="col-lg-3 col-sm-6">
+          <div class="col-12 col-sm-6 col-md-3 d-flex align-items-stretch">
+          <div class="card bg-light">
             <div class="premium-item">
               <img src="/solmusic/img/subject.png" alt="" />
               <h4>How to manage subject</h4>
               <p>Adipiscing elit</p>
+              </div>
             </div>
           </div>
         </div>

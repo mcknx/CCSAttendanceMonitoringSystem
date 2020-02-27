@@ -180,22 +180,22 @@
                             <br>
                             <div class="form-group">
                                 <label>First Name</label>
-                                <input name="Prof_fname" type="text" class="form-control"  placeholder="Enter First Name">
+                                <input name="Prof_fname" type="text" class="form-control"  placeholder="Enter First Name" required>
                             </div>
                             <div class="form-group">
                                 <label>Last Name</label>
-                                <input name="Prof_lname" type="text" class="form-control"  placeholder="Enter Last Name">
+                                <input name="Prof_lname" type="text" class="form-control"  placeholder="Enter Last Name" required>
                             </div>
 
                             
                             <div class="form-group">
                                 <label>Middle Name</label>
-                                <input name="Prof_mname" type="text" class="form-control"  placeholder="Enter Middle Name">
+                                <input name="Prof_mname" type="text" class="form-control"  placeholder="Enter Middle Name" required>
                             </div>
 
                             <div class="form-group">
                                 <label>Professor Code</label>
-                                <input name="Prof_code" type="text" class="form-control"  placeholder="Enter Professor Code">
+                                <input name="Prof_code" type="text" class="form-control"  placeholder="Enter Professor Code" required>
                             </div>
                             
                             <!-- <div class="form-group">

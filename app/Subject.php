@@ -6,6 +6,7 @@ use Illuminate\Database\Eloquent\Model;
 
 class Subject extends Model
 {
+    public $timestamps = false;
     public function professor()
     {
         return $this->belongsTo('App\Professor', 'prof_id');

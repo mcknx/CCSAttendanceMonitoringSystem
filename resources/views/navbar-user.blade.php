@@ -5,13 +5,7 @@
       <a class="nav-link" data-widget="pushmenu" href="#"><i class="fas fa-bars"></i></a>
     </li>
     <li class="nav-item d-none d-sm-inline-block">
-      <a href="{{url('/dashboard')}}" class="nav-link">Home</a>
-    </li>
-    <li class="nav-item d-none d-sm-inline-block">
-      <a href="{{url('/importProfExcel')}}" class="nav-link">Import Data</a>
-    </li>
-    <li class="nav-item d-none d-sm-inline-block">
-      <a href="{{url('/exportProfExcel')}}" class="nav-link">Export Data</a>
+      <a href="{{url('/userdashboard')}}" class="nav-link">Home</a>
     </li>
   </ul>
   
@@ -46,10 +40,13 @@
           <!-- <a href="" class="dropdown-item dropdown-footer">Logout</a> -->
         <!-- </div> -->
       <!-- </li> -->
-      <li><a href="" data-toggle="modal" data-target="#modal-default" class="nav-item p-2">
-        <span class="text-danger">
-              {{ (Auth()->user()->username) }}
-        </span></a></li>
+      <li>
+        <!-- <a href="" data-toggle="modal" data-target="#modal-default" class="nav-item p-2"> -->
+        <span class="p-2">
+        Welcome! {{ ucfirst(Auth()->user()->name) }}
+        </span>
+      <!-- </a> -->
+    </li>
       <!-- <li><a href="" data-toggle="modal" data-target="#modal-default" class="nav-item p-2">Settings</a></li> -->
       <li><a href="{{url('logout')}}" class="nav-item">Logout</a></li>
       

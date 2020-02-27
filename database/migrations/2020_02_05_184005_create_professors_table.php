@@ -21,7 +21,7 @@ class CreateProfessorsTable extends Migration
             $table->string('Prof_mname') ;
             $table->string('Prof_code') ;
             // $table->integer('Subj_count') ;
-            $table->timestamps();
+            // $table->timestamps();
             
             $table->foreign('user_id')->references('id')->on('users');
         });
