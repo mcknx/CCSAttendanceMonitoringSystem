@@ -8,7 +8,12 @@
       <a href="{{url('/dashboard')}}" class="nav-link">Home</a>
     </li>
     <li class="nav-item d-none d-sm-inline-block">
-      <a href="{{url('/importProfExcel')}}" class="nav-link">Import Data</a>
+    <form action="{{url('importProfExcel')}}" method="post" enctype="multipart/form-data">
+      <input class="d-sm-inline-block" type="hidden" name="_token" value="{{CSRF_Token()}}">
+      <input class="d-sm-inline-block" type="file" name="file">
+      <input class="d-sm-inline-block" type="submit" value="upload">
+    </form>
+      <!-- <a href="{{url('/importProfExcel')}}" class="nav-link">Import Data</a> -->
     </li>
     <li class="nav-item d-none d-sm-inline-block">
       <a href="{{url('/exportProfExcel')}}" class="nav-link">Export Data</a>

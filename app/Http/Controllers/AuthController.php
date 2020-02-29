@@ -1,10 +1,11 @@
 <?php
 
 namespace App\Http\Controllers;
-use App\Imports\Professors1Import;
 use App\Exports\ProfessorsExport;
-use Maatwebsite\Excel\Facades\Excel;
+use Excel;
 use App\Providers\RouteServiceProvider;
+use App\Imports\ProfessorsImport;
+use App\Imports\SubjectsImport;
 use App\User;
 use Auth;
 use Session;
@@ -19,13 +20,14 @@ class AuthController extends Controller
     {
         return Excel::download(new ProfessorsExport, 'professorsExample.xlsx');
     }
-    public function professorImport() 
+    public function professorImport(Request $res) 
     {
-        // Excel::import(new ProfessorsImport, request()->file('C:\Users\TrueLife\Desktop\example.xlsx'));
-        Excel::import(new Professors1Import, 'C:\Users\TrueLife\Desktop\example.xlsx');
+        $path = $res->file->getRealPath();
+        Excel::import(new SubjectsImport, $path);
         
-        return redirect('/')->with('success', 'All good!');
+        return redirect('/subject')->with('success', 'All good!');
     }
+
     public function index()
     {
         return view('login');

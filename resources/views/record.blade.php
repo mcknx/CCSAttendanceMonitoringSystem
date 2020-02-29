@@ -180,7 +180,7 @@
                             <br>
                             <div class="form-group">
                                 <label  for="currentDate">Date:</label>
-                                <input  type="date" id="currentDate" name="currentDate" value="2020-02-28" readonly>
+                                <input  type="date" id="currentDate" name="currentDate" value="2020-02-28">
                             </div>
                             <input type="submit" class="btn btn-info" value="Save">
                         </form>

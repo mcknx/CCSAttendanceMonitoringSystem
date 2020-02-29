@@ -21,7 +21,7 @@
 
 // Route::get('/', 'TestController@index');
 Route::get('pdf', 'PdfController@show');
-Route::get('importProfExcel', 'AuthController@professorImport');
+Route::post('importProfExcel', 'AuthController@professorImport');
 Route::get('exportProfExcel', 'AuthController@professorExport');
 
 // Login
