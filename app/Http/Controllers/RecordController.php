@@ -6,6 +6,7 @@ use Illuminate\Http\Request;
 use App\Record;
 use App\Subject;
 use App\Session;
+// use App\Http\Controllers\Carbon;
 
 class RecordController extends Controller
 {
@@ -16,6 +17,7 @@ class RecordController extends Controller
      */
     public function index()
     {
+        // $record = Record::find($id);
         $records = Record::all() ;
         return view('record',['records'=>$records,'layout'=>'recordIndex']);
     }
@@ -39,6 +41,7 @@ class RecordController extends Controller
      */
     public function store(Request $request)
     {
+        // dd(Carbon::now());
         $record = new Record() ;
         $record->Rec_dateCreated = $request->input('currentDate') ;
         $record->Rec_noProf = 0;

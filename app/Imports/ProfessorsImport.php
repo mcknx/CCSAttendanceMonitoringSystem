@@ -35,8 +35,8 @@ class ProfessorsImport implements ToModel
         $professor->user_id = $user->id;
         
         $professor->Prof_fname = $row[0];
-        $professor->Prof_lname = $row[1];
-        $professor->Prof_mname = $row[2];
+        $professor->Prof_mname = $row[1];
+        $professor->Prof_lname = $row[2];
         $professor->Prof_code = $row[3];
         $professor->save();
         $user->save();

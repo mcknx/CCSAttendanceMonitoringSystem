@@ -17,7 +17,7 @@
                 <th scope="col">Professor Code</th>
                 <th scope="col">Subject(s)</th>
                 <th scope="col">Edit</th>
-                <th scope="col">Delete</th>
+               
             </tr>
             </thead>
             <tbody>
@@ -34,11 +34,7 @@
                         <a href="{{ url('/professorEdit/'.$professor->id) }}" class="btn btn-sm btn-warning">Edit</a>
 
                     </td>
-                    <td>
-                    <form action="{{ url('/professorDelete/'.$professor->id) }}" method="post">
-                        <input onclick="return confirm('Are you sure?')"  type="submit" class="btn btn-sm btn-danger" value="Delete">
-                    </form>
-                    </td>
+               
 
 
                 </tr>

@@ -32,8 +32,8 @@ function clickOnPrint(){
                 <th scope="col">No. Absent</th>
                 <th scope="col">No. Late</th>
                 <th scope="col">Edit record</th>
-                <th scope="col">Delete record</th>
-                <th scope="col">Print record</th>
+                <!-- <th scope="col">Delete record</th> -->
+                <!-- <th scope="col">Print record</th> -->
             </tr>
             </thead>
             <tbody>
@@ -56,13 +56,13 @@ function clickOnPrint(){
                         <a href="{{url('/sessionShow/' .$record->id)}}" class="btn btn-sm btn-warning">Edit</a>
 
                     </td>
-                    <td>
-                    <form action="{{ url('/recordDelete/'.$record->id) }}" method="post">
+                    <!-- <td> -->
+                    <!-- <form action="{{ url('/recordDelete/'.$record->id) }}" method="post">
                         @csrf
                         <input onclick="return confirm('Are you sure?')"  type="submit" class="btn btn-sm btn-danger" value="Delete">
-                    </form>
+                    </form> -->
 
-                    </td>
+                    <!-- </td> -->
 
                 </tr>
             @endforeach

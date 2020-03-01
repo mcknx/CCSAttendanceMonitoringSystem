@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html>
 <head>
-<title>Login Form - Tutsmake.com</title>
+<title>Login College of Computer Science Faculty Attendance</title>
  
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
@@ -35,6 +35,7 @@
                   @if ($errors->has('username'))
                   <span class="error">{{ $errors->first('username') }}</span>
                   @endif    
+
                 </div> 
  
                 <div class="form-label-group">
