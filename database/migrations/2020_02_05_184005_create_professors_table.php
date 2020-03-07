@@ -19,6 +19,7 @@ class CreateProfessorsTable extends Migration
             $table->string('Prof_fname') ;
             $table->string('Prof_lname') ;
             $table->string('Prof_mname') ;
+            $table->string('Prof_gender') ;
             $table->string('Prof_code') ;
             // $table->integer('Subj_count') ;
             // $table->timestamps();

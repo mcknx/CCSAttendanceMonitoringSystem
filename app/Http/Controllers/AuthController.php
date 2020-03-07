@@ -1,6 +1,7 @@
 <?php
 
 namespace App\Http\Controllers;
+use App\Http\Controllers\UserDashboardController;
 use App\Exports\ProfessorsExport;
 use Excel;
 use App\Providers\RouteServiceProvider;
@@ -16,6 +17,7 @@ use Illuminate\Http\Request;
 
 class AuthController extends Controller
 {
+    // use UserDashboardController;
     public function professorExport() 
     {
         return Excel::download(new ProfessorsExport, 'professorsExample.xlsx');
@@ -54,7 +56,9 @@ class AuthController extends Controller
           }
 
           if($user->role == 2) {
-            return redirect()->intended('userdashboard');
+            return app('App\Http\Controllers\UserDashboardController')->index();
+            // $this->index();
+            
           }
             // Authentication passed...
           

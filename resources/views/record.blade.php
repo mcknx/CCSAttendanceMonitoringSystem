@@ -135,6 +135,12 @@
   
 <div class="content-wrapper">
     <!-- Content Header (Page header) -->
+    <?php 
+      use Carbon\Carbon;
+      $date_today = Carbon::now()->toDateTimeString();
+      $dt = strtotime($date_today);
+      $record = date("Y-m-d", $dt);
+    ?>
     <section class="content-header">
       <div class="container-fluid">
         <div class="row mb-2">
@@ -180,7 +186,7 @@
                             <br>
                             <div class="form-group">
                                 <label  for="currentDate">Date:</label>
-                                <input  type="date" id="currentDate" name="currentDate" value="2020-03-02">
+                                <input  type="date" id="currentDate" name="currentDate" value="{{ $record }}">
                             </div>
                             <input type="submit" class="btn btn-info" value="Save">
                         </form>

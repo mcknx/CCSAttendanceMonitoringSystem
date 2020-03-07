@@ -42,7 +42,7 @@ class SubjectsImport implements ToModel,WithHeadingRow
             $professor = Professor::where('Prof_code', '=', $profcode)->first();
             
             if ($professor === null){
-                $arr = [$row['prof_fname'], $row['prof_mname'], $row['prof_lname'], $profcode];
+                $arr = [$row['prof_fname'], $row['prof_mname'], $row['prof_lname'], $profcode, $row['prof_gender']];
                 // dd($arr);
                 $professor = new ProfessorsImport();
                 $professor = $professor->model($arr);

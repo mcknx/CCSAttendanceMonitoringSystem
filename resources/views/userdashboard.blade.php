@@ -9,6 +9,10 @@
   <!-- Font Awesome -->
   <!-- <link rel="stylesheet" href="plugins/fontawesome-free/css/all.min.css"> -->
   <link rel="stylesheet" href="{{asset('/AdminLTE-master/plugins/fontawesome-free/css/all.min.css')}}">
+  <script src="{{asset('/AdminLTE-master/plugins/jquery/jquery.min.js')}}"></script>
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
 
   <!-- Favicon -->
   <link href="img/favicon.ico" rel="shortcut icon" />
@@ -64,7 +68,7 @@
 </head>
 <script type="text/javascript">
         function zoom() {
-            document.body.style.zoom = "80%" 
+            document.body.style.zoom = "120%" 
         }
 </script>
 <body onload="zoom()" class="hold-transition sidebar-mini">
@@ -76,9 +80,9 @@
   <!-- Main Sidebar Container -->
   <aside class="main-sidebar sidebar-dark-primary elevation-4">
     <!-- Brand Logo -->
-    <a href="../../index3.html" class="brand-link">
-    <img src="/AdminLTE-master/dist/img/ccs.jpg" alt="AdminLTE Logo" class="brand-image img-circle elevation-3"
-           style="opacity: .8; width: 50px; height: 150px;">CCS Attendance</span>
+    <a href="{{url('/userdashboard')}}" class="brand-link">
+    <!-- <img src="/AdminLTE-master/dist/img/ccs.jpg" alt="AdminLTE Logo" class="brand-image img-circle elevation-3" style="opacity: .8; width: 50px; height: 150px;"> -->
+           <span>CCS Attendance</span>
     </a>
 
     <!-- Sidebar -->
@@ -100,7 +104,7 @@
           <!-- Add icons to the links using the .nav-icon class
                with font-awesome or any other icon font library -->
           <li class="nav-item has-treeview menu-open">
-            <a href="#" class="nav-link text-white active">
+            <a href="{{url('/userdashboard')}}" class="nav-link text-white active">
               <i class="nav-icon fas fa-tachometer-alt "></i>
               <p>
                 Dashboard
@@ -108,12 +112,12 @@
               </p>
             </a>
             <ul class="nav nav-treeview">
-              <li class="nav-item">
+              <!-- <li class="nav-item">
                 <a href="../../index.html" class="nav-link active">
                   <i class="far fa-circle nav-icon"></i>
                   <p>Dashboard</p>
                 </a>
-              </li>
+              </li> -->
               <li class="nav-item">
                 <a href="../../index2.html" class="nav-link text-white">
                   <i class="far fa-circle nav-icon"></i>
@@ -173,43 +177,136 @@
 
                 <p class="text-muted text-center">Professor</p>
 
-                <ul class="list-group list-group-unbordered mb-3">
-                  <li class="list-group-item">
-                    <b>Subject(s)</b><br>
-                      <kbd><strong>Project Management</strong></kbd>,
-                      <kbd><strong>Programming</strong></kbd>,
-                      <kbd><strong>Networking</strong></kbd>.
-                  </li>
-                  <li class="list-group-item">
-                    <b>Schedule</b> 
-                      <br>
-                    <kbd><strong>Mon</strong></kbd>,
-                    <kbd><strong>Wed</strong></kbd>,
-                    <kbd><strong>Fri</strong></kbd>.
-                    
-                  </li>
-                  <li class="list-group-item">
-                    <b>Room(s)</b>
-                    <br>
-                    <kbd><strong>L203</strong></kbd>,
-                    <kbd><strong>L201</strong></kbd>,
-                    <kbd><strong>308</strong></kbd>.
-                  </li>
-                  <li class="list-group-item">
-                    <b>Section(s)</b>
-                    <br>
-                    <kbd><strong>BSIT-2B</strong></kbd>,
-                    <kbd><strong>CS 2</strong></kbd>,
-                    <kbd><strong>BSIT-2A</strong></kbd>.
-                  </li>
-                </ul>
-
-                <a href="#" class="btn btn-primary btn-block"><b>View Table</b></a>
+                <button class="btn btn-primary btn-block" data-toggle="modal" data-target="#modal-view-table"><b>View Table</b></button>
               </div>
               <!-- /.card-body -->
             </div>
             <!-- /.card -->
+            <div class="card card-primary card-outline">
+              <div class="card-body box-profile">
+                <div id="myCarousel" class="carousel slide" data-ride="carousel">
+                  <!-- Indicators -->
+                  <ol class="carousel-indicators">
+                    <li data-target="#myCarousel" data-slide-to="0" class="active"></li>
+                    <li data-target="#myCarousel" data-slide-to="1"></li>
+                    <li data-target="#myCarousel" data-slide-to="2"></li>
+                  </ol>
+
+                  <!-- Wrapper for slides -->
+                  <div class="carousel-inner">
+                  
+
+                    <div class="item active">
+                      <!-- <img src="chicago.jpg" alt="Chicago" style="width:100%;"> -->
+                      <blockquote ><strong><h6 class="text-danger">Today's Subject</h6></strong></blockquote>
+                      @if ($subject_today == null) 
+                        <p>No class for today</p>
+                      @endif
+
+                      @if ($subject_today != null) 
+                      <ul class="list-group list-group-unbordered mb-3">
+                          <li class="list-group-item">
+                            <b>Subject Title</b><br>
+                              <kbd><strong>{{$subject_today->Subj_title}}</strong></kbd>.
+                          </li>
+                          <li class="list-group-item">
+                            <b>Subject Description</b><br>
+                              <kbd><strong>{{$subject_today->Subj_desc}}</strong></kbd>.
+                          </li>
+                          <li class="list-group-item">
+                            <b>Day Schedule(s)</b> 
+                              <br>
+                              @if($subject_today->Subj_dayM == 1 )
+                                  <kbd><strong>Mon</strong></kbd>,  
+                              @endif
+
+                              @if($subject_today->Subj_dayT == 1 )   
+                              
+                                  <kbd><strong>Tue</strong></kbd>,  
+                            
+                              @endif
+
+                              @if($subject_today->Subj_dayW == 1 ) 
+                              
+                                  <kbd><strong>Wed</strong></kbd>,  
+                          
+                              @endif
+
+                              @if($subject_today->Subj_dayTH == 1 ) 
+                        
+                                  <kbd><strong>Thu</strong></kbd>,  
+                            
+                              @endif
+
+                              @if($subject_today->Subj_dayF == 1 ) 
+                      
+                                  <kbd><strong>Fri</strong></kbd>,  
+                          
+                              @endif
+
+                              @if($subject_today->Subj_dayS == 1 ) 
+                          
+                                  <kbd><strong>Sat</strong></kbd>,  
+                    
+                              @endif
+
+                              @if($subject_today->Subj_daySu == 1 ) 
+                          
+                                  <kbd><strong>Sun</strong></kbd>. 
+                          
+                              @endif
+                            
+                          </li>
+
+                          <li class="list-group-item">
+                            <b>Time Schedule</b> 
+                              <br>
+                                <kbd><strong>{{$subject_today->Subj_timein}}</strong></kbd> - 
+                                <kbd><strong>{{$subject_today->Subj_timeout}}</strong></kbd>.
+                          </li>
+                          <li class="list-group-item">
+                            <b>Room</b>
+                            <br>
+                            <kbd><strong>{{ $subject_today->Subj_room }}</strong></kbd>.
+                          </li>
+                          <li class="list-group-item">
+                            <b>Units</b>
+                            <br>
+                            <kbd><strong>{{ $subject_today->Subj_units }}</strong></kbd>.
+                          </li>
+                          <li class="list-group-item">
+                            <b>Section</b>
+                            <br>
+                            <kbd><strong>{{ $subject_today->Subj_yr_sec }}</strong></kbd>.
+                          </li>
+                        </ul>
+                        @endif
+                    </div>
+                  
+                    
+                  </div>
+
+                  <!-- Left and right controls -->
+                  <br>
+                  <br>
+                  <br>
+                  <br>
+                  <br>
+                  <a class="left carousel-control" href="#myCarousel" data-slide="prev">
+                    <span class="glyphicon"></span>
+                    <span class="sr-only">Previous</span>
+                  </a>
+                  <a class="right carousel-control" href="#myCarousel" data-slide="next">
+                    <span class="glyphicon"></span>
+                    <span class="sr-only">Next</span>
+                  </a>
+                </div>
+              </div>
+            </div>
           </div>
+          
+
+          
           <!-- /.col -->
           <div class="col-md-9">
             <div class="card">
@@ -223,6 +320,8 @@
               <div class="card-body">
                 <div class="tab-content">
                   <div class="active tab-pane" id="activity">
+
+                  @foreach ($activity_requests as $item)
                     <!-- Post -->
                     <div class="post">
                       <div class="user-block">
@@ -231,11 +330,35 @@
                           <a href="#">{{ ucfirst(Auth()->user()->name) }}</a>
                           <a href="#" class="float-right btn-tool"><i class="fas fa-times"></i></a>
                         </span>
-                        <span class="description">Created Activity Request for (<kbd><strong>Project Management</strong></kbd>) - 7:32 AM today</span>
+
+                        <?php 
+                            $dt = strtotime($item->notified_at);
+                            $record = date("l, M d, Y", $dt);
+                            $dayAbbrv = date("D", $dt);
+
+                            $dt2 = strtotime($item->notified_at);
+                            $record2 = date("g:i:sa", $dt2);
+
+                          ?>
+                        <span class="description">Created Activity Request! - {{ $record }} @<kbd><strong>{{ $record2 }}</strong></kbd><br>
+                          Subject: <strong>{{ $item->subject->Subj_desc }}</strong>, <br>
+                          Room: <strong>{{ $item->subject->Subj_room }}</strong>, <br>
+                          Section: <strong>{{ $item->subject->Subj_yr_sec }}</strong>, <br>
+                          Schedule: <strong>{{ $item->subject->Subj_timein }} - {{ $item->subject->Subj_timeout }}</strong> <br>
+                        </span>
                       </div>
                       <!-- /.user-block -->
+                      <!-- <hr> -->
                       <p>
-                        Hello Maam Darlyn, Please tell the students to do the assessment in edmodo.com.
+                      <kbd><strong>Activity Request Description</strong></kbd><br>
+                        {{ $item->post }}.
+
+                      <br>
+                      <kbd><strong>File</strong></kbd><br>
+                      @if ($item->file == null) 
+                        No uploaded file.
+                      @endif
+                      <a href="{{ asset('user-files/' . $item->file) }}">{{ $item->file }}</a>
                       </p>
 
                       <p>
@@ -251,117 +374,111 @@
                       <input class="form-control form-control-sm" type="text" placeholder="Type a comment">
                     </div>
                     <!-- /.post -->
+                  @endforeach
 
-                    <!-- Post -->
-                    <div class="post clearfix">
-                      <div class="user-block">
-                      <img class="img-circle img-bordered-sm" src="/AdminLTE-master/dist/img/avatar5.png" alt="user image">
-                        <span class="username">
-                          <a href="#">Maam Darlyn</a>
-                          <a href="#" class="float-right btn-tool"><i class="fas fa-times"></i></a>
-                        </span>
-                        <span class="description">You are marked absent! (<kbd><strong>Project Management</strong></kbd>)- 7:30AM today</span>
-                      </div>
-                      <!-- /.user-block -->
-                      <!-- <p>
-                        Lorem ipsum represents a long-held tradition for designers,
-                        typographers and the like. Some people hate it and argue for
-                        its demise, but others ignore the hate as they create awesome
-                        tools to help create filler text for everyone from bacon lovers
-                        to Charlie Sheen fans.
-                      </p> -->
 
-                      <form class="form-horizontal">
-                        <div class="input-group input-group-sm mb-0">
-                          <input class="form-control form-control-sm" placeholder="Response">
-                          <div class="input-group-append">
-                            <button type="submit" class="btn btn-danger">Send</button>
+                    @foreach ($sessions as $session) 
+                      @foreach ($session as $item) 
+                      <!-- Post -->
+                      <div class="post clearfix">
+                        <div class="user-block">
+                        <img class="img-circle img-bordered-sm" src="/AdminLTE-master/dist/img/avatar5.png" alt="user image">
+                          <span class="username">
+                            <a href="#">Maam Darlyn</a>
+                            <!-- <a href="#" class="float-right btn-tool"><i class="fas fa-times"></i></a> -->
+                          </span>
+
+                          <?php 
+                            $dt = strtotime($item->record->Rec_dateCreated);
+                            $record = date("l, M d, Y", $dt);
+                            $dayAbbrv = date("D", $dt);
+
+                            $dt2 = strtotime($item->notified_at);
+                            $record2 = date("g:i:sa", $dt2);
+
+                          ?>
+                          @if ($item->Ses_status == 1)
+                          <span class="description">You are marked present! - {{ $record }} - @<kbd><strong>{{ $record2 }}</strong></kbd><br>
+                            Subject: <strong>{{ $item->subject->Subj_desc }}</strong>, <br>
+                            Room: <strong>{{ $item->subject->Subj_room }}</strong>, <br>
+                            Section: <strong>{{ $item->subject->Subj_yr_sec }}</strong>, <br>
+                            Schedule: <strong>{{ $item->subject->Subj_timein }} - {{ $item->subject->Subj_timeout }}</strong> <br>
+                          </span>
+                          @endif
+
+                          @if ($item->Ses_status == 2)
+                          <span class="description">You are marked absent! - {{ $record }} - @<kbd><strong>{{ $record2 }}</strong></kbd> <br>
+                            Subject: <strong>{{ $item->subject->Subj_desc }}</strong>, <br>
+                            Room: <strong>{{ $item->subject->Subj_room }}</strong>, <br>
+                            Section: <strong>{{ $item->subject->Subj_yr_sec }}</strong>, <br>
+                            Schedule: <strong>{{ $item->subject->Subj_timein }} - {{ $item->subject->Subj_timeout }}</strong> <br>
+                            
+                          </span>
+                          @endif
+
+                          @if ($item->Ses_status == 3)
+                          <span class="description">You are marked late! - {{ $record }} - @<kbd><strong>{{ $record2 }}</strong></kbd><br>
+                            Subject: <strong>{{ $item->subject->Subj_desc }}</strong>, <br>
+                            Room: <strong>{{ $item->subject->Subj_room }}</strong>, <br>
+                            Section: <strong>{{ $item->subject->Subj_yr_sec }}</strong>, <br>
+                            Schedule: <strong>{{ $item->subject->Subj_timein }} - {{ $item->subject->Subj_timeout }}</strong> <br>
+                          </span>
+                          @endif
+                          
+                        </div>
+                        <!-- /.user-block -->
+                        <p>
+                          @if ($item->Ses_status != 1 && $item->Ses_remarks == null)
+                          <kbd><strong>Reason</strong></kbd><br>
+                            <p>No Reason</p>
+                          @endif
+                        {{ $item->Ses_remarks }}
+                        </p>
+                        @if ($item->Ses_status != 1)
+                        <form action="{{ url('/sessionUpdateRemarksByUser/'.$item->id) }}" class="form-horizontal" method="post">
+                        @csrf
+                          <div class="input-group input-group-sm mb-0">
+                            <input class="form-control form-control-sm" name="Ses_remarks" placeholder="Edit Reason">
+                            <div class="input-group-append">
+                              <button type="submit" class="btn btn-danger">Send</button>
+                            </div>
                           </div>
-                        </div>
-                      </form>
-                    </div>
-                    <!-- /.post -->
-
-                    <!-- Post -->
-                    <div class="post clearfix">
-                      <div class="user-block">
-                      <img class="img-circle img-bordered-sm" src="/AdminLTE-master/dist/img/avatar5.png" alt="user image">
-                        <span class="username">
-                          <a href="#">Maam Darlyn</a>
-                          <a href="#" class="float-right btn-tool"><i class="fas fa-times"></i></a>
-                        </span>
-                        <span class="description">You are marked absent! (<kbd><strong>Programming</strong></kbd>)- 7:30AM today</span>
+                        </form>
+                        @endif
                       </div>
-                      <!-- /.user-block -->
-                      <!-- <p>
-                        Lorem ipsum represents a long-held tradition for designers,
-                        typographers and the like. Some people hate it and argue for
-                        its demise, but others ignore the hate as they create awesome
-                        tools to help create filler text for everyone from bacon lovers
-                        to Charlie Sheen fans.
-                      </p> -->
-
-                      <form class="form-horizontal">
-                        <div class="input-group input-group-sm mb-0">
-                          <input class="form-control form-control-sm" placeholder="Response">
-                          <div class="input-group-append">
-                            <button type="submit" class="btn btn-danger">Send</button>
-                          </div>
-                        </div>
-                      </form>
-                    </div>
-                    <!-- /.post -->
-
-                    <!-- Post -->
-                    <div class="post">
-                      <div class="user-block">
-                      <img class="img-circle img-bordered-sm" src="/AdminLTE-master/dist/img/avatar5.png" alt="user image">
-                        <span class="username">
-                          <a href="#">{{ ucfirst(Auth()->user()->name) }}</a>
-                          <a href="#" class="float-right btn-tool"><i class="fas fa-times"></i></a>
-                        </span>
-                        <span class="description">Uploaded Activity Request for (<kbd><strong>Programming</strong></kbd>) - 6:32 AM today</span>
-                      </div>
-                      <!-- /.user-block -->
-                      <div class="row mb-3">
-                        <div class="col-sm-6">
-                          <img class="img-fluid" src="/AdminLTE-master/dist/img/activity.png" alt="Photo">
-                        </div>
-                        
-                      </div>
-                      <!-- /.row -->
-
-                      <p>
-                        <a href="#" class="link-black text-sm mr-2"><i class="fas fa-edit mr-1"></i> Edit</a>
-                        <a href="#" class="link-black text-sm"><i class="far fa-remove mr-1"></i> Delete</a>
-                        <span class="float-right">
-                          <a href="#" class="link-black text-sm">
-                            <i class="far fa-comments mr-1"></i> Comments (0)
-                          </a>
-                        </span>
-                      </p>
-
-                      <input class="form-control form-control-sm" type="text" placeholder="Type a comment">
-                    </div>
-                    <!-- /.post -->
-                    
+                      <!-- /.post -->
+                      @endforeach
+                    @endforeach
                   </div>
                   <!-- /.tab-pane -->
                   <!-- /.tab-pane -->
 
                   <div class="tab-pane" id="settings">
-                    <form class="form-horizontal">
-                      <div class="form-group row">
-                          <label for="inputExperience" class="col-sm-2 col-form-label">Post</label>
+                    <form action="{{ url('/storeRequest') }}" method="post" enctype="multipart/form-data" class="form-horizontal">
+                    {{ csrf_field() }}
+
+                        <div class="form-group row">
+                          <label for="inputExperience" class="col-sm-2 col-form-label">Select Subject</label>
                           <div class="col-sm-10">
-                            <textarea class="form-control" id="inputExperience" placeholder="Add post"></textarea>
+                            <!-- <textarea class="form-control" name="post" id="inputExperience" placeholder="Add post"></textarea> -->
+                            <select class="form-control" name="selectedSubject">
+                              @foreach ($subjects as $subject)
+                              <option value="{{ $subject->id }}">{{ $subject->Subj_desc }}</option>
+                              @endforeach
+                            </select>
+                          </div>
+                        </div>
+                        <div class="form-group row">
+                          <label for="inputExperience" class="col-sm-2 col-form-label">Add Activity Request Description</label>
+                          <div class="col-sm-10">
+                            <textarea class="form-control" name="post" id="inputExperience" placeholder="Add post"></textarea>
                           </div>
                         </div>
 
                         <div class="form-group row">
-                          <label for="myFile" class="col-sm-2 col-form-label">Post</label>
+                          <label for="myFile" class="col-sm-2 col-form-label">Add File</label>
                           <div class="col-sm-10">
-                            <input type="file" id="myFile">
+                            <input type="file" name="file" id="myFile">
                           </div>
                         </div>
                         <div class="form-group row">
@@ -388,6 +505,101 @@
   <!-- /.content-wrapper -->
   @include("footer")
 
+  <!-- Modals -->
+  <div class="modal fade" id="modal-view-table">
+    <div class="modal-dialog modal-lg">
+      <div class="modal-content">
+        <form action="">
+          <div class="modal-header">
+            <h4 class="modal-title text-justify">Subjects</h4>
+            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+              <span aria-hidden="true">&times;</span>
+            </button>
+          </div>
+          <div class="modal-body">
+            <table class="table table-responsive">
+              <thead class="thead-light">
+              <tr>
+                  <th scope="col">Professor ID</th>
+                  <th scope="col">Title</th>
+                  <th scope="col">Day</th>
+                  <th scope="col">Time-in</th>
+                  <th scope="col">Time-out</th>
+                  <th scope="col">Description</th>
+                  <th scope="col">Units</th>
+                  <th scope="col">Room</th>
+                  <th scope="col">Year & Section</th>
+                  <th scope="col">Professor Code</th>
+              </tr>
+              </thead>
+              <tbody>
+              @foreach($subjects as $subject)
+                  <tr>
+                      <td>{{ $subject->prof_id }}</td>
+                      <td>{{ $subject->Subj_title }}</td>
+                      <td>
+                      @if($subject->Subj_dayM == 1 )
+                    
+                      <kbd><strong>Mon</strong></kbd>,  
+                
+                  @endif
+
+                  @if($subject->Subj_dayT == 1 )   
+                  
+                      <kbd><strong>Tue</strong></kbd>,  
+                
+                  @endif
+
+                  @if($subject->Subj_dayW == 1 ) 
+                  
+                      <kbd><strong>Wed</strong></kbd>,  
+              
+                  @endif
+
+                  @if($subject->Subj_dayTH == 1 ) 
+            
+                      <kbd><strong>Thu</strong></kbd>,  
+                
+                  @endif
+
+                  @if($subject->Subj_dayF == 1 ) 
+          
+                      <kbd><strong>Fri</strong></kbd>,  
+              
+                  @endif
+
+                  @if($subject->Subj_dayS == 1 ) 
+              
+                      <kbd><strong>Sat</strong></kbd>,  
+        
+                  @endif
+
+                  @if($subject->Subj_daySu == 1 ) 
+              
+                      <kbd><strong>Sun</strong></kbd>. 
+              
+                  @endif
+                      </td>
+                      <td>{{ $subject->Subj_timein }}</td>
+                      <td>{{ $subject->Subj_timeout }}</td>
+                      <td>{{ $subject->Subj_desc }}</td>
+                      <td>{{ $subject->Subj_units }}</td>
+                      <td>{{ $subject->Subj_room }}</td>
+                      <td>{{ $subject->Subj_yr_sec }}</td>
+                      <td>{{ $subject->Prof_code }}</td>
+                  </tr>
+              @endforeach
+              </tbody>
+          </table>
+          </div>
+          <div class="modal-footer justify-content-between">
+            <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+            <!-- <button type="submit" class="btn btn-primary">Save changes</button> -->
+          </div>
+        </form>
+      </div>
+    </div>
+  </div>
   <!-- Control Sidebar -->
   <aside class="control-sidebar control-sidebar-dark">
     <!-- Control sidebar content goes here -->

@@ -6,6 +6,7 @@ use Illuminate\Http\Request;
 use App\Record;
 use App\Subject;
 use App\Session;
+use Carbon\Carbon;
 // use App\Http\Controllers\Carbon;
 
 class RecordController extends Controller
@@ -53,14 +54,100 @@ class RecordController extends Controller
         // Loop Subjects and then 
         // Display items based on the same day of the week only
         // Professor can be duplicated if section is different
+        $dt = strtotime($record->Rec_dateCreated);
+        $dayAbbrv = date("D", $dt);
         $subjects = Subject::all();
         foreach ($subjects as $subject){
-            $session = new Session();
-            $session->record_id =  $record->id;
-            $session->subject_id = $subject->id;
-            $session->timein = $subject->Subj_timein;
-            $session->timeout = $subject->Subj_timeout;
-            $session->save() ;
+            if ($dayAbbrv == 'Mon'){
+                if ($subject->Subj_dayM == 1) {
+                    $session = new Session();
+                    $session->record_id =  $record->id;
+                    $session->subject_id = $subject->id;
+                    $session->timein = $subject->Subj_timein;
+                    $session->timeout = $subject->Subj_timeout;
+                    $current_date_time = Carbon::now()->toDateTimeString(); 
+                    $session->notified_at = $current_date_time;
+                    $session->save() ;
+                }
+            }
+            // Tue
+            if ($dayAbbrv == 'Tue'){
+                if ($subject->Subj_dayT == 1) {
+                    $session = new Session();
+                    $session->record_id =  $record->id;
+                    $session->subject_id = $subject->id;
+                    $session->timein = $subject->Subj_timein;
+                    $session->timeout = $subject->Subj_timeout;
+                    $current_date_time = Carbon::now()->toDateTimeString(); 
+                    $session->notified_at = $current_date_time;
+                    $session->save() ;
+                }
+            }
+            // Wed
+            if ($dayAbbrv == 'Wed'){
+                if ($subject->Subj_dayW == 1) {
+                    $session = new Session();
+                    $session->record_id =  $record->id;
+                    $session->subject_id = $subject->id;
+                    $session->timein = $subject->Subj_timein;
+                    $session->timeout = $subject->Subj_timeout;
+                    $current_date_time = Carbon::now()->toDateTimeString(); 
+                    $session->notified_at = $current_date_time;
+                    $session->save() ;
+                }
+            }
+            // Thu
+            if ($dayAbbrv == 'Thu'){
+                if ($subject->Subj_dayTH == 1) {
+                    $session = new Session();
+                    $session->record_id =  $record->id;
+                    $session->subject_id = $subject->id;
+                    $session->timein = $subject->Subj_timein;
+                    $session->timeout = $subject->Subj_timeout;
+                    $current_date_time = Carbon::now()->toDateTimeString(); 
+                    $session->notified_at = $current_date_time;
+                    $session->save() ;
+                }
+            }
+            // Fri
+            if ($dayAbbrv == 'Fri'){
+                if ($subject->Subj_dayF == 1) {
+                    $session = new Session();
+                    $session->record_id =  $record->id;
+                    $session->subject_id = $subject->id;
+                    $session->timein = $subject->Subj_timein;
+                    $session->timeout = $subject->Subj_timeout;
+                    $current_date_time = Carbon::now()->toDateTimeString(); 
+                    $session->notified_at = $current_date_time;
+                    $session->save() ;
+                }
+            }
+            // Sat
+            if ($dayAbbrv == 'Sat'){
+                if ($subject->Subj_dayS == 1) {
+                    $session = new Session();
+                    $session->record_id =  $record->id;
+                    $session->subject_id = $subject->id;
+                    $session->timein = $subject->Subj_timein;
+                    $session->timeout = $subject->Subj_timeout;
+                    $current_date_time = Carbon::now()->toDateTimeString(); 
+                    $session->notified_at = $current_date_time;
+                    $session->save() ;
+                }
+            }
+            // Sun
+            if ($dayAbbrv == 'Sun'){
+                if ($subject->Subj_daySu == 1) {
+                    $session = new Session();
+                    $session->record_id =  $record->id;
+                    $session->subject_id = $subject->id;
+                    $session->timein = $subject->Subj_timein;
+                    $session->timeout = $subject->Subj_timeout;
+                    $current_date_time = Carbon::now()->toDateTimeString(); 
+                    $session->notified_at = $current_date_time;
+                    $session->save() ;
+                }
+            }
         }
         $record->Rec_noProf = count($record->sessions);
         $record->save() ;

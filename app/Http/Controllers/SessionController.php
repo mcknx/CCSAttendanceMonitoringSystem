@@ -46,7 +46,8 @@ class SessionController extends Controller
         $session->Prof_code = $request->input('Prof_code'); //IF 1 present, 2 absent, 3 late, 4 excused
         $session->Ses_status = $request->input('Ses_status');
         $session->Ses_remarks = $request->input('Ses_remarks');
-        $session->Ses_timeCreated = $request->input('Ses_timeCreated');
+        $current_date_time = Carbon::now()->toDateTimeString(); 
+        $session->notified_at = $current_date_time;
         $session->save() ;
         return redirect('/session') ;
     }
@@ -98,6 +99,7 @@ class SessionController extends Controller
         $record->Rec_noPresent = count($sessions->where('Ses_status', '=' ,'1'));
         $record->Rec_noAbsent = count($sessions->where('Ses_status', '=' ,'2'));
         $record->Rec_noLate = count($sessions->where('Ses_status', '=' ,'3'));
+        
         $record->save();
         // dd($sessions);
         return view('session',['sessions'=>$sessions, 'record'=>$record,'layout'=>'sessionShow']);
@@ -175,6 +177,16 @@ class SessionController extends Controller
         // return redirect('/session') ;
     }
 
+    public function updateRemarksByUser(Request $request, $id)
+    {
+        $session = Session::find($id);
+        $session->Ses_status = $session->Ses_status;
+        $session->Ses_remarks = $request->input('Ses_remarks');
+        // $session->Ses_remarks = $request->input('Ses_remarks');
+        $session->save() ;
+        return redirect('/userdashboard');
+        // return redirect('/session') ;
+    }
     /**
      * Remove the specified resource from storage.
      *

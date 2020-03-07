@@ -8,7 +8,7 @@ class Professor extends Model
 {
     public $timestamps = false;
     protected $fillable = [
-        'Prof_fname', 'Prof_lname', 'Prof_mname', 'Prof_code',
+        'Prof_fname', 'Prof_lname', 'Prof_mname', 'Prof_code', 'Prof_gender',
     ];
 
     public function user()
