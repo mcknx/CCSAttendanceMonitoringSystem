@@ -1,0 +1,56 @@
+Installations
+Composer
+Laravel
+
+Code for Laravel Installation
+>composer global require laravel/installer
+
+Create new Laravel Project
+>laravel new sms
+
+>cd sms
+>php artisan serve
+>php artisan make:model Student -m
+>php artisan make:controller StudentController --resource
+
+Edit create_students_table
+
+Paste the Github Source Code
+
+Edit .env 
+
+DB_DATABASE=laravel
+
+Create Database (laravel)
+
+>php artisan migrate
+
+Edit StudentController
+
+Edit web.php
+
+Create student.blade.php
+Create navbar.blade.php
+Create studentslist.blade.php
+
+>php artisan serve
+>php artisan serve --host=ipaddress
+
+>php artisan make:model Subjects -m
+>php artisan make:controller SubjectController --resource
+
+Edit create_subjects_table
+
+>php artisan migrate
+>php artisan generate
+>composer install
+>composer update
+>composer require maatwebsite/excel
+>php artisan make:import ProfessorsImport --model=Professor 
+>php artisan make:export ProfessorsExport --model=Professor
+
+>php artisan make:model ActivityRequest -m
+>php artisan make:controller ActivityRequestController --resource
+
+>composer dump-autoload
+>php artisan db:seed
