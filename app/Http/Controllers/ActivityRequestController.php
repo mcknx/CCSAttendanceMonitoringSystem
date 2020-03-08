@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\File;
 use App\ActivityRequest;
 use App\Subject;
 use Carbon\Carbon;
@@ -35,12 +36,12 @@ class ActivityRequestController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request)
+    public function store($prof_code ,Request $request)
     {
         // dd($request);
         if($file = $request->file('file')){
             $name = $file->getClientOriginalName();
-            if($file->move('user-files', $name)){
+            if($file->move('user-files/'.$prof_code, $name)){
                 $activityRequest = new ActivityRequest();
                 $current_date_time = Carbon::now()->toDateTimeString(); 
                 $selectedSubject = $request->input('selectedSubject');
@@ -53,6 +54,16 @@ class ActivityRequestController extends Controller
                 return redirect('userdashboard');
             };
         }
+        $activityRequest = new ActivityRequest();
+        $current_date_time = Carbon::now()->toDateTimeString(); 
+        $selectedSubject = $request->input('selectedSubject');
+        $subject = Subject::find($selectedSubject);
+        $activityRequest->subject_id = $subject->id;
+        $activityRequest->file = null;
+        $activityRequest->post = $request->input('post');;
+        $activityRequest->notified_at = $current_date_time;
+        $activityRequest->save();
+        
         return redirect()->back();
     }
 
@@ -64,7 +75,8 @@ class ActivityRequestController extends Controller
      */
     public function show($id)
     {
-        //
+        $activityRequest = ActivityRequest::find($id);
+        return $activityRequest;
     }
 
     /**
@@ -72,10 +84,30 @@ class ActivityRequestController extends Controller
      *
      * @param  int  $id
      * @return \Illuminate\Http\Response
-     */
-    public function edit($id)
+     */ 
+    public function edit($id, Request $request)
     {
-        //
+        $activityRequest = ActivityRequest::find($id);
+        // dd($activityRequest);
+        $file = $request->file('file');
+        if ($file != null) {
+            $name = $file->getClientOriginalName();
+            if($file->move('user-files/'.$activityRequest->subject->Prof_code, $name)){
+                File::delete($activityRequest->file);
+                $current_date_time = Carbon::now()->toDateTimeString(); 
+                $activityRequest->file = $name;
+                $activityRequest->post = $request->input('post');
+                $activityRequest->notified_at = $current_date_time;
+                $activityRequest->save();
+                return redirect('userdashboard');
+            }
+        }
+
+        $current_date_time = Carbon::now()->toDateTimeString(); 
+        $activityRequest->post = $request->input('post');;
+        $activityRequest->notified_at = $current_date_time;
+        $activityRequest->save();
+        return redirect('userdashboard');
     }
 
     /**
@@ -98,6 +130,8 @@ class ActivityRequestController extends Controller
      */
     public function destroy($id)
     {
-        //
+        $activityRequest = ActivityRequest::find($id);
+        $activityRequest->delete() ;
+        return redirect('/userdashboard') ;
     }
 }

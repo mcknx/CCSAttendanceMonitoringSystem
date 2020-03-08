@@ -56,7 +56,7 @@ class AuthController extends Controller
           }
 
           if($user->role == 2) {
-            return app('App\Http\Controllers\UserDashboardController')->index();
+            return redirect()->intended('userdashboard');
             // $this->index();
             
           }

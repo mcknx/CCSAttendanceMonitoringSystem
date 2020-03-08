@@ -65,9 +65,9 @@
 
 </head>
 <script type="text/javascript">
-        function zoom() {
-            document.body.style.zoom = "80%" 
-        }
+    function zoom() {
+        document.body.style.zoom = "80%" 
+    }
 </script>
 
 <body onload="zoom()" class="hold-transition sidebar-mini layout-fixed">

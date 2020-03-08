@@ -99,10 +99,85 @@ class SessionController extends Controller
         $record->Rec_noPresent = count($sessions->where('Ses_status', '=' ,'1'));
         $record->Rec_noAbsent = count($sessions->where('Ses_status', '=' ,'2'));
         $record->Rec_noLate = count($sessions->where('Ses_status', '=' ,'3'));
-        
+        // foreach ($sessions as $session){
+        //     dd($session->subject->activity_requests);
+        // }
         $record->save();
         // dd($sessions);
         return view('session',['sessions'=>$sessions, 'record'=>$record,'layout'=>'sessionShow']);
+    }
+
+    public function showUserData($id)
+    {   
+        $date_today = Carbon::now()->toDateTimeString();
+        $dt = strtotime($date_today);
+        $dayAbbrv = date("D", $dt);
+        // $user = $id;
+        // $userID = $user->id;
+        $professor = Professor::where('user_id', '=', $id)->first();
+        $user = $professor->user;
+        // $professor = $user->professor;
+        $subjects = $professor->subjects;
+        $subject_today = null;
+        $session_array = [];
+        $activityRequests_array = [];
+
+        foreach ($subjects as $subject){
+            // Mon
+            if ($dayAbbrv == 'Mon'){
+                if ($subject->Subj_dayM == 1) {
+                    $subject_today = $subject;
+                }
+            }
+            // Tue
+            if ($dayAbbrv == 'Tue'){
+                if ($subject->Subj_dayT == 1) {
+                    $subject_today = $subject;
+                }
+            }
+            // Wed
+            if ($dayAbbrv == 'Wed'){
+                if ($subject->Subj_dayW == 1) {
+                    $subject_today = $subject;
+                }
+            }
+            // Thu
+            if ($dayAbbrv == 'Thu'){
+                if ($subject->Subj_dayTH == 1) {
+                    $subject_today = $subject;
+                }
+            }
+            // Fri
+            if ($dayAbbrv == 'Fri'){
+                if ($subject->Subj_dayF == 1) {
+                    $subject_today = $subject;
+                }
+            }
+            // Sat
+            if ($dayAbbrv == 'Sat'){
+                if ($subject->Subj_dayS == 1) {
+                    $subject_today = $subject;
+                }
+            }
+            // Sun
+            if ($dayAbbrv == 'Sun'){
+                if ($subject->Subj_daySu == 1) {
+                    $subject_today = $subject;
+                }
+            }
+
+            // Finish
+            $subjectSessions = $subject->sessions;
+            $activityRequests = $subject->activity_requests;
+            array_push($session_array, $subjectSessions);
+            array_push($activityRequests_array, $activityRequests);
+        }
+
+        $sessions = $session_array;
+        $activity_requests = $activityRequests_array;
+        $arr = [$user, $professor, $subject_today, $subjects, $sessions, $activity_requests];
+        
+        return $arr;
     }
 
     public function showSessionData($id)

@@ -76,6 +76,10 @@ Route::post('/sessionUpdateRemarks/{id}',"SessionController@updateRemarks")->mid
 Route::post('/sessionUpdateRemarksByUser/{id}',"SessionController@updateRemarksByUser")->middleware('auth') ;
 Route::post('/sessionDelete/{id}',"SessionController@destroy")->middleware('auth') ;
 Route::get('/showSessionData/{id}',"SessionController@showSessionData")->middleware('auth') ;
+Route::get('/showUserData/{id}',"SessionController@showUserData")->middleware('auth') ;
 
 //Activity Request
-Route::post('/storeRequest', "ActivityRequestController@store")->middleware('auth') ;
+Route::post('/storeRequest/{prof_code}', "ActivityRequestController@store")->middleware('auth') ;
+Route::get('/showActivityRequest/{id}', "ActivityRequestController@show")->middleware('auth') ;
+Route::post('/editActivityRequest/{id}', "ActivityRequestController@edit")->middleware('auth') ;
+Route::get('/deleteActivityRequest/{id}', "ActivityRequestController@destroy")->middleware('auth') ;

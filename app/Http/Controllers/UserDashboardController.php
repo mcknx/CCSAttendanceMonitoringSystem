@@ -80,8 +80,9 @@ class UserDashboardController extends Controller
 
             // Finish
             $subjectSessions = $subject->sessions;
-            $activityRequests_array = $subject->activity_requests;
+            $activityRequests = $subject->activity_requests;
             array_push($session_array, $subjectSessions);
+            array_push($activityRequests_array, $activityRequests);
         }
 
         $sessions = $session_array;

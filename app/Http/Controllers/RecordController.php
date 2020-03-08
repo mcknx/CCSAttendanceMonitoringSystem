@@ -45,6 +45,10 @@ class RecordController extends Controller
         // dd(Carbon::now());
         $record = new Record() ;
         $record->Rec_dateCreated = $request->input('currentDate') ;
+        // dd($request->input('currentDate'));
+        if (Record::where('Rec_dateCreated', '=', $request->input('currentDate'))->first()){
+            return redirect()->back();
+        }
         $record->Rec_noProf = 0;
         $record->Rec_noPresent = 0;
         $record->Rec_noAbsent = 0;
