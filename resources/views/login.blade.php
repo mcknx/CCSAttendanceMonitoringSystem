@@ -48,8 +48,8 @@
                 </div>
  
                 <button class="btn btn-lg btn-primary btn-block btn-login text-uppercase font-weight-bold mb-2" type="submit">Sign In</button>
-                <div class="text-center">Don't have an account?
-                  <a class="small" href="{{url('registration')}}">Sign Up</a></div>
+                <!-- <div class="text-center">Don't have an account?
+                  <a class="small" href="{{url('registration')}}">Sign Up</a></div> -->
               </form>
             </div>
           </div>

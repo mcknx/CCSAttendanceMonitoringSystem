@@ -14,8 +14,18 @@
     <div class="row d-flex align-items-stretch">
       @foreach($sessions as $session)
       <div class="col-12 col-sm-6 col-md-4  flex-row align-items-stretch">
-        <div class="card bg-light">
-          <div class="card-header  border-bottom-0">
+      @if($session->Ses_status == 1)
+        <div id="myCard" class="card bg-light shadow mb-5 border border-success">
+      @endif
+
+      @if($session->Ses_status == 2)
+        <div id="myCard" class="card bg-light shadow mb-5 border border-danger">
+      @endif
+
+      @if($session->Ses_status == 3)
+        <div id="myCard" class="card bg-light shadow mb-5 border border-wanger">
+      @endif
+          <div class="card-header border-bottom-0">
           </div>
           <div class="card-body pt-0" style="padding: 5px !important;">
             <div class="row">
@@ -91,15 +101,15 @@
                   @if (count($session->subject->activity_requests) != 0)
                     <span class="badge badge-warning navbar-badge ">{{count($session->subject->activity_requests)}}</span>
                   @endif
-                  <i data-toggle="modal" data-target="#modal-user" class="far fa-bell pull-right" data-placement="top" title="New Notification!" style="cursor: pointer;"></i>
+                  <i data-toggle="modal" data-target="#modal-user" onclick="onClickUserView('{{$session->subject->professor->user->id}}')" class="far fa-bell pull-right" data-placement="top" title="New Notification!" style="cursor: pointer;"></i>
                 @endif
 
                 @if($session->subject->professor->Prof_gender == 'f')
-                  <a href="" data-toggle="modal" data-target="#modal-user" data-placement="top" title="View Profile"><img src="/AdminLTE-master/dist/img/user1.png" alt="" width="120px;" class="img-circle img-fluid"></a>
+                  <a href="" data-toggle="modal" data-target="#modal-user" onclick="onClickUserView('{{$session->subject->professor->user->id}}')" data-placement="top" title="View Profile"><img src="/AdminLTE-master/dist/img/user1.png" alt="" width="120px;" class="img-circle img-fluid"></a>
                   @if (count($session->subject->activity_requests) != 0)
                     <span class="badge badge-warning navbar-badge ">{{count($session->subject->activity_requests)}}</span>
                   @endif
-                  <i data-toggle="modal" data-target="#modal-user" class="far fa-bell pull-right" data-placement="top" title="New Notification!" style="cursor: pointer;"></i>
+                  <i data-toggle="modal" data-target="#modal-user" onclick="onClickUserView('{{$session->subject->professor->user->id}}')" class="far fa-bell pull-right" data-placement="top" title="New Notification!" style="cursor: pointer;"></i>
                 @endif
                 
                 <h2 class="lead"><b>{{ucfirst($session->subject->professor->Prof_fname)}} {{ucfirst($session->subject->professor->Prof_lname)}}</b></h2>
@@ -406,6 +416,8 @@
       // console.log(response);
       $('.modal-backdrop').remove();
       var subject_today = response.data[2];
+      var activity_requests = response.data[5];
+
       if (subject_today == null) {
         document.getElementById('no_class').innerHTML = "No class for today";
       }
@@ -451,7 +463,16 @@
         // Section
         document.getElementById('sub_yr_sec').innerHTML = subject_today.Subj_yr_sec;
       }
-      console.log(subject_today)
+      var activity_request = activity_requests[0];
+      for (var i = 0; i < activity_request.length; i++) {
+        console.log(activity_request[i].notified_at)
+        
+      }
+      
+      
+      
+      
+      
       document.getElementById('prof_name1').innerHTML = response.data[0].name;
       document.getElementById('prof_name').innerHTML = response.data[0].name;
       console.log(response.data[0].name);
@@ -464,13 +485,14 @@
 
   function onClick(session_id, prof_status){
     // alert('Professor: ' + prof_code + ' is ' + prof_status)
-
+    
     axios.post('/sessionUpdate/' + session_id, {
       Ses_status: prof_status
     })
     .then(function (response) {
       // handle success
       console.log(response);
+      
       if(prof_status == 1){
         Toast.fire({
           icon: 'success',
