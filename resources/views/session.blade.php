@@ -66,7 +66,7 @@
 </head>
 <script type="text/javascript">
     function zoom() {
-        document.body.style.zoom = "100%" 
+        document.body.style.zoom = "85%" 
     }
 </script>
 

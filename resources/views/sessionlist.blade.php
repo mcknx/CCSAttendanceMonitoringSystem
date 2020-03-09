@@ -11,20 +11,12 @@
     <p class="text-danger"><strong>Please reload the page for updates</strong></p>  
     <h5><blockquote><?= $day ?> Schedules</blockquote></h5>
     
-    <div class="row d-flex align-items-stretch">
+    <div class="row flex-row d-flex align-items-stretch">
       @foreach($sessions as $session)
-      <div class="col-12 col-sm-6 col-md-4  flex-row align-items-stretch">
-      @if($session->Ses_status == 1)
-        <div id="myCard" class="card bg-light shadow mb-5 border border-success">
-      @endif
-
-      @if($session->Ses_status == 2)
-        <div id="myCard" class="card bg-light shadow mb-5 border border-danger">
-      @endif
-
-      @if($session->Ses_status == 3)
-        <div id="myCard" class="card bg-light shadow mb-5 border border-wanger">
-      @endif
+      <div class="col-12 col-sm-6 col-md-4  flex-row d-flex align-items-stretch">
+      
+        <div id="myCard" class="card bg-white shadow mb-5 border">
+      
           <div class="card-header border-bottom-0">
           </div>
           <div class="card-body pt-0" style="padding: 5px !important;">
@@ -97,7 +89,7 @@
               </div>
               <div class="col-7 text-center">
                 @if($session->subject->professor->Prof_gender == 'm')
-                  <a href="" data-toggle="modal" data-target="#modal-user" onclick="onClickUserView('{{$session->subject->professor->user->id}}')" data-placement="top" title="View Profile"><img src="/AdminLTE-master/dist/img/user.png" alt="" width="120px;" class="img-circle img-fluid"></a>
+                  <a href="" data-toggle="modal" data-target="#modal-user" onclick="onClickUserView('{{$session->subject->professor->user->id}}')" data-placement="top" title="View Profile"><img src="/AdminLTE-master/dist/img/user.png" alt="" width="60px;" class="img-circle img-fluid"></a>
                   @if (count($session->subject->activity_requests) != 0)
                     <span class="badge badge-warning navbar-badge ">{{count($session->subject->activity_requests)}}</span>
                   @endif
@@ -105,7 +97,7 @@
                 @endif
 
                 @if($session->subject->professor->Prof_gender == 'f')
-                  <a href="" data-toggle="modal" data-target="#modal-user" onclick="onClickUserView('{{$session->subject->professor->user->id}}')" data-placement="top" title="View Profile"><img src="/AdminLTE-master/dist/img/user1.png" alt="" width="120px;" class="img-circle img-fluid"></a>
+                  <a href="" data-toggle="modal" data-target="#modal-user" onclick="onClickUserView('{{$session->subject->professor->user->id}}')" data-placement="top" title="View Profile"><img src="/AdminLTE-master/dist/img/user1.png" alt="" width="60px;" class="img-circle img-fluid"></a>
                   @if (count($session->subject->activity_requests) != 0)
                     <span class="badge badge-warning navbar-badge ">{{count($session->subject->activity_requests)}}</span>
                   @endif
@@ -337,7 +329,7 @@
                                     <div class="user-block">
                                       <img class="img-circle img-bordered-sm" src="/AdminLTE-master/dist/img/avatar5.png" alt="user image">
                                       <span class="username">
-                                        <a href="" data-toggle="modal" data-target="#modal-default-edit" onClick="onClickModalRemark('')" id="prof_name1"></a>
+                                        <a href="" data-toggle="modal" data-target="#modal-default-edit" id="prof_name1"></a>
                                         <!-- <a href="#" class="float-right btn-tool"><i class="fas fa-times"></i></a> -->
                                       </span>
                                     </div>
@@ -463,10 +455,10 @@
         // Section
         document.getElementById('sub_yr_sec').innerHTML = subject_today.Subj_yr_sec;
       }
+      console.log(activity_requests)
       var activity_request = activity_requests[0];
       for (var i = 0; i < activity_request.length; i++) {
         console.log(activity_request[i].notified_at)
-        
       }
       
       
