@@ -8,14 +8,6 @@
       <a href="{{url('/dashboard')}}" class="nav-link">Home</a>
     </li>
     <li class="nav-item d-none d-sm-inline-block">
-    <form action="{{url('importProfExcel')}}" method="post" enctype="multipart/form-data">
-      <input class="d-sm-inline-block" type="hidden" name="_token" value="{{CSRF_Token()}}">
-      <input class="d-sm-inline-block" type="file" name="file">
-      <input class="d-sm-inline-block" type="submit" value="upload">
-    </form>
-      <!-- <a href="{{url('/importProfExcel')}}" class="nav-link">Import Data</a> -->
-    </li>
-    <li class="nav-item d-none d-sm-inline-block">
       <a href="{{url('/exportProfExcel')}}" class="nav-link">Export Data</a>
     </li>
   </ul>
@@ -64,7 +56,7 @@
 <div class="modal fade" id="modal-default">
     <div class="modal-dialog">
       <div class="modal-content">
-        <form action="">
+        <form action="{{url('/changeCredential/' .  Auth()->user()->id )}}">
           <div class="modal-header">
             <h4 class="modal-title">Change credentials</h4>
             <button type="button" class="close" data-dismiss="modal" aria-label="Close">
@@ -73,12 +65,22 @@
           </div>
           <div class="modal-body">
             <!-- <p>One fine body&hellip;</p> -->
-            <label for="username">Username:</label>
-            <input name="username" type="text" required><br>
-            <label for="username">Password:</label>
-            <input name="username" type="password" required><br>
-            <label for="username">Confirm Password:</label>
-            <input name="username" type="password" required>
+
+            {{ csrf_field() }}
+
+            <div class="form-label-group has-feedback">
+              <label for="fname">First Name:</label>
+                <input name="fname" type="text" class="form-control" placeholder="Enter First Name" required>
+              <label for="mname">Middle Name:</label>
+                <input name="mname" type="text" class="form-control" placeholder="Enter Middle Name" required>
+              <label for="lname">Last Name:</label>
+                <input name="lname" type="text" class="form-control" placeholder="Enter Last Name" required>
+              <label for="inputPassword">Password</label>
+                <input id="password" type="password" name="password" id="inputPassword" class="form-control" placeholder="Enter Password" required>
+              <label for="confirmPassword">Confirm Password</label>
+                <input id="password-confirm" type="password" name="password_confirmation" id="confirmPassword" class="form-control" placeholder="Enter Confirm Password" required>
+            </div>
+            
           </div>
           <div class="modal-footer justify-content-between">
             <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>

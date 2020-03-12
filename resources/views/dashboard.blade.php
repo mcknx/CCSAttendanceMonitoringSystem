@@ -37,6 +37,12 @@
   <!-- <link rel="stylesheet" href="plugins/icheck-bootstrap/icheck-bootstrap.min.css"> -->
   <link rel="stylesheet" href="{{asset('/AdminLTE-master/plugins/icheck-bootstrap/icheck-bootstrap.min.css')}}">
 
+  <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.js"></script>
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js"></script>  
+<script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.5.0/js/bootstrap-datepicker.js"></script>
+
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.5.0/css/bootstrap-datepicker.css" rel="stylesheet">
+
   <!-- JQVMap -->
   <!-- <link rel="stylesheet" href="plugins/jqvmap/jqvmap.min.css"> -->
   <link rel="stylesheet" href="{{asset('/AdminLTE-master/plugins/jqvmap/jqvmap.min.css')}}">
@@ -49,6 +55,7 @@
   <!-- <link rel="stylesheet" href="plugins/overlayScrollbars/css/OverlayScrollbars.min.css"> -->
   <link rel="stylesheet" href="{{asset('/AdminLTE-master/plugins/overlayScrollbars/css/OverlayScrollbars.min.css')}}">
 
+  <link rel="stylesheet" href="{{asset('/freelancer.min.css')}}">
   <!-- Daterange picker -->
   <!-- <link rel="stylesheet" href="plugins/daterangepicker/daterangepicker.css"> -->
   <link rel="stylesheet" href="{{asset('/AdminLTE-master/plugins/daterangepicker/daterangepicker.css')}}">
@@ -168,144 +175,368 @@
         </div>
       </div><!-- /.container-fluid -->
     </section>
-     <!-- Hero section -->
-     <section class="hero-section">
-      <div class="hero-slider owl-carousel">
-        <div class="hs-item">
-          <div class="container">
-            <div class="row">
-              <div class="col-lg-6">
-                <div class="hs-text">
-                  <h2><span>Attendance</span> Management</h2>
-                  <p>
-                    Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed
-                    do eiusmod tempor incididunt ut labore et dolore magna
-                    aliqua. Quis ipsum suspendisse ultrices gravida.
-                  </p>
-                  <a href="/attendance" class="site-btn">Let's Check!</a>
-                  <!-- <a href="#" class="site-btn sb-c2">Start free trial</a> -->
-                </div>
-              </div>
-              <div class="col-lg-6">
-                <div class="hr-img">
-                  <img src="/solmusic/img/attendance.png" alt="" />
-                </div>
-              </div>
-            </div>
-          </div>
-        </div>
-        <div class="hs-item">
-          <div class="container">
-            <div class="row">
-              <div class="col-lg-6">
-                <div class="hs-text">
-                  <h2><span>Manage </span> Professor.</h2>
-                  <p>
-                    Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed
-                    do eiusmod tempor incididunt ut labore et dolore magna
-                    aliqua. Quis ipsum suspendisse ultrices gravida.
-                  </p>
-                  <a href="/professor" class="site-btn">Let's create a professor!</a>
-                  <!-- <a href="#" class="site-btn sb-c2">Start free trial</a> -->
-                </div>
-              </div>
-              <div class="col-lg-6">
-                <div class="hr-img">
-                  <img src="/solmusic/img/professor.png" alt="" />
-                </div>
-              </div>
-            </div>
-          </div>
-        </div>
-        <div class="hs-item">
-          <div class="container">
-            <div class="row">
-              <div class="col-lg-6">
-                <div class="hs-text">
-                  <h2><span>Manage </span> Subject.</h2>
-                  <p>
-                    Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed
-                    do eiusmod tempor incididunt ut labore et dolore magna
-                    aliqua. Quis ipsum suspendisse ultrices gravida.
-                  </p>
-                  <a href="/subject" class="site-btn">Let's create a subject!</a>
-                  <!-- <a href="#" class="site-btn sb-c2">Start free trial</a> -->
-                </div>
-              </div>
-              <div class="col-lg-6">
-                <div class="hr-img">
-                  <img src="/solmusic/img/subject.png" alt="" />
-                </div>
-              </div>
-            </div>
-          </div>
-        </div>
-      </div>
-    </section>
-    <!-- Hero section end -->
-    <!-- Premium section end -->
-    <section class="premium-section spad">
-      <div class="container">
-        <div class="row">
-          <div class="col-lg-6">
-            <div class="section-title">
-              <h2>Here is help!</h2>
-            </div>
-          </div>
-          <div class="col-lg-6">
-            <p>
-              Consectetur adipiscing elit, sed do eiusmod tempor incididunt ut
-              labore et dolore magna aliqua. Quis ipsum suspendisse ultrices
-              gravida. Risus commodo viverra maecenas accumsan lacus vel
-              facilisis. Lorem ipsum dolor sit amet, consectetur adipiscing
-              elit, sed do eiusmod tempor incididunt ut labore et dolore magna
-              aliqua.
-            </p>
-          </div>
-        </div>
-        <div class="row">
-          
-        <div class="col-12 col-sm-6 col-md-3 d-flex align-items-stretch">
-          <div class="card bg-light">
-            <div class="premium-item">
-              <img src="/solmusic/img/system.png" alt="" />
-              <h4>System flow</h4>
-              <p>Consectetur adipiscing elit</p>
-              </div>
-            </div>
-          </div>
-          <div class="col-12 col-sm-6 col-md-3 d-flex align-items-stretch">
-          <div class="card bg-light">
-            <div class="premium-item">
-              <img src="/solmusic/img/attendance.png" alt="" />
-              <h4>How to manage attendance</h4>
-              <p>Ectetur adipiscing elit</p>
-            </div>
-            </div>
-          </div>
-          <div class="col-12 col-sm-6 col-md-3 d-flex align-items-stretch">
-          <div class="card bg-light">
-            <div class="premium-item">
-              <img src="/solmusic/img/professor.png" alt="" />
-              <h4>How to manage professor</h4>
-              <p>Sed do eiusmod tempor</p>
-              </div>
-            </div>
-          </div>
-          <div class="col-12 col-sm-6 col-md-3 d-flex align-items-stretch">
-          <div class="card bg-light">
-            <div class="premium-item">
-              <img src="/solmusic/img/subject.png" alt="" />
-              <h4>How to manage subject</h4>
-              <p>Adipiscing elit</p>
-              </div>
-            </div>
-          </div>
-        </div>
-      </div>
-    </section>
-    <!-- Premium section end -->
 
+    <!-- Masthead -->
+  <header class="masthead bg-primary text-white text-center">
+    <div class="container d-flex align-items-center flex-column">
+
+      <!-- Masthead Avatar Image -->
+      <img class="masthead-avatar mb-5" src="img/avataaars.svg" alt="">
+
+      <!-- Masthead Heading -->
+      <h1 class="masthead-heading text-uppercase mb-0">Welcome to CCS Attendance!</h1>
+
+      <!-- Icon Divider -->
+      <div class="divider-custom divider-light">
+        <div class="divider-custom-line"></div>
+        <div class="divider-custom-icon">
+          <i class="fas fa-star"></i>
+        </div>
+        <div class="divider-custom-line"></div>
+      </div>
+
+      <!-- Masthead Subheading -->
+      <p class="masthead-subheading font-weight-light mb-0">College - of Computer - Studies</p>
+
+    </div>
+  </header>
+
+  <!-- Import Data Section -->
+  <section class="page-section  mb-0" id="about">
+    <div class="container">
+
+      <!-- About Section Heading -->
+      <h2 class="page-section-heading text-center text-uppercase">Import Data</h2>
+
+      <!-- Icon Divider -->
+      <div class="divider-custom">
+        <div class="divider-custom-line"></div>
+        <div class="divider-custom-icon">
+          <i class="fas fa-star"></i>
+        </div>
+        <div class="divider-custom-line"></div>
+      </div>
+
+      <!-- About Section Content -->
+      <form action="{{url('importProfExcel')}}" method="post" enctype="multipart/form-data">
+      <div class="row">
+            <div class="col-lg-6 ml-auto text-right">
+            <p class="lead">Here you can select what semester and year you want the database to be filled with your import!</p>
+            </div>
+            <div class="col-lg-3 mr-auto text-center">
+            <p class="lead">
+            <label for="select">Select Semester</label><br>
+            <select name="sem" class="btn btn-xl btn-outline-dark">
+                <option value="1">1st Semester</option>
+                <option value="2">2nd Semester</option>
+                <option value="3">Summer</option>
+            </select>
+            </p>
+            </div>
+            <div class="col-lg-3 mr-auto text-right">
+                <p class="lead">
+                    <label for="date1">From Year</label>
+                    <input type="text" id="date-own" name="date1" class="btn btn-sm btn-outline-dark "><br>
+                    <label for="date1">To Year</label>
+                        <input type="text" id="date-own1" name="date1" class="btn btn-sm btn-outline-dark">
+                </p>
+            </div>
+
+            <!-- About Section Button -->
+            <div class="col-lg-6 ml-auto text-right">
+                <input class="btn btn-sm btn-outline-dark d-inline" type="hidden" name="_token" value="{{CSRF_Token()}}">
+                <input class="btn btn-sm d-inline" type="file" name="file" >
+                <input class="btn btn-sm btn-outline-dark d-inline " type="submit" value="upload">
+            </div>
+      </div>
+      </form>
+      <script type="text/javascript">
+        $('#date-own').datepicker({
+            minViewMode: 2,
+            format: 'yyyy'
+        });
+        $('#date-own1').datepicker({
+            minViewMode: 2,
+            format: 'yyyy'
+        });
+        
+    </script>
+      
+
+    </div>
+  </section>
+  
+  <!-- Documentation Section -->
+  <!-- <section class="page-section bg-primary text-white portfolio" id="portfolio"> -->
+    <!-- <div class="container"> -->
+
+      <!-- Portfolio Section Heading -->
+      <!-- <h2 class="page-section-heading text-center text-uppercase mb-0 text-white">Documentation</h2> -->
+
+      <!-- Icon Divider -->
+      <!-- <div class="divider-custom divider-light">
+        <div class="divider-custom-line"></div>
+        <div class="divider-custom-icon">
+          <i class="fas fa-star"></i>
+        </div>
+        <div class="divider-custom-line"></div>
+      </div> -->
+
+      <!-- Portfolio Grid Items -->
+      <!-- <div class="row"> -->
+
+        <!-- Portfolio Item 1 -->
+        <!-- <div class="col-md-6 col-lg-4">
+          <div class="portfolio-item mx-auto" data-toggle="modal" data-target="#portfolioModal1">
+            <div class="portfolio-item-caption d-flex align-items-center justify-content-center h-100 w-100">
+              <div class="portfolio-item-caption-content text-center text-white">
+                <i class="fas fa-plus fa-3x"></i>
+              </div>
+            </div>
+            <img class="img-fluid" src="img/portfolio/cabin.png" alt="">
+          </div>
+        </div> -->
+      <!-- </div> -->
+      <!-- /.row -->
+
+    <!-- </div> -->
+  <!-- </section> -->
+
+  
+
+  <!-- Portfolio Modal 1 -->
+  <div class="portfolio-modal modal fade" id="portfolioModal1" tabindex="-1" role="dialog" aria-labelledby="portfolioModal1Label" aria-hidden="true">
+    <div class="modal-dialog modal-xl" role="document">
+      <div class="modal-content">
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">
+            <i class="fas fa-times"></i>
+          </span>
+        </button>
+        <div class="modal-body text-center">
+          <div class="container">
+            <div class="row justify-content-center">
+              <div class="col-lg-8">
+                <!-- Portfolio Modal - Title -->
+                <h2 class="portfolio-modal-title text-secondary text-uppercase mb-0">Log Cabin</h2>
+                <!-- Icon Divider -->
+                <div class="divider-custom">
+                  <div class="divider-custom-line"></div>
+                  <div class="divider-custom-icon">
+                    <i class="fas fa-star"></i>
+                  </div>
+                  <div class="divider-custom-line"></div>
+                </div>
+                <!-- Portfolio Modal - Image -->
+                <img class="img-fluid rounded mb-5" src="img/portfolio/cabin.png" alt="">
+                <!-- Portfolio Modal - Text -->
+                <p class="mb-5">Lorem ipsum dolor sit amet, consectetur adipisicing elit. Mollitia neque assumenda ipsam nihil, molestias magnam, recusandae quos quis inventore quisquam velit asperiores, vitae? Reprehenderit soluta, eos quod consequuntur itaque. Nam.</p>
+                <button class="btn btn-primary" href="#" data-dismiss="modal">
+                  <i class="fas fa-times fa-fw"></i>
+                  Close Window
+                </button>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Portfolio Modal 2 -->
+  <div class="portfolio-modal modal fade" id="portfolioModal2" tabindex="-1" role="dialog" aria-labelledby="portfolioModal2Label" aria-hidden="true">
+    <div class="modal-dialog modal-xl" role="document">
+      <div class="modal-content">
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">
+            <i class="fas fa-times"></i>
+          </span>
+        </button>
+        <div class="modal-body text-center">
+          <div class="container">
+            <div class="row justify-content-center">
+              <div class="col-lg-8">
+                <!-- Portfolio Modal - Title -->
+                <h2 class="portfolio-modal-title text-secondary text-uppercase mb-0">Tasty Cake</h2>
+                <!-- Icon Divider -->
+                <div class="divider-custom">
+                  <div class="divider-custom-line"></div>
+                  <div class="divider-custom-icon">
+                    <i class="fas fa-star"></i>
+                  </div>
+                  <div class="divider-custom-line"></div>
+                </div>
+                <!-- Portfolio Modal - Image -->
+                <img class="img-fluid rounded mb-5" src="img/portfolio/cake.png" alt="">
+                <!-- Portfolio Modal - Text -->
+                <p class="mb-5">Lorem ipsum dolor sit amet, consectetur adipisicing elit. Mollitia neque assumenda ipsam nihil, molestias magnam, recusandae quos quis inventore quisquam velit asperiores, vitae? Reprehenderit soluta, eos quod consequuntur itaque. Nam.</p>
+                <button class="btn btn-primary" href="#" data-dismiss="modal">
+                  <i class="fas fa-times fa-fw"></i>
+                  Close Window
+                </button>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Portfolio Modal 3 -->
+  <div class="portfolio-modal modal fade" id="portfolioModal3" tabindex="-1" role="dialog" aria-labelledby="portfolioModal3Label" aria-hidden="true">
+    <div class="modal-dialog modal-xl" role="document">
+      <div class="modal-content">
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">
+            <i class="fas fa-times"></i>
+          </span>
+        </button>
+        <div class="modal-body text-center">
+          <div class="container">
+            <div class="row justify-content-center">
+              <div class="col-lg-8">
+                <!-- Portfolio Modal - Title -->
+                <h2 class="portfolio-modal-title text-secondary text-uppercase mb-0">Circus Tent</h2>
+                <!-- Icon Divider -->
+                <div class="divider-custom">
+                  <div class="divider-custom-line"></div>
+                  <div class="divider-custom-icon">
+                    <i class="fas fa-star"></i>
+                  </div>
+                  <div class="divider-custom-line"></div>
+                </div>
+                <!-- Portfolio Modal - Image -->
+                <img class="img-fluid rounded mb-5" src="img/portfolio/circus.png" alt="">
+                <!-- Portfolio Modal - Text -->
+                <p class="mb-5">Lorem ipsum dolor sit amet, consectetur adipisicing elit. Mollitia neque assumenda ipsam nihil, molestias magnam, recusandae quos quis inventore quisquam velit asperiores, vitae? Reprehenderit soluta, eos quod consequuntur itaque. Nam.</p>
+                <button class="btn btn-primary" href="#" data-dismiss="modal">
+                  <i class="fas fa-times fa-fw"></i>
+                  Close Window
+                </button>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Portfolio Modal 4 -->
+  <div class="portfolio-modal modal fade" id="portfolioModal4" tabindex="-1" role="dialog" aria-labelledby="portfolioModal4Label" aria-hidden="true">
+    <div class="modal-dialog modal-xl" role="document">
+      <div class="modal-content">
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">
+            <i class="fas fa-times"></i>
+          </span>
+        </button>
+        <div class="modal-body text-center">
+          <div class="container">
+            <div class="row justify-content-center">
+              <div class="col-lg-8">
+                <!-- Portfolio Modal - Title -->
+                <h2 class="portfolio-modal-title text-secondary text-uppercase mb-0">Controller</h2>
+                <!-- Icon Divider -->
+                <div class="divider-custom">
+                  <div class="divider-custom-line"></div>
+                  <div class="divider-custom-icon">
+                    <i class="fas fa-star"></i>
+                  </div>
+                  <div class="divider-custom-line"></div>
+                </div>
+                <!-- Portfolio Modal - Image -->
+                <img class="img-fluid rounded mb-5" src="img/portfolio/game.png" alt="">
+                <!-- Portfolio Modal - Text -->
+                <p class="mb-5">Lorem ipsum dolor sit amet, consectetur adipisicing elit. Mollitia neque assumenda ipsam nihil, molestias magnam, recusandae quos quis inventore quisquam velit asperiores, vitae? Reprehenderit soluta, eos quod consequuntur itaque. Nam.</p>
+                <button class="btn btn-primary" href="#" data-dismiss="modal">
+                  <i class="fas fa-times fa-fw"></i>
+                  Close Window
+                </button>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Portfolio Modal 5 -->
+  <div class="portfolio-modal modal fade" id="portfolioModal5" tabindex="-1" role="dialog" aria-labelledby="portfolioModal5Label" aria-hidden="true">
+    <div class="modal-dialog modal-xl" role="document">
+      <div class="modal-content">
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">
+            <i class="fas fa-times"></i>
+          </span>
+        </button>
+        <div class="modal-body text-center">
+          <div class="container">
+            <div class="row justify-content-center">
+              <div class="col-lg-8">
+                <!-- Portfolio Modal - Title -->
+                <h2 class="portfolio-modal-title text-secondary text-uppercase mb-0">Locked Safe</h2>
+                <!-- Icon Divider -->
+                <div class="divider-custom">
+                  <div class="divider-custom-line"></div>
+                  <div class="divider-custom-icon">
+                    <i class="fas fa-star"></i>
+                  </div>
+                  <div class="divider-custom-line"></div>
+                </div>
+                <!-- Portfolio Modal - Image -->
+                <img class="img-fluid rounded mb-5" src="img/portfolio/safe.png" alt="">
+                <!-- Portfolio Modal - Text -->
+                <p class="mb-5">Lorem ipsum dolor sit amet, consectetur adipisicing elit. Mollitia neque assumenda ipsam nihil, molestias magnam, recusandae quos quis inventore quisquam velit asperiores, vitae? Reprehenderit soluta, eos quod consequuntur itaque. Nam.</p>
+                <button class="btn btn-primary" href="#" data-dismiss="modal">
+                  <i class="fas fa-times fa-fw"></i>
+                  Close Window
+                </button>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Portfolio Modal 6 -->
+  <div class="portfolio-modal modal fade" id="portfolioModal6" tabindex="-1" role="dialog" aria-labelledby="portfolioModal6Label" aria-hidden="true">
+    <div class="modal-dialog modal-xl" role="document">
+      <div class="modal-content">
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">
+            <i class="fas fa-times"></i>
+          </span>
+        </button>
+        <div class="modal-body text-center">
+          <div class="container">
+            <div class="row justify-content-center">
+              <div class="col-lg-8">
+                <!-- Portfolio Modal - Title -->
+                <h2 class="portfolio-modal-title text-secondary text-uppercase mb-0">Submarine</h2>
+                <!-- Icon Divider -->
+                <div class="divider-custom">
+                  <div class="divider-custom-line"></div>
+                  <div class="divider-custom-icon">
+                    <i class="fas fa-star"></i>
+                  </div>
+                  <div class="divider-custom-line"></div>
+                </div>
+                <!-- Portfolio Modal - Image -->
+                <img class="img-fluid rounded mb-5" src="img/portfolio/submarine.png" alt="">
+                <!-- Portfolio Modal - Text -->
+                <p class="mb-5">Lorem ipsum dolor sit amet, consectetur adipisicing elit. Mollitia neque assumenda ipsam nihil, molestias magnam, recusandae quos quis inventore quisquam velit asperiores, vitae? Reprehenderit soluta, eos quod consequuntur itaque. Nam.</p>
+                <button class="btn btn-primary" href="#" data-dismiss="modal">
+                  <i class="fas fa-times fa-fw"></i>
+                  Close Window
+                </button>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
     
 </div>
   <!-- /.content-wrapper -->
@@ -393,6 +624,9 @@
 <script src="{{asset('/solmusic/js/owl.carousel.min.js')}}"></script>
 <script src="{{asset('/solmusic/js/mixitup.min.js')}}"></script>
 <script src="{{asset('/solmusic/js/main.js')}}"></script>
+
+
+<script src="{{asset('/freelancer.min.js')}}"></script>
 
 </body>
 </html>

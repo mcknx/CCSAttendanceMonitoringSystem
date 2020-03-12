@@ -19,6 +19,7 @@ class CreateActivityRequestsTable extends Migration
             $table->string('post');
             $table->string('file')->nullable();
             $table->timestamp('notified_at')->nullable();
+            $table->integer('notified')->nullable()->default(0) ;
             $table->timestamps();
             $table->foreign('subject_id')->references('id')->on('subjects');
         });

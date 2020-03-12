@@ -8,16 +8,10 @@ function clickOnPrint(){
 
 <div class="card mb-3">
     <div class="card-body">
-        <h5 class="card-title"><b>List of attendances</b></h5>
-        <input class="card-title float-right btn btn-info d-inline" style="margin-top: -5px; margin-left: 10px;" type="button" value="Print" onclick="clickOnPrint()">
-            <div class="d-inline float-right">
-                <blockquote class="float-left card-text" style="margin-top: -5px;">To</blockquote>
-                <input type="date" class=" d-inline float-left" value="2020-02-28">
-            </div>
-            <div class="d-inline float-right">
-                <blockquote class="d-inline float-left card-text" style="margin-top: -5px;">From</blockquote>
-                <input type="date" class=" d-inline float-left" value="2020-02-28">
-            </div>
+        <div class="col d-inline col-sm">
+            <h5 class="card-title"><b>List of attendances</b></h5>
+        </div>
+        <input class="card-title float-right btn btn-info d-inline" style="margin-top: -5px; margin-left: 10px;" type="button" value="Print" data-toggle="modal" data-target="#modal-print">
         <br>
         <blockquote class="card-text">You can find here all the informations about attendances in the system.
         You can also create attendance <a href="{{ url('/recordCreate') }}"><b> here.</b></a>
@@ -70,5 +64,106 @@ function clickOnPrint(){
         </table>
     </div>
 </div>
+<?php
+    use Carbon\Carbon;
+    $date_today = Carbon::now()->toDateTimeString();
+    $dt = strtotime($date_today);
+    $date = date("Y-m-d", $dt);
+?>
+<!-- User View -->
+<div class="modal" id="modal-print">
+    <div class="modal-dialog">
+        <div class="modal-content bg-info">
+            <div class="modal-header">
+                <h4 class="modal-title">Print Section</h4>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                <span aria-hidden="true">&times;</span></button>
+            </div>
+            <div class="modal-body">
+                <div class="form-group">
+                    <label>Select Semester</label><br>
+                    <div class="col d-inline col-sm">
+                        <label class=" card-text" for="from" style="margin-top: -5px;">From</label>
+                        <input type="date"  value="{{$date}}" name="from">
+                    </div>
+                    <div class="col d-inline col-sm">
+                        <label class="card-text" for="to" style="margin-top: -5px;">To</label>
+                        <input type="date" value="{{$date}}" name="to">
+                        
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label>Enter Date</label><br>
+                    <div class="col d-inline col-sm">
+                        <label class=" card-text" for="from" style="margin-top: -5px;">From</label>
+                        <input type="date"  value="{{$date}}" name="from">
+                    </div>
+                    <div class="col d-inline col-sm">
+                        <label class="card-text" for="to" style="margin-top: -5px;">To</label>
+                        <input type="date" value="{{$date}}" name="to">
+                        
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label>Subject Day</label>
+                    <div class="form-group clearfix bg-info">
+                        
+                            <div class="icheck-primary d-inline">
+                            <input type="checkbox" id="Mon"  name="Subj_dayM" value="1">
+                            <label for="Mon">
+                                Mon
+                            </label>
+                            </div>
+                            <div class="icheck-primary d-inline">
+                            <input type="checkbox" id="Tue" name="Subj_dayT" value="1">
+                            <label for="Tue">
+                                Tue
+                            </label>
+                            </div>
+                            <div class="icheck-primary d-inline">
+                            <input type="checkbox" id="Wed" name="Subj_dayW" value="1">
+                            <label for="Wed">
+                                Wed
+                            </label>
+                            </div>
+                            <div class="icheck-primary d-inline">
+                            <input type="checkbox" id="Thu" name="Subj_dayTH" value="1" >
+                            <label for="Thu">
+                                Thu
+                            </label>
+                            </div>
+                            <div class="icheck-primary d-inline">
+                            <input type="checkbox" id="Fri" name="Subj_dayF" value="1" >
+                            <label for="Fri">
+                                Fri
+                            </label>
+                            </div>
+                            <div class="icheck-primary d-inline">
+                            <input type="checkbox" id="Sat" name="Subj_dayS" value="1"  >
+                            <label for="Sat">
+                            Sat
+                            </label>
+                            </div>
+                            <div class="icheck-primary d-inline">
+                            <input type="checkbox" id="Sun" name="Subj_daySu" value="1"  >
+                            <label for="Sun">
+                            Sun
+                            </label>
+                            </div>
+                      
+                    </div>
+                    <!-- <input  name="Subj_day" type="text" class="form-control"  placeholder="Enter Last Name"> -->
+                </div>
+            </div>
+            <div class="modal-footer justify-content-between">
+                <button type="button" class="btn btn-outline-light" data-dismiss="modal">Close</button>
+                <button type="button" class="btn btn-outline-light" onclick="clickOnPrint()">Print</button>
+            </div>
+        </div>
+    <!-- /.modal-content -->
+    </div>
+    <!-- /.modal-dialog -->
+</div>
+<!-- /.user View -->
 
 

@@ -10,22 +10,24 @@
   <div class="card-body pb-0" >
     <p class="text-danger"><strong>Please reload the page for updates</strong></p>  
     <h5><blockquote><?= $day ?> Schedules</blockquote></h5>
+    <a href="/showUserData/3"wa></a>
     
-    <div class="row flex-row d-flex align-items-stretch">
+    
+    <div class="row d-flex justify-content-center">
       @foreach($sessions as $session)
-      <div class="col-12 col-sm-6 col-md-4  flex-row d-flex align-items-stretch">
+      <div class="col-12 col-sm-6 col-md-4" >
       
-        <div id="myCard" class="card bg-white shadow mb-5 border">
+        <div id="myCard" class="card bg-white shadow mb-5 border ">
       
           <div class="card-header border-bottom-0">
           </div>
-          <div class="card-body pt-0" style="padding: 5px !important;">
-            <div class="row">
-              <div class="col-5 text-right">
-                <p class=" text-active"><b>Room: </b> {{ucfirst($session->subject->Subj_room)}} </p>
-                <p class=" text-active"><b>Section: </b> {{ucfirst($session->subject->Subj_yr_sec)}} </p>
-                <p class="text-active "><b>Subject: </b> {{ucfirst($session->subject->Subj_desc)}} </p>
-                <p class="text-active "><b>Schedule: </b> <br>
+          <div class="card-body pt-0 align-self-stretch" style="padding: 5px !important;">
+            <div class="row align-self-stretch">
+              <div class="col-5 text-right" >
+                <p class=" text-active" style="margin: 0;"><b>Room: </b> {{ucfirst($session->subject->Subj_room)}} </p>
+                <p class=" text-active" style="margin: 0;"><b>Section: </b> {{ucfirst($session->subject->Subj_yr_sec)}} </p>
+                <p class="text-active " style="margin: 0; "><b>Subject: </b> <p style="margin: 0; font-size: 12px; margin-bottom: -20px;">{{ucfirst($session->subject->Subj_desc)}} </p></p>
+                <p class="text-active " style="margin: 0;"><b>Schedule: </b> <br>
 
                 
                
@@ -89,26 +91,42 @@
               </div>
               <div class="col-7 text-center">
                 @if($session->subject->professor->Prof_gender == 'm')
-                  <a href="" data-toggle="modal" data-target="#modal-user" onclick="onClickUserView('{{$session->subject->professor->user->id}}')" data-placement="top" title="View Profile"><img src="/AdminLTE-master/dist/img/user.png" alt="" width="60px;" class="img-circle img-fluid"></a>
-                  @if (count($session->subject->activity_requests) != 0)
-                    <span class="badge badge-warning navbar-badge ">{{count($session->subject->activity_requests)}}</span>
+                  <a href="" data-toggle="modal" data-target="#modal-user" onclick="onClickUserView( '{{$session->id}}')" data-placement="top" title="View Profile"><img src="/AdminLTE-master/dist/img/user.png" alt="" width="60px;" class="img-circle img-fluid"></a>
+                  <?php
+                    $count = 0;
+                    foreach ($session->subject->activity_requests as $activity_request){
+                      if ($activity_request->notified == 0) {
+                        $count++;
+                      }
+                    }
+                  ?>
+                  @if ($count != 0)
+                  <span class="badge badge-warning navbar-badge ">{{$count}}</span>
                   @endif
-                  <i data-toggle="modal" data-target="#modal-user" onclick="onClickUserView('{{$session->subject->professor->user->id}}')" class="far fa-bell pull-right" data-placement="top" title="New Notification!" style="cursor: pointer;"></i>
+                  <i data-toggle="modal" data-target="#modal-user" onclick="onClickUserView( '{{$session->id}}')" class="far fa-bell pull-right" data-placement="top" title="New Notification!" style="cursor: pointer;"></i>
                 @endif
 
                 @if($session->subject->professor->Prof_gender == 'f')
-                  <a href="" data-toggle="modal" data-target="#modal-user" onclick="onClickUserView('{{$session->subject->professor->user->id}}')" data-placement="top" title="View Profile"><img src="/AdminLTE-master/dist/img/user1.png" alt="" width="60px;" class="img-circle img-fluid"></a>
-                  @if (count($session->subject->activity_requests) != 0)
-                    <span class="badge badge-warning navbar-badge ">{{count($session->subject->activity_requests)}}</span>
+                  <a href="" data-toggle="modal" data-target="#modal-user" onclick="onClickUserView( '{{$session->id}}')" data-placement="top" title="View Profile"><img src="/AdminLTE-master/dist/img/user1.png" alt="" width="60px;" class="img-circle img-fluid"></a>
+                  <?php
+                    $count = 0;
+                    foreach ($session->subject->activity_requests as $activity_request){
+                      if ($activity_request->notified == 0) {
+                        $count++;
+                      }
+                    }
+                  ?>
+                  @if ($count != 0)
+                  <span class="badge badge-warning navbar-badge ">{{$count}}</span>
                   @endif
-                  <i data-toggle="modal" data-target="#modal-user" onclick="onClickUserView('{{$session->subject->professor->user->id}}')" class="far fa-bell pull-right" data-placement="top" title="New Notification!" style="cursor: pointer;"></i>
+                  <i data-toggle="modal" data-target="#modal-user" onclick="onClickUserView( '{{$session->id}}')" class="far fa-bell pull-right" data-placement="top" title="New Notification!" style="cursor: pointer;"></i>
                 @endif
                 
                 <h2 class="lead"><b>{{ucfirst($session->subject->professor->Prof_fname)}} {{ucfirst($session->subject->professor->Prof_lname)}}</b></h2>
-                <blockquote class="md-12">
+                <blockquote class="md-12" style="margin: 0;">
                 <ul class="ml-4 mb-0 fa-ul text-left">
-                      <li class="small"><span class="fa-li"><i class="fas fa-lg fa-clock"></i></span> <b>Timein:</b><br> {{ucfirst($session->subject->Subj_timein)}}</li>
-                      <li class="small"><span class="fa-li"><i class="fas fa-lg fa-clock"></i></span> <b>Timeout:</b><br> {{ucfirst($session->subject->Subj_timeout)}}</li>
+                      <li class="small"><span class="fa-li" style="margin: 0;"><i class="fas fa-lg fa-clock"></i></span> <b>Timein:</b><br> {{ucfirst($session->subject->Subj_timein)}}</li>
+                      <li class="small"><span class="fa-li" style="margin: 0;"><i class="fas fa-lg fa-clock"></i></span> <b>Timeout:</b><br> {{ucfirst($session->subject->Subj_timeout)}}</li>
                 </ul>
                 </blockquote>
               </div>
@@ -162,207 +180,152 @@
   <!-- /.card-body -->
 
    <!-- Modals -->
-      <!-- Remarks -->
-      <div class="modal" id="modal-info">
-        <div class="modal-dialog">
-          <div class="modal-content bg-info">
-            <div class="modal-header">
-              <h4 class="modal-title">Remark Section</h4>
-              <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                <span aria-hidden="true">&times;</span></button>
-            </div>
-            <div class="modal-body">
-              <div class="form-group">
-              <label>Add Remarks</label>
-              <textarea class="form-control" rows="3" id="remark" placeholder="Enter Remarks"></textarea>
-            </div>
-            </div>
-            <div class="modal-footer justify-content-between">
-              <button type="button" class="btn btn-outline-light" data-dismiss="modal">Close</button>
-              <button type="button" class="btn btn-outline-light" onclick="onClickRemarks()">Save changes</button>
-            </div>
+    <!-- User View -->
+    <div class="modal" id="modal-info">
+      <div class="modal-dialog">
+        <div class="modal-content bg-info">
+          <div class="modal-header">
+            <h4 class="modal-title">Remark Section</h4>
+            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+              <span aria-hidden="true">&times;</span></button>
           </div>
-          <!-- /.modal-content -->
+          <div class="modal-body">
+            <div class="form-group">
+            <label>Add Remarks</label>
+            <textarea class="form-control" rows="3" id="remark" placeholder="Enter Remarks"></textarea>
+          </div>
+          </div>
+          <div class="modal-footer justify-content-between">
+            <button type="button" class="btn btn-outline-light" data-dismiss="modal">Close</button>
+            <button type="button" class="btn btn-outline-light" onclick="onClickRemarks()">Save changes</button>
+          </div>
         </div>
-        <!-- /.modal-dialog -->
+        <!-- /.modal-content -->
       </div>
-      <!-- /.remarks -->
+      <!-- /.modal-dialog -->
+    </div>
+    <!-- /.user View -->
 
-      <!-- Remarks -->
-      <div class="modal" id="modal-user">
-        <div class="modal-dialog-xl">
-          <div class="modal-content bg-default">
-            <div class="modal-header bg-info">
-              <h4 class="modal-title ">User Profile Section</h4>
-              <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                <span aria-hidden="true">&times;</span></button>
-            </div>
-            <div class="modal-body">
-              <div class="form-group">
-              <!-- Main content -->
-                <section class="content">
-                  <div class="container-fluid">
-                    <div class="row">
-                      <div class="col-md-3">
+    <!-- Remarks -->
+    <div class="modal" id="modal-user">
+      <div class="modal-dialog-lg">
+        <div class="modal-content bg-default">
+          <div class="modal-header bg-info">
+            <h4 class="modal-title ">User Profile Section</h4>
+            <button type="button" class="close" data-dismiss="modal" onclick="onClickClearSession()" aria-label="Close">
+              <span aria-hidden="true">&times;</span></button>
+          </div>
+          <div class="modal-body">
+            <div class="form-group">
+            <!-- Main content -->
+              <section class="content">
+                <div class="container">
+                  <div class="row">
+                    <div class="col-md-3">
 
-                        <!-- Profile Image -->
-                        <div class="card card-primary card-outline">
-                          <div class="card-body box-profile">
-                            <div class="text-center">
-                              <img class="profile-user-img img-fluid img-circle"
-                                  src="/AdminLTE-master/dist/img/avatar5.png"
-                                  alt="User profile picture">
-                            </div>
-
-                            <h3 class="profile-username text-center" id="prof_name"></h3>
-
-                            <p class="text-muted text-center">Professor</p>
-
-                            <button class="btn btn-primary btn-block" data-toggle="modal" data-target="#modal-view-table"><b>View Table</b></button>
+                      <!-- Profile Image -->
+                      <div class="card card-primary card-outline">
+                        <div class="card-body box-profile">
+                          <div class="text-center">
+                            <img class="profile-user-img img-fluid img-circle"
+                                src="/AdminLTE-master/dist/img/user1.png"
+                                alt="User profile picture">
                           </div>
-                          <!-- /.card-body -->
+
+                          <h3 class="profile-username text-center" id="prof_name"></h3>
+
+                          <p class="text-muted text-center">Professor</p>
+                          
                         </div>
-                        <!-- /.card -->
-                        <div class="card card-primary card-outline">
-                        <div id="myCarousel" class="carousel slide" data-ride="carousel">
-                              <!-- Indicators -->
-                              <ol class="carousel-indicators">
-                                <li data-target="#myCarousel" data-slide-to="0" class="active"></li>
-                                <li data-target="#myCarousel" data-slide-to="1"></li>
-                                <li data-target="#myCarousel" data-slide-to="2"></li>
-                              </ol>
+                        <!-- /.card-body -->
+                      </div>
+                      <!-- /.card -->
+                      <div class="card card-primary card-outline">
+                      <div id="myCarousel" class="carousel slide" data-ride="carousel">
+                            <!-- Indicators -->
+                            <ol class="carousel-indicators">
+                              <li data-target="#myCarousel" data-slide-to="0" class="active"></li>
+                              <li data-target="#myCarousel" data-slide-to="1"></li>
+                              <li data-target="#myCarousel" data-slide-to="2"></li>
+                            </ol>
 
-                              <!-- Wrapper for slides -->
-                              <div class="carousel-inner">
-                              
+                            <!-- Wrapper for slides -->
+                            <div class="carousel-inner">
+                            
 
-                                <div class="item active">
-                                  <!-- <img src="chicago.jpg" alt="Chicago" style="width:100%;"> -->
-                                  <blockquote ><strong><h6 class="text-primary">Today's Subject</h6></strong></blockquote>
-                                  <p class="no_class"></p>
-                                  
-                                  <ul class="list-group list-group-unbordered mb-3">
-                                    <li class="list-group-item">
-                                        <b>Subject Title</b><br>
-                                          <kbd><strong id="subj_title"></strong></kbd>.
-                                    </li>
-                                    <li class="list-group-item">
-                                      <b>Subject Description</b><br>
-                                        <kbd><strong id="subj_desc"></strong></kbd>.
-                                    </li>
-
-                                    <li class="list-group-item">
-                                      <b>Day Schedule(s)</b> 
-                                        <br>
-                                            <kbd><strong id="sub_mon"></strong></kbd>,  
-                                            <kbd><strong id="sub_tue"></strong></kbd>,  
-                                            <kbd><strong id="sub_wed"></strong></kbd>,  
-                                            <kbd><strong id="sub_thu"></strong></kbd>,  
-                                            <kbd><strong id="sub_fri"></strong></kbd>,  
-                                            <kbd><strong id="sub_sat"></strong></kbd>,  
-                                            <kbd><strong id="sub_sun"></strong></kbd>. 
-                                    </li>
-
-                                    <li class="list-group-item">
-                                        <b>Time Schedule</b> 
-                                          <br>
-                                            <kbd><strong id="sub_timein"></strong></kbd> - 
-                                          <kbd><strong id="sub_timeout"></strong></kbd>.
-                                    </li>
-
-                                    <li class="list-group-item">
-                                      <b>Room</b>
-                                      <br>
-                                      <kbd><strong id="sub_room"></strong></kbd>.
-                                    </li>
-                                    <li class="list-group-item">
-                                      <b>Units</b>
-                                      <br>
-                                      <kbd><strong id="sub_units"></strong></kbd>.
-                                    </li>
-                                    <li class="list-group-item">
-                                      <b>Section</b>
-                                      <br>
-                                      <kbd><strong id="sub_yr_sec"></strong></kbd>.
-                                    </li>
-                                  </ul>
-                                </div>
-                              
+                              <div class="item active">
+                                <!-- <img src="chicago.jpg" alt="Chicago" style="width:100%;"> -->
+                                <blockquote ><strong><h6 class="text-primary">Today's Subject</h6></strong></blockquote>
+                                <div id="class_status"></div>
+                                
                                 
                               </div>
-
-                              <!-- Left and right controls -->
-                              <br>
-                              <br>
-                              <br>
-                              <br>
-                              <br>
-                              <a class="left carousel-control" href="#myCarousel" data-slide="prev">
-                                <span class="glyphicon"></span>
-                                <span class="sr-only">Previous</span>
-                              </a>
-                              <a class="right carousel-control" href="#myCarousel" data-slide="next">
-                                <span class="glyphicon"></span>
-                                <span class="sr-only">Next</span>
-                              </a>
+                            
+                              
                             </div>
-                        </div>
+
+                            <!-- Left and right controls -->
+                            <br>
+                            <br>
+                            <br>
+                            <br>
+                            <br>
+                            <a class="left carousel-control" href="#myCarousel" data-slide="prev">
+                              <span class="glyphicon"></span>
+                              <span class="sr-only">Previous</span>
+                            </a>
+                            <a class="right carousel-control" href="#myCarousel" data-slide="next">
+                              <span class="glyphicon"></span>
+                              <span class="sr-only">Next</span>
+                            </a>
+                          </div>
                       </div>
                       
-
-                      
-                      <!-- /.col -->
-                      <div class="col-md-9">
-                        <div class="card">
-                          <div class="card-header p-2">
-                            <ul class="nav nav-pills">
-                              <li class="nav-item"><a class="nav-link active" href="#activity" data-toggle="tab">Activity</a></li>
-                              <li class="nav-item"><a class="nav-link" href="#settings" data-toggle="tab">Create Activity Request</a></li>
-                            </ul>
-                          </div>
-
-                          <div class="card-body">
-                            <div class="tab-content">
-                                <div class="active tab-pane" id="activity">
-                                  <!-- Post -->
-                                  <div class="post">
-                                    <div class="user-block">
-                                      <img class="img-circle img-bordered-sm" src="/AdminLTE-master/dist/img/avatar5.png" alt="user image">
-                                      <span class="username">
-                                        <a href="" data-toggle="modal" data-target="#modal-default-edit" id="prof_name1"></a>
-                                        <!-- <a href="#" class="float-right btn-tool"><i class="fas fa-times"></i></a> -->
-                                      </span>
-                                    </div>
-                                  </div>
-                                </div>
-                            </div>
-                          </div>
-                        </div>
-                        <!-- /.nav-tabs-custom -->
-                      </div>
-                      <!-- /.col -->
                     </div>
-                    <!-- /.row -->
-                  </div><!-- /.container-fluid -->
-                </section>
-                <!-- /.content -->
-              </div>
+                    
+                    <!-- /.col -->
+                    <div class="col-md-9">
+                      <div class="card">
+                        <div class="card-header p-2">
+                          <ul class="nav nav-pills">
+                            <li class="nav-item"><a class="nav-link active" onclick="onClickReShowActivityRequests()"  href="#activity" data-toggle="tab" >Activity Requests</a></li>
+                            <li class="nav-item"><a class="nav-link" onclick="onClickReShowViewTable()" href="#view-table" data-toggle="tab" >View Table</a></li>
+                          </ul>
+                        </div>
 
-              <!-- Modals -->
-              <div class="modal fade" id="modal-view-table">
-              </div>
+                        <div class="card-body">
+                          <div class="tab-content">
+                            <div id="activity">
+                            </div>
+
+                            <div id="view-table">
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+                      <!-- /.nav-tabs-custom -->
+                    </div>
+                    <!-- /.col -->
+                  </div>
+                  <!-- /.row -->
+                </div><!-- /.container-fluid -->
+              </section>
+              <!-- /.content -->
             </div>
-            </div>
-            <div class="modal-footer justify-content-between bg-info">
-              <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
-              <button type="button" class="btn btn-default" onclick="onClickRemarks()">Save changes</button>
-            </div>
+
+            
           </div>
-          <!-- /.modal-content -->
+          </div>
+          <div class="modal-footer justify-content-between bg-info">
+            <button type="button" class="btn btn-default" onclick="onClickClearSession()" data-dismiss="modal">Close</button>
+            <!-- <button type="button" class="btn btn-default" onclick="onClickRemarks()">Save changes</button> -->
+          </div>
         </div>
-        <!-- /.modal-dialog -->
+        <!-- /.modal-content -->
       </div>
-      <!-- /.remarks -->
+      <!-- /.modal-dialog -->
+    </div>
+    <!-- /.remarks -->
 </div>
 <!-- /.card -->
 
@@ -385,6 +348,8 @@
   }
 })
   var selectedSessionId = null;
+  var actRequestStorage = null;
+  var subjectsStorage = null;
 
   function onClickModalRemark(session_id){
     selectedSessionId = session_id;
@@ -401,78 +366,306 @@
     });
   }
 
-  function onClickUserView(user_id){
-    axios.get('/showUserData/' + user_id)
+  function onClickClearSession() {
+    actRequestStorage = null;
+    subjectsStorage = null;
+  }
+  function OnclickBlankActivity(id) {
+    document.getElementById(id).innerHTML = "";
+  }
+  function onClickUserView(ses_id){
+    // user_id
+    // alert( ses_id)
+    axios.get('/showUserData/' + ses_id)
     .then(function (response) {
-      // alert(user_id)
+      
       // console.log(response);
-      $('.modal-backdrop').remove();
+      // $('.modal-backdrop').remove();
       var subject_today = response.data[2];
       var activity_requests = response.data[5];
+      var subjects = response.data[3];
+      var mon = "";
+      var tue = "";
+      var wed = "";
+      var thu = "";
+      var fri = "";
+      var sat = "";
+      var sun = "";
 
-      if (subject_today == null) {
-        document.getElementById('no_class').innerHTML = "No class for today";
-      }
-      if (subject_today != null) {
-        // Title
-        document.getElementById('subj_title').innerHTML = subject_today.Subj_title;
-        // Desc
-        document.getElementById('subj_desc').innerHTML = subject_today.Subj_desc;
+      document.getElementById('prof_name').innerHTML = response.data[0].name;
+      // console.log(subject_today)
 
-        // Day Sched
+      // Day Sched
         // console.log(subject_today);
         if (subject_today.Subj_dayM == 1) {
-          document.getElementById('sub_mon').innerHTML = "Mon";
+          mon = "Mon";
         }
         if (subject_today.Subj_dayT == 1) {
-          document.getElementById('sub_tue').innerHTML = "Tue";
+          tue = "Tue";
         }
         if (subject_today.Subj_dayW == 1) {
-          document.getElementById('sub_wed').innerHTML = "Wed";
+          wed = "Wed";
         }
         if (subject_today.Subj_dayTH == 1) {
-          document.getElementById('sub_thu').innerHTML = "Thu";
+          thu = "Thu";
         }
         if (subject_today.Subj_dayF == 1) {
-          document.getElementById('sub_fri').innerHTML = "Fri";
+          fri = "Fri";
         }
         if (subject_today.Subj_dayS == 1) {
-          document.getElementById('sub_sat').innerHTML = "Sat";
+          sat = "Sat";
         }
         if (subject_today.Subj_daySu == 1) {
-          document.getElementById('sub_sun').innerHTML = "Sun";
+          sun = "Sun";
         }
-
-        // Time Sched
-        document.getElementById('sub_timein').innerHTML = subject_today.Subj_timein;
-        document.getElementById('sub_timeout').innerHTML = subject_today.Subj_timeout;
-
-        // Room
-        document.getElementById('sub_room').innerHTML = subject_today.Subj_room;
-
-        // Units
-        document.getElementById('sub_units').innerHTML = subject_today.Subj_units;
-        // Section
-        document.getElementById('sub_yr_sec').innerHTML = subject_today.Subj_yr_sec;
+      if (subject_today === null) {
+        document.getElementById('class_status').innerHTML = "<p>No class for today</p>";
       }
+      if (subject_today != null) {
+        
+        document.getElementById('class_status').innerHTML = 
+        `
+        <ul class="list-group list-group-unbordered mb-3">
+          <li class="list-group-item">
+              <b>Subject Title</b><br>
+                <kbd><strong id="subj_title">`+ subject_today.Subj_title +`</strong></kbd>.
+          </li>
+          <li class="list-group-item">
+            <b>Subject Description</b><br>
+              <kbd><strong id="subj_desc">`+ subject_today.Subj_desc +`</strong></kbd>.
+          </li>
+
+          <li class="list-group-item">
+            <b>Day Schedule(s)</b> 
+              <br>
+                  <kbd><strong id="sub_mon">`+ mon +`</strong></kbd>,  
+                  <kbd><strong id="sub_tue">`+ tue +`</strong></kbd>,  
+                  <kbd><strong id="sub_wed">`+ wed +`</strong></kbd>,  
+                  <kbd><strong id="sub_thu">`+ thu +`</strong></kbd>,  
+                  <kbd><strong id="sub_fri">`+ fri +`</strong></kbd>,  
+                  <kbd><strong id="sub_sat">`+ sat +`</strong></kbd>,  
+                  <kbd><strong id="sub_sun">`+ sun +`</strong></kbd>. 
+          </li>
+
+          <li class="list-group-item">
+              <b>Time Schedule</b> 
+                <br>
+                  <kbd><strong id="sub_timein">`+ subject_today.Subj_timein +`</strong></kbd> - 
+                <kbd><strong id="sub_timeout">`+ subject_today.Subj_timeout +`</strong></kbd>.
+          </li>
+
+          <li class="list-group-item">
+            <b>Room</b>
+            <br>
+            <kbd><strong id="sub_room">`+ subject_today.Subj_room +`</strong></kbd>.
+          </li>
+          <li class="list-group-item">
+            <b>Units</b>
+            <br>
+            <kbd><strong id="sub_units">`+ subject_today.Subj_units +`</strong></kbd>.
+          </li>
+          <li class="list-group-item">
+            <b>Section</b>
+            <br>
+            <kbd><strong id="sub_yr_sec">`+ subject_today.Subj_yr_sec +`</strong></kbd>.
+          </li>
+        </ul>
+                                `
+        // Show Table
+        onClickShowViewTable(ses_id)
+
+        // Show Requests
+        onClickShowActivityRequests(ses_id);
+        
+      }
+      // console.log(activity_requests[0])
       console.log(activity_requests)
       var activity_request = activity_requests[0];
-      for (var i = 0; i < activity_request.length; i++) {
-        console.log(activity_request[i].notified_at)
-      }
-      
-      
-      
-      
       
       document.getElementById('prof_name1').innerHTML = response.data[0].name;
       document.getElementById('prof_name').innerHTML = response.data[0].name;
       console.log(response.data[0].name);
+
+
     })
     .catch(function (error) {
       // handle error
       console.log(error);
     });
+  }
+
+  function onClickShowActivityRequests(ses_id) {
+    axios.get('/showUserData/' + ses_id)
+    .then(function (response) {
+      var subject_today = response.data[2];
+      var activity_requests = response.data[5];
+      var activity_request = activity_requests[0];
+
+      // Clear
+      OnclickBlankActivity('view-table')
+      OnclickBlankActivity('activity')
+      
+      for (var i = 1; i < activity_requests.length; i++) {
+        if (activity_requests[i].length === 0) {
+          continue;
+        }
+        actRequestStorage = document.getElementById('activity').innerHTML += 
+        `
+        <div class="active tab-pane" >
+          <div class="timeline">
+            <!-- Post -->
+            <div class="time-label">
+              <span class="bg-red">`+ activity_requests[i][0] +`</span>
+            </div>
+            <div>
+              <i class="fas fa-envelope bg-blue"></i>
+              <div  class="post timeline-item">
+                <div class="timeline-body">
+                  <div class="user-block">
+                    <img class="img-circle img-bordered-sm" src="/AdminLTE-master/dist/img/user1.png" alt="user image">
+                    <span class="username">
+                      <a href="" data-toggle="modal" data-target="#modal-default-edit">`+ response.data[0].name +`</a> 
+                    </span>
+                    
+                    <span class="description">Created Activity Request! - `+ activity_requests[i][0] +`@<kbd><strong>`+ activity_requests[i][1] +`</strong></kbd><br>
+                      Subject: <strong>`+ activity_requests[i][2] +`</strong>, <br>
+                      Room: <strong>`+ activity_requests[i][3] +`</strong>, <br>
+                      Section: <strong>`+ activity_requests[i][4] +`</strong>, <br>
+                    
+                      Schedule: <strong> `+ activity_requests[i][5] +` - `+ activity_requests[i][6] +`</strong> <br>
+                    </span>
+                  </div>
+
+                  <p>
+                    <strong class="text-primary">Activity Request Description</strong><br>
+                    `+ activity_requests[i][7] +`.
+
+                    <br>
+                    <strong class="text-primary">File</strong><br>
+                    <a href="{{ asset('user-files/`+activity_requests[i][8]+`') }}">`+ activity_requests[i][8] +`</a>
+                  </p>
+
+                  <p id="mark">
+                    <a href="#" class="link-black text-sm" onclick="onClickMarkAsRead(`+ activity_requests[i][10] +`)"><i class="far fa-check-square"></i> Mark as Read</a>
+                  </p>
+                  </div>
+                </div>
+              <!-- ./post -->
+            </div>
+          </div>
+        </div>
+        
+        
+      `
+      }
+      
+    })
+    .catch(function (error) {
+      // handle error
+      console.log(error);
+    });
+    
+  }
+
+  function onClickShowViewTable(ses_id){
+    OnclickBlankActivity('activity')
+    axios.get('/showUserData/' + ses_id)
+    .then(function (response) {
+      // Clear
+      OnclickBlankActivity('view-table')
+      OnclickBlankActivity('activity') 
+      var subjects = response.data[3];
+      console.log(subjectsStorage)
+      var res = ""
+
+      for (var i = 0; i < subjects.length; i++) {
+        var subDay = "";
+
+        if (subjects[i].Subj_dayM === 1) {
+          subDay+="<kbd><strong>Mon</strong></kbd>,"
+        }
+        if (subjects[i].Subj_dayT === 1) {
+          subDay+="<kbd><strong>Tue</strong></kbd>,"
+        }
+        if (subjects[i].Subj_dayW === 1) {
+          subDay+="<kbd><strong>Wed</strong></kbd>,"
+        }
+        if (subjects[i].Subj_dayTH === 1) {
+          subDay+="<kbd><strong>Thu</strong></kbd>,"
+        }
+        if (subjects[i].Subj_dayF === 1) {
+          subDay+="<kbd><strong>Fri</strong></kbd>,"
+        }
+        if (subjects[i].Subj_dayS === 1) {
+          subDay+="<kbd><strong>Sat</strong></kbd>,"
+        }
+        if (subjects[i].Subj_daysSu === 1) {
+          subDay+="<kbd><strong>Sun</strong></kbd>."
+        }
+
+        res += `
+            <tr>
+              <td>`+ subjects[i].prof_id +`</td>
+              <td>`+ subjects[i].Subj_title +`</td>
+              <td>`+ subDay +`</td>
+              <td>`+ subjects[i].Subj_timein +`</td>
+              <td>`+ subjects[i].Subj_timeout +`</td>
+              <td>`+ subjects[i].Subj_desc +`</td>
+              <td>`+ subjects[i].Subj_units +`</td>
+              <td>`+ subjects[i].Subj_room +`</td>
+              <td>`+ subjects[i].Subj_yr_sec +`</td>
+              <td>`+ subjects[i].Prof_code +`</td>
+            </tr>
+        `
+      }
+      var content = `
+      <div class="active tab-pane" >
+        <div  class="post">
+          <h4 class="modal-title text-justify">Subjects</h4>
+          <table class="table table-responsive">
+            <thead class="thead-light">
+            <tr>
+                <th scope="col">Professor ID</th>
+                <th scope="col">Title</th>
+                <th scope="col">Day</th>
+                <th scope="col">Time-in</th>
+                <th scope="col">Time-out</th>
+                <th scope="col">Description</th>
+                <th scope="col">Units</th>
+                <th scope="col">Room</th>
+                <th scope="col">Year & Section</th>
+                <th scope="col">Professor Code</th>
+            </tr>
+            </thead>
+            <tbody>
+            `+res+`
+            </tbody>
+          </table>
+        </div>    
+      </div>
+      `;
+      
+      subjectsStorage = document.getElementById('view-table').innerHTML = content;
+      
+    })
+    .catch(function (error) {
+      // handle error
+      console.log(error);
+    });
+    
+  }
+
+  function onClickReShowActivityRequests() {
+    OnclickBlankActivity('view-table')
+    // console.log(actRequestStorage)
+    document.getElementById('activity').innerHTML = actRequestStorage;
+  }
+
+  function onClickReShowViewTable() {
+    OnclickBlankActivity('activity')
+    // console.log(subjectsStorage)
+    document.getElementById('view-table').innerHTML = subjectsStorage;
+    
   }
 
   function onClick(session_id, prof_status){
@@ -512,6 +705,21 @@
       // always executed
     });
   }
+
+  function onClickMarkAsRead(act_req_id){
+    // alert(act_req_id)
+    // var remark = document.getElementById('remark').value;
+    axios.post('/markActivityRequest/' + act_req_id)
+    .then(function (response) {
+      // handle success
+      console.log(response);
+    })
+    .catch(function (error) {
+      // handle error
+      console.log(error);
+    });
+  }
+
   function onClickRemarks(){
     // alert('Professor: ' + prof_code + ' is ' + prof_status)
     $('.modal-backdrop').remove();

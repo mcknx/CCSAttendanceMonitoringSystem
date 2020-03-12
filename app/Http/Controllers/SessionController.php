@@ -107,14 +107,20 @@ class SessionController extends Controller
         return view('session',['sessions'=>$sessions, 'record'=>$record,'layout'=>'sessionShow']);
     }
 
-    public function showUserData($id)
+    public function showUserData($ses_id)
     {   
-        $date_today = Carbon::now()->toDateTimeString();
+        // $date_today = Carbon::now()->toDateTimeString();
+        $date_today = Session::find($ses_id);
+        $userID = $date_today->subject->professor->user_id;
+        // dd($userID);
+        $date_today = $date_today->record->Rec_dateCreated;
+        
         $dt = strtotime($date_today);
         $dayAbbrv = date("D", $dt);
         // $user = $id;
-        // $userID = $user->id;
-        $professor = Professor::where('user_id', '=', $id)->first();
+        
+        $professor = Professor::where('user_id', '=', $userID)->first();
+        // dd($professor);
         $user = $professor->user;
         // $professor = $user->professor;
         $subjects = $professor->subjects;
@@ -172,9 +178,64 @@ class SessionController extends Controller
             array_push($session_array, $subjectSessions);
             array_push($activityRequests_array, $activityRequests);
         }
-
+        
         $sessions = $session_array;
         $activity_requests = $activityRequests_array;
+        
+
+        foreach ($activity_requests as $activity_request) {
+            $activity_requests_final = [];
+            
+            foreach ($activity_request as $item) {
+                // Notify 
+                    // Date
+                $dt = strtotime($item->notified_at);
+                $record = date("l, M d, Y", $dt);
+                $dayAbbrv = date("D", $dt);
+                $strRec = strval($record);
+
+                $activity_requests_final[0] = $strRec;
+                    // Time
+                $dt2 = strtotime($item->notified_at);
+                $recordN = date("g:i:sa", $dt2);
+                $strRecN = strval($recordN);
+                $activity_requests_final[1] = $strRecN;
+
+                // Subject
+                $activity_requests_final[2] =  $item->subject->Subj_desc;
+                // room
+                $activity_requests_final[3] = $item->subject->Subj_room;
+                // section
+                $activity_requests_final[4] =  $item->subject->Subj_yr_sec;
+
+                $dt = strtotime($item->subject->Subj_timein);
+                $dt2 = strtotime($item->subject->Subj_timeout);
+                $record1 = date("g:i:sa", $dt);
+                $record2 = date("g:i:sa", $dt2);
+                $strRec1 = strval($record1);
+                $strRec2 = strval($record2);
+                // Schedule
+                    // timein
+                $activity_requests_final[5] = $strRec1;
+                    // timeout
+                $activity_requests_final[6] = $strRec2;
+
+                // Activity Req Desc
+                $activity_requests_final[7] = $item->post;
+
+                // File
+                $activity_requests_final[8] = $item->file;
+
+                // Notified
+                $activity_requests_final[9] = $item->notified;
+
+                // id
+                $activity_requests_final[10] = $item->id;
+
+                // Finish
+                array_push($activity_requests,  $activity_requests_final);
+            }
+        }
         $arr = [$user, $professor, $subject_today, $subjects, $sessions, $activity_requests];
         
         return $arr;

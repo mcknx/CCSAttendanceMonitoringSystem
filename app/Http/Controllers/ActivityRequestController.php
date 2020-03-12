@@ -122,6 +122,13 @@ class ActivityRequestController extends Controller
         //
     }
 
+    public function mark($id)
+    {
+        $activityRequest = ActivityRequest::find($id);
+        $activityRequest->notified = 1;
+        $activityRequest->save();
+        return $activityRequest;
+    }
     /**
      * Remove the specified resource from storage.
      *

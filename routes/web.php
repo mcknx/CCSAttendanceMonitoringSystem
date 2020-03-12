@@ -33,6 +33,7 @@ Route::post('post-registration', 'AuthController@postRegistration');
 // Admin Dashnoard
 Route::get('dashboard', 'AuthController@dashboard')->middleware('auth');
 Route::get('logout', 'AuthController@logout');
+Route::get('/changeCredential/{id}', 'AuthController@changeCredential')->middleware('auth');
 
 // User Dashboard
 Route::get('userdashboard', 'UserDashboardController@index')->middleware('auth'); 
@@ -83,3 +84,4 @@ Route::post('/storeRequest/{prof_code}', "ActivityRequestController@store")->mid
 Route::get('/showActivityRequest/{id}', "ActivityRequestController@show")->middleware('auth') ;
 Route::post('/editActivityRequest/{id}', "ActivityRequestController@edit")->middleware('auth') ;
 Route::get('/deleteActivityRequest/{id}', "ActivityRequestController@destroy")->middleware('auth') ;
+Route::post('/markActivityRequest/{id}', "ActivityRequestController@mark")->middleware('auth') ;

@@ -8,6 +8,7 @@
         <table class="table table-responsive">
             <thead class="thead-light">
             <tr>
+                <th scope="col">Count</th>
                 <th scope="col">Professor ID</th>
                 <th scope="col">Title</th>
                 <th scope="col">Day</th>
@@ -25,6 +26,7 @@
             <tbody>
             @foreach($subjects as $subject)
                 <tr>
+                    <td>{{ $subject->id }}</td>
                     <td>{{ $subject->prof_id }}</td>
                     <td>{{ $subject->Subj_title }}</td>
                     <td>

@@ -19,35 +19,22 @@ class SubjectsImport implements ToModel,WithHeadingRow
     public function model(array $row)
     {
         $emptyRow = array_filter($row);
-        // if(!empty($emptyRow)){
-        // dd(array_filter($row));
-        // }
         
         if(!empty($emptyRow)){
             $strDateTimein = \PhpOffice\PhpSpreadsheet\Shared\Date::excelToDateTimeObject($row['subj_timein']);
-            // $strDateTimein = $strDateTimein->format('Y-m-d H:i:s');
-            // $strDateTimein = explode(" ",$strDateTimein);
-            // $strDateTimein = $strDateTimein[1];
+
 
             $strDateTimeout = \PhpOffice\PhpSpreadsheet\Shared\Date::excelToDateTimeObject($row['subj_timeout']);
-            // $strDateTimeout = $strDateTimeout->format('Y-m-d H:i:s');
-            // $strDateTimeout = explode(" ",$strDateTimeout);
-            // $strDateTimeout = $strDateTimeout[1];
 
             $str = $row['days'];
-
-            // dd($row['prof_mname'][0]);
             $profcode = strtolower($row['prof_fname'][0] . $row['prof_lname']);
             
             $professor = Professor::where('Prof_code', '=', $profcode)->first();
             
             if ($professor === null){
                 $arr = [$row['prof_fname'], $row['prof_mname'], $row['prof_lname'], $profcode, $row['prof_gender']];
-                // dd($arr);
                 $professor = new ProfessorsImport();
                 $professor = $professor->model($arr);
-                // dd($professor->id);
-                // dd( $createProfessor);
 
             }
             
@@ -58,21 +45,6 @@ class SubjectsImport implements ToModel,WithHeadingRow
             $subject->Subj_timein = $strDateTimein->format('H:i:s');
             
             $subject->Subj_timeout = $strDateTimeout->format('H:i:s');
-
-            
-
-            // $arr[] = [
-            //     'prof_id' => $value->prof_id,
-            //     'Subj_timein' => $value->Subj_timein,
-            //     'Subj_timeout' => $value->Subj_timeout,
-            //     // 'Subj_dayM' => $value->Subj_dayM,
-            //     // 'Subj_dayT' => $value->Subj_dayT,
-            //     // 'Subj_dayW' => $value->Subj_dayW,
-            //     // 'Subj_dayTH' => $value->Subj_dayTH,
-            //     // 'Subj_dayF' => $value->Subj_dayF,
-            //     // 'Subj_dayS' => $value->Subj_dayS,
-            //     // 'Subj_daySu' => $value->Subj_daySu,
-            // ];
 
             $arr1 = str_split($str, 3);
 
@@ -113,7 +85,7 @@ class SubjectsImport implements ToModel,WithHeadingRow
                 // $day[6] = 1;
                 }
             }
-            
+
             $subject->Subj_title = $row['subj_title'];
             $subject->Subj_desc = $row['subj_desc'];
             $subject->Subj_units = $row['subj_units'];
@@ -121,7 +93,76 @@ class SubjectsImport implements ToModel,WithHeadingRow
             $subject->Subj_yr_sec = $row['subj_yr_sec'];
             $subject->Prof_code = $profcode;
 
+            // $i = 0;
+            // $subjects = Subject::all();
+            // if ($subjects->isEmpty()) {
+            //     return $subject;
+            // }
+            // dd($subjects);
+            // $finish = count($subjects);
+            // dd($subjects);
+            // while ($i < $finish-1){
+            //     $i++;
+            //     $sub_title = $subjects[$i]->Subj_title;
+            //     $sub_yr_sec = $subjects[$i]->Subj_yr_sec;
+            //     $sub_prof_code = $subjects[$i]->Prof_code;
 
+            //     if ($i == $finish-1) {
+            //         return;
+            //     }
+            //     if ($subject->Subj_title == $sub_title) {
+            //         if ($subject->Subj_yr_sec == $sub_yr_sec) {
+            //             if ($subject->Prof_code == $sub_prof_code) {
+            //                 if ($subject->Subj_dayM == 1) {
+            //                     // dd($subjects[$i]);
+            //                     if ($subjects[$i]->Subj_dayM == 1) {
+            //                         continue;
+            //                     }else {
+            //                         return $subject;
+            //                     }
+            //                 }
+            //                 if ($subject->Subj_dayT == 1) {
+            //                     if ($subjects[$i]->Subj_dayT == 1) {
+            //                         continue;
+            //                     }else {
+            //                         return $subject;
+            //                     }
+            //                 }if ($subject->Subj_dayW == 1) {
+            //                     if ($subjects[$i]->Subj_dayW == 1) {
+            //                         continue;
+            //                     }
+            //                 }if ($subject->Subj_dayTH == 1) {
+            //                     if ($subjects[$i]->Subj_dayTH == 1) {
+            //                         continue;
+            //                     }else {
+            //                         return $subject;
+            //                     }
+            //                 }if ($subject->Subj_dayF == 1) {
+            //                     if ($subjects[$i]->Subj_dayF == 1) {
+            //                         continue;
+            //                     }else {
+            //                         return $subject;
+            //                     }
+            //                 }if ($subject->Subj_dayS == 1) {
+            //                     if ($subjects[$i]->Subj_dayS == 1) {
+            //                         continue;
+            //                     }else {
+            //                         return $subject;
+            //                     }
+            //                 }if ($subject->Subj_daySu == 1) {
+            //                     if ($subjects[$i]->Subj_daySu == 1) {
+            //                         continue;
+            //                     }else {
+            //                         return $subject;
+            //                     }
+            //                 }
+            //             }
+            //         }
+            //     }
+            //     // $subjects = Subject::where('Subj_title', '=', $subject->Subj_title)->where('Subj_yr_sec', '=', $subject->Subj_yr_sec)->where('Prof_code', '=', $subject->Prof_code)->first();
+                
+            // }
+            
             return $subject;
         }
     }

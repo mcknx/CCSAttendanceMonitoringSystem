@@ -318,232 +318,265 @@
             <div class="card">
               <div class="card-header p-2">
                 <ul class="nav nav-pills">
-                  <li class="nav-item"><a class="nav-link active" href="#activity" data-toggle="tab">Activity</a></li>
-                  <!-- <li class="nav-item"><a class="nav-link" href="#timeline" data-toggle="tab">Timeline</a></li> -->
+                  <li class="nav-item"><a class="nav-link active" href="#activity" data-toggle="tab">Activity Requests</a></li>
+                  <li class="nav-item"><a class="nav-link" href="#status" data-toggle="tab">Attendance Status</a></li>
                   <li class="nav-item"><a class="nav-link" href="#settings" data-toggle="tab">Create Activity Request</a></li>
                 </ul>
               </div><!-- /.card-header -->
               <div class="card-body">
                 <div class="tab-content">
                   <div class="active tab-pane" id="activity">
-
-                  @foreach ($activity_requests as $activity_request)
-                    @foreach ($activity_request as $item)
-                      <!-- Post -->
-                      <div class="post">
-                        <div class="user-block">
-                          <img class="img-circle img-bordered-sm" src="/AdminLTE-master/dist/img/avatar5.png" alt="user image">
-                          <span class="username">
-                            <a href="" data-toggle="modal" data-target="#modal-default-edit" onClick="onClickModalRemark('{{$item->id}}')">{{ ucfirst(Auth()->user()->name) }}</a>
-                            <!-- <a href="#" class="float-right btn-tool"><i class="fas fa-times"></i></a> -->
-                          </span>
-
-                          <?php 
-                              $dt = strtotime($item->notified_at);
-                              $record = date("l, M d, Y", $dt);
-                              $dayAbbrv = date("D", $dt);
-
-                              $dt2 = strtotime($item->notified_at);
-                              $recordN = date("g:i:sa", $dt2);
-
-                            ?>
-                          <span class="description">Created Activity Request! - {{ $record }} @<kbd><strong>{{ $recordN }}</strong></kbd><br>
-                            Subject: <strong>{{ $item->subject->Subj_desc }}</strong>, <br>
-                            Room: <strong>{{ $item->subject->Subj_room }}</strong>, <br>
-                            Section: <strong>{{ $item->subject->Subj_yr_sec }}</strong>, <br>
-                            <?php
-                              $dt = strtotime($item->subject->Subj_timein);
-                              $dt2 = strtotime($item->subject->Subj_timeout);
-                              $record1 = date("g:i:sa", $dt);
-                              $record2 = date("g:i:sa", $dt2);
-                            ?>
-                            Schedule: <strong>{{ $record1 }} - {{ $record2 }}</strong> <br>
-                          </span>
-                        </div>
-                        <!-- /.user-block -->
-                        <!-- <hr> -->
-                        <p>
-                          <strong class="text-primary">Activity Request Description</strong><br>
-                            {{ $item->post }}.
-
-                          <br>
-                          <strong class="text-primary">File</strong><br>
-                          @if ($item->file == null) 
-                            No uploaded file.
-                          @endif
-                          <a href="{{ asset('user-files/' . $item->file) }}">{{ $item->file }}</a>
-                        </p>
-                        <p>
-                          <a href="#" class="link-black text-sm mr-2" data-toggle="modal" data-target="#modal-default-edit" onClick="onClickModalRemark('{{$item->id}}')"><i class="fas fa-edit mr-1"></i> Edit</a>
-                          <a href="" class="link-black text-sm" onClick="onClickModalDelete('{{$item->id}}')"><i class="far fa-trash-alt mr-1"></i> Delete</a>
-                          <span class="float-right">
-                            <!-- <a href="#" class="link-black text-sm">
-                              <i class="far fa-comments mr-1"></i> Comments (5)
-                            </a> -->
-                          </span>
-                        </p>
-
-                        <!-- <input class="form-control form-control-sm" type="text" placeholder="Type a comment"> -->
-                      </div>
-                      <!-- /.post -->
-
-                      <!-- Modal for edit -->
-                      <div class="modal fade" id="modal-default-edit">
-                        <div class="modal-dialog">
-                          <form action="{{ url('/editActivityRequest/'.$item->id) }}" class="form-horizontal" id="myForm" enctype="multipart/form-data" method="post">
-                          {{ csrf_field() }}
-                            <div class="modal-content">
-                              <div class="modal-header">
-                                <h4 class="modal-title col-form-label"><strong>Edit Activity Request  - {{ $record }} @<kbd>{{ $recordN }}</kbd> for <kbd>{{ $item->subject->Subj_desc }}</kbd></strong></h4>
-                                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                                  <span aria-hidden="true">&times;</span>
-                                </button>
-                              </div>
-                              <div class="modal-body">
-                                <div class="form-group row">
-                                <label for="inputExperienceEdit" class="col-sm-2 col-form-label">Activity Request Description</label>
-                                  <div class="col-sm-10">
-                                    <textarea class="form-control" name="post" id="inputExperienceEdit" placeholder="Add post"></textarea>
-                                  </div>
-                                </div>
-
-                                <div class="form-group row">
-                                <label for="myFile" class="col-sm-2 col-form-label">File</label>
-                                  <div class="col-sm-10">
-                                    <ul>
-                                      <li id="showFile"></li>
-                                    </ul>
-                                    <input type="file" name="file" id="myFile">
-                                  </div>
-                                </div>
-                              </div>
-                              <div class="modal-footer justify-content-between">
-                                <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
-                                <button type="submit" class="btn btn-primary">Save changes</button>
-                              </div>
-                            </div>
-                          </form>
-                          <!-- /.modal-content -->
-                        </div>
-                        <!-- /.modal-dialog -->
-                      </div>
-                      <!-- /. Modal for edit -->
-                    @endforeach
-                  @endforeach
-                  <script src="https://unpkg.com/axios/dist/axios.min.js"></script>
-                  <script>
-                    function onClickModalRemark(request_id){
-              
-                        axios.get('/showActivityRequest/' + request_id)
-                        .then(function (response) {
-                          console.log(response);
-                          document.getElementById('inputExperienceEdit').value = response.data.post;
-                          document.getElementById('showFile').innerHTML = response.data.file;
-    
-                          document.getElementById("myForm").action = "/editActivityRequest/"+request_id;
-                        })
-                        .catch(function (error) {
-                          // handle error
-                          console.log(error);
-                        });
-                    }
-                    function onClickModalDelete(request_id){
-                      if (confirm("Are you sure?")){
-                        axios.get('/deleteActivityRequest/' + request_id)
-                        .then(function (response) {
-                          console.log(response);
-                        })
-                        .catch(function (error) {
-                          // handle error
-                          console.log(error);
-                        });
-                      }
-                    }
-                  </script>
-
-
-                    @foreach ($sessions as $session) 
-                      @foreach ($session as $item) 
-                      <!-- Post -->
-                      <div class="post clearfix">
-                        <div class="user-block">
-                        <img class="img-circle img-bordered-sm" src="/AdminLTE-master/dist/img/avatar5.png" alt="user image">
-                          <span class="username">
-                            <p class="text-primary"><strong>Maam Darlyn</strong></p>
-                            <!-- <a href="#" class="float-right btn-tool"><i class="fas fa-times"></i></a> -->
-                          </span>
-
-                          <?php 
-                            $dt = strtotime($item->record->Rec_dateCreated);
+                    
+                      
+                      @foreach ($activity_requests as $activity_request)
+                        @foreach ($activity_request as $item)
+                        <div class="timeline">
+                          <!-- Post -->
+                          <?php
+                            
+                            $dt = strtotime($item->notified_at);
                             $record = date("l, M d, Y", $dt);
                             $dayAbbrv = date("D", $dt);
 
                             $dt2 = strtotime($item->notified_at);
-                            $recordNotify = date("g:i:sa", $dt2);
-
+                            $recordN = date("g:i:sa", $dt2);
                           ?>
-                          <?php
-                            $dt = strtotime($item->subject->Subj_timein);
-                            $dt2 = strtotime($item->subject->Subj_timeout);
-                            $record1 = date("g:i:sa", $dt);
-                            $record2 = date("g:i:sa", $dt2);
-                          ?>
-                            
-                          @if ($item->Ses_status == 1)
-                          <span class="description">You are marked present! - {{ $record }} - @<kbd><strong>{{ $recordNotify }}</strong></kbd><br>
-                            Subject: <strong>{{ $item->subject->Subj_desc }}</strong>, <br>
-                            Room: <strong>{{ $item->subject->Subj_room }}</strong>, <br>
-                            Section: <strong>{{ $item->subject->Subj_yr_sec }}</strong>, <br>
-                            Schedule: <strong>{{ $record1 }} - {{ $record2 }}</strong> <br>
-                          </span>
-                          @endif
+                          <div class="time-label">
+                            <span class="bg-red">{{$record}}</span>
+                        
+                          </div>
+                          <div>
+                          <i class="fas fa-envelope bg-blue"></i>
+                            <div class="post timeline-item">
+                              <div class="timeline-body">
+                                <div class="user-block">
+                                  <img class="img-circle img-bordered-sm" src="/AdminLTE-master/dist/img/avatar5.png" alt="user image">
+                                  <span class="username">
+                                    <a href="" data-toggle="modal" data-target="#modal-default-edit" onClick="onClickModalRemark('{{$item->id}}')">{{ ucfirst(Auth()->user()->name) }}</a>
+                                    <!-- <a href="#" class="float-right btn-tool"><i class="fas fa-times"></i></a> -->
+                                  </span>
 
-                          @if ($item->Ses_status == 2)
-                          <span class="description">You are marked absent! - {{ $record }} - @<kbd><strong>{{ $recordNotify }}</strong></kbd> <br>
-                            Subject: <strong>{{ $item->subject->Subj_desc }}</strong>, <br>
-                            Room: <strong>{{ $item->subject->Subj_room }}</strong>, <br>
-                            Section: <strong>{{ $item->subject->Subj_yr_sec }}</strong>, <br>
-                            Schedule: <strong>{{ $record1 }} - {{ $record2 }}</strong> <br>
-                            
-                          </span>
-                          @endif
+                                  
+                                  <span class="description">Created Activity Request! - {{ $record }} @<kbd><strong>{{ $recordN }}</strong></kbd><br>
+                                    Subject: <strong>{{ $item->subject->Subj_desc }}</strong>, <br>
+                                    Room: <strong>{{ $item->subject->Subj_room }}</strong>, <br>
+                                    Section: <strong>{{ $item->subject->Subj_yr_sec }}</strong>, <br>
+                                    <?php
+                                      $dt = strtotime($item->subject->Subj_timein);
+                                      $dt2 = strtotime($item->subject->Subj_timeout);
+                                      $record1 = date("g:i:sa", $dt);
+                                      $record2 = date("g:i:sa", $dt2);
+                                    ?>
+                                    Schedule: <strong>{{ $record1 }} - {{ $record2 }}</strong> <br>
+                                  </span>
+                                </div>
+                              <!-- /.user-block -->
+                              <!-- <hr> -->
+                              <p>
+                                <strong class="text-primary">Activity Request Description</strong><br>
+                                  {{ $item->post }}.
 
-                          @if ($item->Ses_status == 3)
-                          <span class="description"><kbd>You are marked late! - {{ $record }} - @<kbd><strong>{{ $recordNotify }}</strong></kbd><br>
-                            Subject: <strong>{{ $item->subject->Subj_desc }}</strong>, <br>
-                            Room: <strong>{{ $item->subject->Subj_room }}</strong>, <br>
-                            Section: <strong>{{ $item->subject->Subj_yr_sec }}</strong>, <br>
-                            Schedule: <strong>{{ $record1 }} - {{ $record2 }}</strong> <br>
-                          </span>
-                          @endif
-                          
-                        </div>
-                        <!-- /.user-block -->
-                        <p>
-                          @if ($item->Ses_status != 1 && $item->Ses_remarks == null)
-                          <kbd><strong>Reason</strong></kbd><br>
-                            <p>No Reason</p>
-                          @endif
-                        {{ $item->Ses_remarks }}
-                        </p>
-                        @if ($item->Ses_status != 1)
-                        <form action="{{ url('/sessionUpdateRemarksByUser/'.$item->id) }}" class="form-horizontal" method="post">
-                        @csrf
-                          <div class="input-group input-group-sm mb-0">
-                            <input class="form-control form-control-sm" name="Ses_remarks" placeholder="Edit Reason">
-                            <div class="input-group-append">
-                              <button type="submit" class="btn btn-danger">Send</button>
+                                <br>
+                                <strong class="text-primary">File</strong><br>
+                                @if ($item->file == null) 
+                                  No uploaded file.
+                                @endif
+                                <a href="{{ asset('user-files/' . $item->file) }}">{{ $item->file }}</a>
+                              </p>
+                              <p>
+                                <a href="#" class="link-black text-sm mr-2" data-toggle="modal" data-target="#modal-default-edit" onClick="onClickModalRemark('{{$item->id}}')"><i class="fas fa-edit mr-1"></i> Edit</a>
+                                <a href="" class="link-black text-sm" onClick="onClickModalDelete('{{$item->id}}')"><i class="far fa-trash-alt mr-1"></i> Delete</a>
+                                <span class="float-right">
+                                  <!-- <a href="#" class="link-black text-sm">
+                                    <i class="far fa-comments mr-1"></i> Comments (5)
+                                  </a> -->
+                                </span>
+                              </p>
+
+                              <!-- <input class="form-control form-control-sm" type="text" placeholder="Type a comment"> -->
+                              </div>
                             </div>
                           </div>
-                        </form>
-                        @endif
-                      </div>
-                      <!-- /.post -->
+                          <!-- /.post -->
+
+                         
+                          <div>
+                            <i class="fas fa-clock bg-gray"></i>
+                          </div>
+                          </div>
+                           <!-- Modal for edit -->
+                           <div class="modal fade" id="modal-default-edit">
+                            <div class="modal-dialog">
+                              <form action="{{ url('/editActivityRequest/'.$item->id) }}" class="form-horizontal" id="myForm" enctype="multipart/form-data" method="post">
+                              {{ csrf_field() }}
+                                <div class="modal-content">
+                                  <div class="modal-header">
+                                    <h4 class="modal-title col-form-label"><strong>Edit Activity Request  - {{ $record }} @<kbd>{{ $recordN }}</kbd> for <kbd>{{ $item->subject->Subj_desc }}</kbd></strong></h4>
+                                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                      <span aria-hidden="true">&times;</span>
+                                    </button>
+                                  </div>
+                                  <div class="modal-body">
+                                    <div class="form-group row">
+                                    <label for="inputExperienceEdit" class="col-sm-2 col-form-label">Activity Request Description</label>
+                                      <div class="col-sm-10">
+                                        <textarea class="form-control" name="post" id="inputExperienceEdit" placeholder="Add post"></textarea>
+                                      </div>
+                                    </div>
+
+                                    <div class="form-group row">
+                                    <label for="myFile" class="col-sm-2 col-form-label">File</label>
+                                      <div class="col-sm-10">
+                                        <ul>
+                                          <li id="showFile"></li>
+                                        </ul>
+                                        <input type="file" name="file" id="myFile">
+                                      </div>
+                                    </div>
+                                  </div>
+                                  <div class="modal-footer justify-content-between">
+                                    <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                                    <button type="submit" class="btn btn-primary">Save changes</button>
+                                  </div>
+                                </div>
+                              </form>
+                              <!-- /.modal-content -->
+                            </div>
+                            <!-- /.modal-dialog -->
+                          </div>
+                          <!-- /. Modal for edit -->
+                        @endforeach
                       @endforeach
-                    @endforeach
+                      
+                      <script src="https://unpkg.com/axios/dist/axios.min.js"></script>
+                      <script>
+                        function onClickModalRemark(request_id){
+                  
+                            axios.get('/showActivityRequest/' + request_id)
+                            .then(function (response) {
+                              console.log(response);
+                              document.getElementById('inputExperienceEdit').value = response.data.post;
+                              document.getElementById('showFile').innerHTML = response.data.file;
+        
+                              document.getElementById("myForm").action = "/editActivityRequest/"+request_id;
+                            })
+                            .catch(function (error) {
+                              // handle error
+                              console.log(error);
+                            });
+                        }
+                        function onClickModalDelete(request_id){
+                          if (confirm("Are you sure?")){
+                            axios.get('/deleteActivityRequest/' + request_id)
+                            .then(function (response) {
+                              console.log(response);
+                            })
+                            .catch(function (error) {
+                              // handle error
+                              console.log(error);
+                            });
+                          }
+                        }
+                      </script>
+                    </div>
+                  
+                  <!-- /.tab-pane -->
+                  <!-- /.tab-pane -->
+
+                  <div class="tab-pane" id="status">
+                    <div class="timeline">
+                      @foreach ($sessions as $session) 
+                        @foreach ($session as $item) 
+                        <!-- Post -->
+                        <?php
+                            $dt = strtotime($item->record->Rec_dateCreated);
+                            $recordNow = date("l, M d, Y", $dt);
+                            $dayAbbrv = date("D", $dt);
+
+                            $dt2 = strtotime($item->notified_at);
+                            $recordNotify = date("g:i:sa", $dt2);
+                          ?>
+                    
+                        <div class="time-label">
+                          <span class="bg-red">{{$recordNow}}</span>
+                        </div>
+                        <div>
+                          <i class="fas fa-check-circle bg-pink"></i>
+                          <div class="post clearfix timeline-item">
+                          <div class="timeline-body">
+                            <div class="user-block">
+                              <img class="img-circle img-bordered-sm" src="/AdminLTE-master/dist/img/avatar5.png" alt="user image">
+                                <span class="username">
+                                  <p class="text-primary"><strong>Maam Darlyn</strong></p>
+                                  <!-- <a href="#" class="float-right btn-tool"><i class="fas fa-times"></i></a> -->
+                                </span>
+
+                                <?php
+                                  $dt = strtotime($item->subject->Subj_timein);
+                                  $dt2 = strtotime($item->subject->Subj_timeout);
+                                  $record1 = date("g:i:sa", $dt);
+                                  $record2 = date("g:i:sa", $dt2);
+                                ?>
+                                  
+                                @if ($item->Ses_status == 1)
+                                <span class="description">You are marked present! - {{ $recordNow }} - @<kbd><strong>{{ $recordNotify }}</strong></kbd><br>
+                                  Subject: <strong>{{ $item->subject->Subj_desc }}</strong>, <br>
+                                  Room: <strong>{{ $item->subject->Subj_room }}</strong>, <br>
+                                  Section: <strong>{{ $item->subject->Subj_yr_sec }}</strong>, <br>
+                                  Schedule: <strong>{{ $record1 }} - {{ $record2 }}</strong> <br>
+                                </span>
+                                @endif
+
+                                @if ($item->Ses_status == 2)
+                                <span class="description">You are marked absent! - {{ $recordNow }} - @<kbd><strong>{{ $recordNotify }}</strong></kbd> <br>
+                                  Subject: <strong>{{ $item->subject->Subj_desc }}</strong>, <br>
+                                  Room: <strong>{{ $item->subject->Subj_room }}</strong>, <br>
+                                  Section: <strong>{{ $item->subject->Subj_yr_sec }}</strong>, <br>
+                                  Schedule: <strong>{{ $record1 }} - {{ $record2 }}</strong> <br>
+                                  
+                                </span>
+                                @endif
+
+                                @if ($item->Ses_status == 3)
+                                <span class="description"><kbd>You are marked late! - {{ $recordNow }} - @<kbd><strong>{{ $recordNotify }}</strong></kbd><br>
+                                  Subject: <strong>{{ $item->subject->Subj_desc }}</strong>, <br>
+                                  Room: <strong>{{ $item->subject->Subj_room }}</strong>, <br>
+                                  Section: <strong>{{ $item->subject->Subj_yr_sec }}</strong>, <br>
+                                  Schedule: <strong>{{ $record1 }} - {{ $record2 }}</strong> <br>
+                                </span>
+                                @endif
+                                
+                              </div>
+                              <!-- /.user-block -->
+                              <p>
+                                @if ($item->Ses_status != 1 && $item->Ses_remarks == null)
+                                <kbd><strong>Reason</strong></kbd><br>
+                                  <p>No Reason</p>
+                                @endif
+                              {{ $item->Ses_remarks }}
+                              </p>
+                              @if ($item->Ses_status != 1)
+                              <form action="{{ url('/sessionUpdateRemarksByUser/'.$item->id) }}" class="form-horizontal" method="post">
+                              @csrf
+                                <div class="input-group input-group-sm mb-0">
+                                  <input class="form-control form-control-sm" name="Ses_remarks" placeholder="Edit Reason">
+                                  <div class="input-group-append">
+                                    <button type="submit" class="btn btn-danger">Send</button>
+                                  </div>
+                                </div>
+                              </form>
+                              @endif
+                            </div>
+                          </div>
+                        </div>
+                        <!-- /.post -->
+                        @endforeach
+                      @endforeach
+                      <div>
+                          <i class="fas fa-clock bg-gray"></i>
+                        </div>
                   </div>
-                  <!-- /.tab-pane -->
-                  <!-- /.tab-pane -->
+                  </div>
 
                   <div class="tab-pane" id="settings">
                     <form action="{{ url('/storeRequest/'. Auth()->user()->username ) }}" method="post" enctype="multipart/form-data" class="form-horizontal">
@@ -682,7 +715,7 @@
                   </tr>
               @endforeach
               </tbody>
-          </table>
+            </table>
           </div>
           <div class="modal-footer justify-content-between">
             <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
