@@ -13,6 +13,11 @@ class Subject extends Model
         return $this->belongsTo('App\Professor', 'prof_id');
     }
 
+    public function semester()
+    {
+        return $this->belongsTo('App\Semester');
+    }
+
     public function sessions()
     {
         return $this->hasMany('App\Session');

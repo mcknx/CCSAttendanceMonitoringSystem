@@ -15,15 +15,11 @@ class CreateSemestersTable extends Migration
     {
         Schema::create('semesters', function (Blueprint $table) {
             $table->bigIncrements('id');
-            $table->unsignedBigInteger('subj_id');
-            // $table->unsignedBigInteger('subj_title');
+            $table->string('sem') ;
             $table->string('from_year') ;
             $table->string('to_year') ;
             $table->string('file')->nullable();
             $table->timestamps();
-
-            $table->foreign('subj_id')->references('id')->on('subjects');
-            // $table->foreign('subj_title')->references('Subj_title')->on('subjects');
         });
     }
 

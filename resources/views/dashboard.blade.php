@@ -221,31 +221,31 @@
       <form action="{{url('importProfExcel')}}" method="post" enctype="multipart/form-data">
       <div class="row">
             <div class="col-lg-6 ml-auto text-right">
-            <p class="lead">Here you can select what semester and year you want the database to be filled with your import!</p>
-            </div>
-            <div class="col-lg-3 mr-auto text-center">
-            <p class="lead">
-            <label for="select">Select Semester</label><br>
-            <select name="sem" class="btn btn-xl btn-outline-dark">
-                <option value="1">1st Semester</option>
-                <option value="2">2nd Semester</option>
-                <option value="3">Summer</option>
-            </select>
-            </p>
+              <p class="lead">Here you can select what semester and year you want the database to be filled with your import!</p>
+              </div>
+              <div class="col-lg-3 mr-auto text-center">
+              <p class="lead">
+              <label for="select">Select Semester</label><br>
+              <select name="sem" class="btn btn-xl btn-outline-dark" required>
+                  <option value="1">1st Semester</option>
+                  <option value="2">2nd Semester</option>
+                  <option value="3">Summer</option>
+              </select>
+              </p>
             </div>
             <div class="col-lg-3 mr-auto text-right">
                 <p class="lead">
-                    <label for="date1">From Year</label>
-                    <input type="text" id="date-own" name="date1" class="btn btn-sm btn-outline-dark "><br>
-                    <label for="date1">To Year</label>
-                        <input type="text" id="date-own1" name="date1" class="btn btn-sm btn-outline-dark">
+                    <label for="from">From Year</label>
+                    <input type="text" id="date-own" name="from" class="btn btn-sm btn-outline-dark" required><br>
+                    <label for="to">To Year</label>
+                        <input type="text" id="date-own1" name="to" class="btn btn-sm btn-outline-dark" required>
                 </p>
             </div>
 
             <!-- About Section Button -->
             <div class="col-lg-6 ml-auto text-right">
                 <input class="btn btn-sm btn-outline-dark d-inline" type="hidden" name="_token" value="{{CSRF_Token()}}">
-                <input class="btn btn-sm d-inline" type="file" name="file" >
+                <input class="btn btn-sm d-inline" type="file" name="file" required>
                 <input class="btn btn-sm btn-outline-dark d-inline " type="submit" value="upload">
             </div>
       </div>

@@ -16,6 +16,7 @@ class CreateSubjectsTable extends Migration
         Schema::create('subjects', function (Blueprint $table) {
             $table->bigIncrements('id');
             $table->unsignedBigInteger('prof_id');
+            $table->unsignedBigInteger('sem_id');
             $table->string('Subj_title') ;
             $table->integer('Subj_dayM')->nullable()->default(0) ;
             $table->integer('Subj_dayT')->nullable()->default(0) ;
@@ -34,6 +35,7 @@ class CreateSubjectsTable extends Migration
             // $table->timestamps();
 
             $table->foreign('prof_id')->references('id')->on('professors');
+            $table->foreign('sem_id')->references('id')->on('semesters');
         });
     }
 

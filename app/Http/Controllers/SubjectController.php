@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Professor;
 use App\Subject;
+use App\Semester;
 use Auth;
 use Illuminate\Http\Request;
 
@@ -14,13 +15,36 @@ class SubjectController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function index()
+    public function index(Request $res)
     {
+        // $sem = $res->input('sem');
+        // $from = $res->input('from');
+        // $to = $res->input('to');
+        
+        // $semester = Semester::all() ;
+        // $semester = $semester->where('sem', '=', $sem)->where('from_year', '=', $from)->where('to_year', '=', $to);
+        // dd($semester);
         $subjects = Subject::all() ;
+        // $subjects = $subjects->where('sem', '=', $sem)->where('from_year', '=', $from)->where('to_year', '=', $to);
         $professors = Professor::all() ;
         return view('subject',['subjects'=>$subjects,'professors'=>$professors,'layout'=>'subjectIndex']);
     }
-
+    public function showSubjectSem(Request $res)
+    {
+        $sem = $res->input('sem');
+        $from = $res->input('from');
+        $to = $res->input('to');
+        
+        // $semester = Semester::all() ;
+        $semester = $semester->where('sem', '=', $sem)->where('from_year', '=', $from)->where('to_year', '=', $to);
+        
+        $subjects = Subject::all() ;
+        $subjects = $subjects->where('sem', '=', $sem)->where('from_year', '=', $from)->where('to_year', '=', $to);
+        dd($subjects);
+        $professors = Professor::all() ;
+        return view('subject',['subjects'=>$subjects,'professors'=>$professors,'layout'=>'subjectIndex']);
+    }
+    
     /**
      * Show the form for creating a new resource.
      *
@@ -72,9 +96,16 @@ class SubjectController extends Controller
      */
     public function show($id)
     {
-        $subject = Subject::find($id);
+        $sem = $res->input('sem');
+        $from = $res->input('from');
+        $to = $res->input('to');
+        
+        $semester = Semester::all() ;
+        $semester = $semester->where('sem', '=', $sem)->where('from_year', '=', $from)->where('to_year', '=', $to);
+        dd($semester);
         $subjects = Subject::all() ;
-        return view('subject',['subjects'=>$subjects,'subject'=>$subject,'layout'=>'subjectShow']);
+        $professors = Professor::all() ;
+        return view('subject',['subjects'=>$subjects,'professors'=>$professors,'layout'=>'subjectIndex']);
     }
 
     /**

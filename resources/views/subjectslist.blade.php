@@ -1,10 +1,51 @@
 
+<script src="http://ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.js"></script>
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js"></script>  
+<script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.5.0/js/bootstrap-datepicker.js"></script>
+
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.5.0/css/bootstrap-datepicker.css" rel="stylesheet">
+
 <div class="card mb-3">
     <div class="card-body">
         <h5 class="card-title"><b>List of subjects</b></h5><br>
-        <blockquote class="card-text">You can find here all the informations about subjects in the system.
-        You can also create a subject <a href="{{ url('/subjectCreate/') }}"><b> here.</b></a></blockquote>
+        <form action="{{url('showSubjectSem')}}" method="post" enctype="multipart/form-data">
+            <div class="row">
+                <div class="col-lg-8 mr-auto text-center d-inline">
+                    <blockquote class="card-text">You can find here all the informations about subjects in the system.
+                    You can also create a subject <a href="{{ url('/subjectCreate/') }}"><b> here.</b></a></blockquote>
+                </div>
 
+                <div class="col-lg-4 mr-auto text-right d-inline">
+                    <p class="lead">
+                    <label for="select">Select Semester</label><br>
+                    <select name="sem" class="btn btn-xl btn-outline-dark d-inline" required>
+                        <option value="1">1st Semester</option>
+                        <option value="2">2nd Semester</option>
+                        <option value="3">Summer</option>
+                    </select><br>
+
+                    <label for="from" class="d-inline">From Year</label>
+                        <input type="text" id="date-own" name="from" class="btn btn-sm btn-outline-dark d-inline" value="2020" required><br>
+                    <label for="to" class="d-inline">To Year</label>
+                        <input type="text" id="date-own1" name="to" class="btn btn-sm btn-outline-dark d-inline" value="2020" required><br>
+                    <label for="show" class="d-inline">Show Semester</label>
+                        <input type="submit" name="show" class="btn btn-sm btn-outline-dark d-inline" placeholder="Show">
+                    </p>
+                </div>
+            </div>
+        </form>
+
+        <script type="text/javascript">
+            $('#date-own').datepicker({
+                minViewMode: 2,
+                format: 'yyyy'
+            });
+            $('#date-own1').datepicker({
+                minViewMode: 2,
+                format: 'yyyy'
+            });
+            
+        </script>
         <table class="table table-responsive">
             <thead class="thead-light">
             <tr>

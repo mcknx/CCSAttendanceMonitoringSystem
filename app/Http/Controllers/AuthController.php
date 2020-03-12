@@ -9,6 +9,8 @@ use App\Providers\RouteServiceProvider;
 use App\Imports\ProfessorsImport;
 use App\Imports\SubjectsImport;
 use App\User;
+use App\Professor;
+use App\Semester;
 use Auth;
 use Session;
 use Illuminate\Foundation\Auth\RegistersUsers;
@@ -23,6 +25,12 @@ class AuthController extends Controller
     {
         return Excel::download(new ProfessorsExport, 'professorsExample.xlsx');
     }
+    // $subjects = Subject::all();
+    // $subjects = Subject::where('Subj_title', '=', '404')->where('Subj_yr_sec', '=', 'IT 2B')->where('Prof_code', '=', 'masma')->first();
+    // dd($subjects->Subj_dayS);
+    // $findSubj= $subjects->where('Subj_title', '=', '404')->where('Subj_yr_sec', '=', 'IT 2B')->where('Prof_code', '=', 'masma');
+    // dd($subjects->where('Subj_dayM', '=', '1')->first()->Subj_dayM);
+    // $subjects = Excel::toArray(new SubjectsImport, $res->file('file'));
     public function professorImport(Request $res) 
     {
         if ($res->file == null) {
@@ -30,17 +38,74 @@ class AuthController extends Controller
         }
         $path = $res->file->getRealPath();
         $name = $res->file->getClientOriginalName();
-        // $subjects = Subject::all();
-        $subjects = Subject::where('Subj_title', '=', '404')->where('Subj_yr_sec', '=', 'IT 2B')->where('Prof_code', '=', 'masma')->first();
-        // dd($subjects->Subj_dayS);
-        // $findSubj= $subjects->where('Subj_title', '=', '404')->where('Subj_yr_sec', '=', 'IT 2B')->where('Prof_code', '=', 'masma');
-        // dd($subjects->where('Subj_dayM', '=', '1')->first()->Subj_dayM);
-        // $subjects = Excel::toArray(new SubjectsImport, $res->file('file'));
+        $sem = $res->input('sem');
+        $from = $res->input('from');
+        $to = $res->input('to');
+
+        // Excel::import(new SubjectsImport, $path);
+        $semester = new Semester();
+        $semester->sem = $sem;
+        $semester->from_year = $from;
+        $semester->to_year = $to;
+        $semester->file = $name;
+        $semester->save();
+
+        $subjects = Excel::toArray(new SubjectsImport, $res->file('file'));
+        // dd($subjects[0][0]);
+        foreach ($subjects[0] as $item) {
+            $strDateTimein = \PhpOffice\PhpSpreadsheet\Shared\Date::excelToDateTimeObject($item['subj_timein']);
+            $strDateTimeout = \PhpOffice\PhpSpreadsheet\Shared\Date::excelToDateTimeObject($item['subj_timeout']);
+            $str = $item['days'];
+            $profcode = strtolower($item['prof_fname'][0] . $item['prof_lname']);
+            $professor = Professor::where('Prof_code', '=', $profcode)->first();
+            
+            if ($professor === null){
+                $arr = [$item['prof_fname'], $item['prof_mname'], $item['prof_lname'], $profcode, $item['prof_gender']];
+                $professor = new ProfessorsImport();
+                $professor = $professor->model($arr);
+
+            }
+            $subject = new Subject() ;
+            $subject->prof_id = $professor->id;
+            $subject->sem_id = $semester->id;
+            $subject->Subj_timein = $strDateTimein->format('H:i:s');
+            $subject->Subj_timeout = $strDateTimeout->format('H:i:s');
+            $arr1 = str_split($str, 3);
+            for ($x = 0; $x < count($arr1); $x++) {
+                if (strtolower($arr1[$x]) == strtolower('MON')){
+                    $subject->Subj_dayM = 1;
+                }
+                if (strtolower($arr1[$x]) == strtolower('TUE')){
+                    $subject->Subj_dayT = 1;
+                }
+                if (strtolower($arr1[$x]) == strtolower('WED')){
+                    $subject->Subj_dayW = 1;
+                }
+                if (strtolower($arr1[$x]) == strtolower('THU')){
+                    $subject->Subj_dayTH = 1;
+                }
+                if (strtolower($arr1[$x]) == strtolower('FRI')){
+                    $subject->Subj_dayF = 1;
+                }
+                if (strtolower($arr1[$x]) == strtolower('SAT')){
+                    $subject->Subj_dayS = 1;
+                }
+                if (strtolower($arr1[$x]) == strtolower('SUN')){
+                    $subject->Subj_daySu = 1;
+                }
+            }
+
+          $subject->Subj_title = $item['subj_title'];
+          $subject->Subj_desc = $item['subj_desc'];
+          $subject->Subj_units = $item['subj_units'];
+          $subject->Subj_room = $item['subj_room'];
+          $subject->Subj_yr_sec = $item['subj_yr_sec'];
+          $subject->Prof_code = $profcode;
+          $subject->save();
+
+        }
         
-        Excel::import(new SubjectsImport, $path);
-        
-   
-        
+
         return redirect('/subject')->with('success', 'All good!');
     }
 

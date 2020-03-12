@@ -52,6 +52,7 @@ Route::post('/professorDelete/{id}',"ProfessorController@destroy")->middleware('
 Route::get('/subject',"SubjectController@index")->middleware('auth') ;
 Route::get('/subjectEdit/{id}',"SubjectController@edit")->middleware('auth') ;
 Route::get('/subjectShow/{id}',"SubjectController@show")->middleware('auth') ;
+Route::get('/showSubjectSem',"SubjectController@showSubjectSem")->middleware('auth') ;
 Route::get('/subjectCreate',"SubjectController@create")->middleware('auth') ;
 Route::post('/subjectStore',"SubjectController@store")->middleware('auth') ;
 Route::post('/subjectUpdate/{id}',"SubjectController@update")->middleware('auth') ;
