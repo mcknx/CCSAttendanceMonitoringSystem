@@ -25,6 +25,12 @@
   <link rel="stylesheet" href="{{asset('solmusic/css/owl.carousel.min.css')}}" />
   <link rel="stylesheet" href="{{asset('solmusic/css/slicknav.min.css')}}" />
 
+  <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.js"></script>
+  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js"></script>  
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.5.0/js/bootstrap-datepicker.js"></script>
+
+  <link href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.5.0/css/bootstrap-datepicker.css" rel="stylesheet">
+  
   <!-- Main Stylesheets -->
   <link rel="stylesheet" href="{{asset('solmusic/css/style.css')}}" />
 <!-- toastr -->
@@ -118,8 +124,8 @@
               </p>
             </a>
             <ul class="nav nav-treeview">
-              <li class="nav-item">
-                <a href="{{url('/record')}}" class="nav-link text-white">
+              <li class="nav-item ">
+                <a href="{{url('/record')}}" class="nav-link active ">
                   <i class="far fa-circle nav-icon"></i>
                   <p>Attendance Management</p>
                 </a>
@@ -151,7 +157,7 @@
       use Carbon\Carbon;
       $date_today = Carbon::now()->toDateTimeString();
       $dt = strtotime($date_today);
-      $record = date("Y-m-d", $dt);
+      $recordNow = date("Y-m-d", $dt);
     ?>
     <section class="content-header">
       <div class="container-fluid">
@@ -187,18 +193,37 @@
                 @include("recordlist")
             </section>
             <section class="col-md-5">
-
                 <div class="card mb-3">
                     <div class="card-body">
-                        <blockquote class="card-title">Enter the informations of the new Record</blockquote>
+                        <blockquote class="card-title">Enter the information of the new Record</blockquote>
                         <br>
                         <form action="{{ url('/recordStore') }}" method="post">
                             @csrf
                             <br>
                             <br>
+
                             <div class="form-group">
-                                <label  for="currentDate">Date:</label>
-                                <input  type="date" id="currentDate" name="currentDate" value="{{ $record }}">
+                              <label for="sem2">Select Semester</label><br>
+                                <select name="sem2" class="btn btn-sm btn-outline-dark " required>
+                                    <option value="1">1st Semester</option>
+                                    <option value="2">2nd Semester</option>
+                                    <option value="3">Summer</option>
+                                </select><br>
+                            </div>
+
+                            <div class="form-group ">
+                                <label for="date-own2">From Year</label> <br>
+                                    <input type="text" id="date-own2" name="date-own2" class="btn btn-sm btn-outline-dark d-inline" value="2020" required>
+                            </div>
+
+                            <div class="form-group">
+                                <label for="date-own3">To Year</label> <br>
+                                    <input type="text" id="date-own3" name="date-own3" class="btn btn-sm btn-outline-dark d-inline" value="2020" required><br>
+                            </div>
+
+                            <div class="form-group">
+                                <label  for="currentDate">Date:</label><br>
+                                <input  type="date" id="currentDate" class="btn btn-sm btn-outline-dark d-inline" name="currentDate" value="{{ $recordNow }}" readonly>
                             </div>
                             <input type="submit" class="btn btn-info" value="Save">
                         </form>
@@ -228,31 +253,39 @@
                     <div class="card-body">
                         <h5 class="card-title">Update informations of attendance</h5>
                         <form action="{{ url('/recordUpdate/'.$record->id) }}" method="post">
-                            @csrf
+                          @csrf
                             <br>
+                            <br>
+
                             <div class="form-group">
-                                <label>First Name</label>
-                                <input value="{{ $record->Prof_fname }}" name="Prof_fname" type="text" class="form-control"  placeholder="Enter First Name">
-                            </div>
-                            <div class="form-group">
-                                <label>Last Name</label>
-                                <input value="{{ $record->Prof_lname }}" name="Prof_lname" type="text" class="form-control"  placeholder="Enter Last Name">
+                              <label for="sem2">Select Semester</label><br>
+                                <select name="sem2" class="btn btn-sm btn-outline-dark"  required>
+                                    @if ($semester->sem == 1) <option value="{{ $semester->sem }}">1st Semester</option> @endif
+                                    @if ($semester->sem == 2) <option value="{{ $semester->sem }}">2nd Semester</option> @endif
+                                    @if ($semester->sem == 3) <option value="{{ $semester->sem }}">Summer</option> @endif
+                                    
+                                    <option value="1">1st Semester</option>
+                                    <option value="2">2nd Semester</option>
+                                    <option value="3">Summer</option>
+                                </select><br>
                             </div>
 
-                            
-                            <div class="form-group">
-                                <label>Middle Name</label>
-                                <input value="{{ $record->Prof_mname }}" name="Prof_mname" type="text" class="form-control"  placeholder="Enter Middle Name">
+                            <div class="form-group ">
+                                <label for="date-own2">From Year</label> <br>
+                                    <input type="text" id="date-own2" name="date-own2" class="btn btn-sm btn-outline-dark d-inline" value="{{ $semester->from_year }}" required>
                             </div>
-                            
-                            <!-- <div class="form-group">
-                                <label>Subject(s)</label>
-                                <input value="{{ $record->Subj_ID }}" name="Subj_ID" type="text" class="form-control"  placeholder="Enter Subject ID">
-                            </div> -->
 
-                            <input type="submit" class="btn btn-info" value="Update">
+                            <div class="form-group">
+                                <label for="date-own3">To Year</label> <br>
+                                    <input type="text" id="date-own3" name="date-own3" class="btn btn-sm btn-outline-dark d-inline" value="{{ $semester->to_year }}" required><br>
+                            </div>
+
+                            <div class="form-group">
+                                <label  for="currentDate">Date:</label><br>
+                                <input  type="date" id="currentDate" class="btn btn-sm btn-outline-dark d-inline" name="currentDate" value="{{ $recordNow }}">
+                            </div>
+                            <input type="submit" class="btn btn-info" value="Save">
                             <input type="reset" class="btn btn-warning" value="Reset">
-
                         </form>
                     </div>
                 </div>
@@ -266,6 +299,17 @@
   </div>
   @include("footer")
 </div>
+
+<script type="text/javascript">
+      $('#date-own2').datepicker({
+          minViewMode: 2,
+          format: 'yyyy'
+      });
+      $('#date-own3').datepicker({
+          minViewMode: 2,
+          format: 'yyyy'
+      });
+  </script>
 
   <!-- Control Sidebar -->
   <aside class="control-sidebar control-sidebar-dark">
@@ -287,6 +331,7 @@
 <script>
   $.widget.bridge('uibutton', $.ui.button)
 </script>
+
 <!-- Bootstrap 4 -->
 <!-- <script src="plugins/bootstrap/js/bootstrap.bundle.min.js"></script> -->
 <script src="{{asset('/AdminLTE-master/plugins/bootstrap/js/bootstrap.bundle.min.js')}}"></script>

@@ -20,7 +20,7 @@
 // });
 
 // Route::get('/', 'TestController@index');
-Route::get('pdf', 'PdfController@show')->middleware('auth');
+Route::post('pdf', 'PdfController@show')->middleware('auth');
 Route::post('importProfExcel', 'AuthController@professorImport')->middleware('auth');
 Route::get('exportProfExcel', 'AuthController@professorExport')->middleware('auth');
 
@@ -60,7 +60,8 @@ Route::post('/subjectDelete/{id}',"SubjectController@destroy")->middleware('auth
 
 //record
 Route::get('/record',"RecordController@index")->middleware('auth') ;
-Route::get('/recordEdit/{id}',"RecordController@edit")->middleware('auth') ;
+Route::post('/record2',"RecordController@index2")->middleware('auth') ;
+Route::post('/recordEdit/{id}',"RecordController@edit")->middleware('auth') ;
 Route::get('/recordShow/{id}',"RecordController@show")->middleware('auth') ;
 Route::get('/recordCreate',"RecordController@create")->middleware('auth') ;
 Route::post('/recordStore',"RecordController@store")->middleware('auth') ;

@@ -7,9 +7,11 @@
     <li class="nav-item d-none d-sm-inline-block">
       <a href="{{url('/dashboard')}}" class="nav-link">Home</a>
     </li>
-    <li class="nav-item d-none d-sm-inline-block">
+    <li class="nav-item d-none d-sm-inline">
       <a href="{{url('/exportProfExcel')}}" class="nav-link">Export Data</a>
     </li>
+    <!-- <li>
+    </li> -->
   </ul>
   
   <!-- Right navbar links -->

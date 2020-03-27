@@ -43,16 +43,28 @@ class AuthController extends Controller
         $to = $res->input('to');
 
         // Excel::import(new SubjectsImport, $path);
-        $semester = new Semester();
-        $semester->sem = $sem;
-        $semester->from_year = $from;
-        $semester->to_year = $to;
-        $semester->file = $name;
-        $semester->save();
+        $semesters = Semester::all();
+        
+        $semesters = $semesters->where('sem', '=', $sem)->where('from_year', '=', $from)->where('to_year', '=', $to)->first();
+
+        // dd($semesters);
+        if ($semesters == null) {
+          $semester = new Semester();
+          $semester->sem = $sem;
+          $semester->from_year = $from;
+          $semester->to_year = $to;
+          $semester->file = $name;
+          $semester->save();
+          $semesters = $semester;
+        }
 
         $subjects = Excel::toArray(new SubjectsImport, $res->file('file'));
-        // dd($subjects[0][0]);
+        // dd($subjects[0]);
         foreach ($subjects[0] as $item) {
+            // dd ($item);
+            if ($item['prof_fname'] == null) {
+              break;
+            }
             $strDateTimein = \PhpOffice\PhpSpreadsheet\Shared\Date::excelToDateTimeObject($item['subj_timein']);
             $strDateTimeout = \PhpOffice\PhpSpreadsheet\Shared\Date::excelToDateTimeObject($item['subj_timeout']);
             $str = $item['days'];
@@ -65,44 +77,92 @@ class AuthController extends Controller
                 $professor = $professor->model($arr);
 
             }
-            $subject = new Subject() ;
-            $subject->prof_id = $professor->id;
-            $subject->sem_id = $semester->id;
-            $subject->Subj_timein = $strDateTimein->format('H:i:s');
-            $subject->Subj_timeout = $strDateTimeout->format('H:i:s');
+            $subjectExcel = new Subject() ;
+            $subjectExcel->prof_id = $professor->id;
+            $subjectExcel->sem_id = $semesters->id;
+            $subjectExcel->sem_id = $semesters->id;
+            $subjectExcel->Subj_timein = $strDateTimein->format('H:i:s');
+            $subjectExcel->Subj_timeout = $strDateTimeout->format('H:i:s');
             $arr1 = str_split($str, 3);
             for ($x = 0; $x < count($arr1); $x++) {
                 if (strtolower($arr1[$x]) == strtolower('MON')){
-                    $subject->Subj_dayM = 1;
+                    $subjectExcel->Subj_dayM = 1;
                 }
                 if (strtolower($arr1[$x]) == strtolower('TUE')){
-                    $subject->Subj_dayT = 1;
+                    $subjectExcel->Subj_dayT = 1;
                 }
                 if (strtolower($arr1[$x]) == strtolower('WED')){
-                    $subject->Subj_dayW = 1;
+                    $subjectExcel->Subj_dayW = 1;
                 }
                 if (strtolower($arr1[$x]) == strtolower('THU')){
-                    $subject->Subj_dayTH = 1;
+                    $subjectExcel->Subj_dayTH = 1;
                 }
                 if (strtolower($arr1[$x]) == strtolower('FRI')){
-                    $subject->Subj_dayF = 1;
+                    $subjectExcel->Subj_dayF = 1;
                 }
                 if (strtolower($arr1[$x]) == strtolower('SAT')){
-                    $subject->Subj_dayS = 1;
+                    $subjectExcel->Subj_dayS = 1;
                 }
                 if (strtolower($arr1[$x]) == strtolower('SUN')){
-                    $subject->Subj_daySu = 1;
+                    $subjectExcel->Subj_daySu = 1;
                 }
             }
 
-          $subject->Subj_title = $item['subj_title'];
-          $subject->Subj_desc = $item['subj_desc'];
-          $subject->Subj_units = $item['subj_units'];
-          $subject->Subj_room = $item['subj_room'];
-          $subject->Subj_yr_sec = $item['subj_yr_sec'];
-          $subject->Prof_code = $profcode;
-          $subject->save();
+          $subjectExcel->Subj_title = $item['subj_title'];
+          $subjectExcel->Subj_desc = $item['subj_desc'];
+          $subjectExcel->Subj_units = $item['subj_units'];
+          $subjectExcel->Subj_room = $item['subj_room'];
+          $subjectExcel->Subj_yr_sec = $item['subj_yr_sec'];
+          $subjectExcel->Prof_code = $profcode;
 
+          $sub = Subject::where('Subj_title', '=', $item['subj_title'])->where('Subj_yr_sec', '=', $item['subj_yr_sec'])->where('Subj_room', '=', $item['subj_room'])->where('Prof_code', '=', $profcode)->get();
+          // dd($sub);
+          if ($sub->isEmpty()) {
+            $subjectExcel->save();
+            continue;
+          }
+          
+          foreach ($sub as $subjectItem) {
+            if ($subjectExcel->Subj_dayM == 1) {
+              if ($subjectItem->Subj_dayM == 1) {
+                  $subjectExcel->delete();
+                  break;
+              }
+            }
+            if ($subjectExcel->Subj_dayT == 1) {
+                if ($subjectItem->Subj_dayT == 1) {
+                  $subjectExcel->delete();
+                  break;
+                }
+            }if ($subjectExcel->Subj_dayW == 1) {
+                if ($subjectItem->Subj_dayW == 1) {
+                  $subjectExcel->delete();
+                  break;
+                }
+            }if ($subjectExcel->Subj_dayTH == 1) {
+                if ($subjectItem->Subj_dayTH == 1) {
+                  $subjectExcel->delete();
+                  break;
+                }
+            }if ($subjectExcel->Subj_dayF == 1) {
+                if ($subjectItem->Subj_dayF == 1) {
+                  $subjectExcel->delete();
+                  break;
+                }
+            }if ($subjectExcel->Subj_dayS == 1) {
+                if ($subjectItem->Subj_dayS == 1) {
+                  $subjectExcel->delete();
+                  break;
+                }
+            }if ($subjectExcel->Subj_daySu == 1) {
+                if ($subjectItem->Subj_daySu == 1) {
+                  $subjectExcel->delete();
+                  break;
+                }
+            }
+            
+            $subjectExcel->save();
+          }
         }
         
 

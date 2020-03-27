@@ -15,12 +15,15 @@ class CreateRecordsTable extends Migration
     {
         Schema::create('records', function (Blueprint $table) {
             $table->bigIncrements('id');
+            $table->unsignedBigInteger('sem_id');
             $table->date('Rec_dateCreated');
             $table->integer('Rec_noProf') ;
             $table->integer('Rec_noPresent') ;
             $table->integer('Rec_noAbsent') ;
             $table->integer('Rec_noLate') ;
             // $table->timestamps();
+
+            $table->foreign('sem_id')->references('id')->on('semesters');
         });
     }
 

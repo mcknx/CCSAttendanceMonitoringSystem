@@ -11,4 +11,9 @@ class Record extends Model
     {
         return $this->hasMany('App\Session');
     }
+
+    public function semester()
+    {
+        return $this->belongsTo('App\Semester');
+    }
 }

@@ -41,7 +41,7 @@
 <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js"></script>  
 <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.5.0/js/bootstrap-datepicker.js"></script>
 
-    <link href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.5.0/css/bootstrap-datepicker.css" rel="stylesheet">
+  <link href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.5.0/css/bootstrap-datepicker.css" rel="stylesheet">
 
   <!-- JQVMap -->
   <!-- <link rel="stylesheet" href="plugins/jqvmap/jqvmap.min.css"> -->
@@ -71,7 +71,7 @@
 </head>
 <script type="text/javascript">
         function zoom() {
-            document.body.style.zoom = "80%" 
+            document.body.style.zoom = "100%" 
         }
 </script>
 <body onload="zoom()" class="hold-transition sidebar-mini layout-fixed">
@@ -141,12 +141,12 @@
                   <p>Subject Management</p>
                 </a>
               </li>
-              <li class="nav-item">
+              <!-- <li class="nav-item">
                 <a href="{{url('/activity-request')}}" class="nav-link text-white">
                   <i class="far fa-circle nav-icon"></i>
                   <p>Activity Request Mgt.</p>
                 </a>
-              </li>
+              </li> -->
             </ul>
           </li>
         </ul>
@@ -177,7 +177,7 @@
     </section>
 
     <!-- Masthead -->
-  <header class="masthead bg-primary text-white text-center">
+  <header class="masthead bg-info text-white text-center">
     <div class="container d-flex align-items-center flex-column">
 
       <!-- Masthead Avatar Image -->
@@ -245,7 +245,7 @@
             <!-- About Section Button -->
             <div class="col-lg-6 ml-auto text-right">
                 <input class="btn btn-sm btn-outline-dark d-inline" type="hidden" name="_token" value="{{CSRF_Token()}}">
-                <input class="btn btn-sm d-inline" type="file" name="file" required>
+                <input class="btn btn-sm d-inline" type="file" name="file" id="fileSelect" accept=".csv, application/vnd.openxmlformats-officedocument.spreadsheetml.sheet, application/vnd.ms-excel" required>
                 <input class="btn btn-sm btn-outline-dark d-inline " type="submit" value="upload">
             </div>
       </div>
