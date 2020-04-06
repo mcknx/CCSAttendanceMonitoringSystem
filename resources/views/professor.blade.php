@@ -53,12 +53,12 @@
   
 
 </head>
-<script type="text/javascript">
+<!-- <script type="text/javascript">
         function zoom() {
             document.body.style.zoom = "100%" 
         }
-</script>
-<body onload="zoom()" class="hold-transition sidebar-mini layout-fixed">
+</script> -->
+<body class="hold-transition sidebar-mini layout-fixed">
   <!-- Page Preloder -->
  <div id="preloder">
     <div class="loader"></div>

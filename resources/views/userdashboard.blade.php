@@ -118,18 +118,18 @@
                   <p>Dashboard</p>
                 </a>
               </li> -->
-              <li class="nav-item">
+              <!-- <li class="nav-item">
                 <a href="../../index2.html" class="nav-link text-white">
                   <i class="far fa-circle nav-icon"></i>
                   <p>My statistics</p>
                 </a>
-              </li>
-              <li class="nav-item">
+              </li> -->
+              <!-- <li class="nav-item">
                 <a href="../../index3.html" class="nav-link text-white">
                   <i class="far fa-circle nav-icon"></i>
                   <p>Absences/Tardiness</p>
                 </a>
-              </li>
+              </li> -->
             </ul>
           </li>
         </ul>

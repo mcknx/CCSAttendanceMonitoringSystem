@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Professor;
 use App\User;
+use App\Semester;
 use Auth;
 use App\Subject;
 use Illuminate\Http\Request;
@@ -19,6 +20,7 @@ class ProfessorController extends Controller
     public function index()
     {
         $professors = Professor::with('subjects')->get();
+        // $professors = null;
         // foreach ($professors as $professor){
         //     var_dump($professor->subjects->count());
         // }
@@ -39,6 +41,23 @@ class ProfessorController extends Controller
         // }
         return view('professor',['professors'=>$professors,'layout'=>'professorIndex']);
     }
+
+    // public function index2(Request $request)
+    // {
+    //     $sem = $request->input('sem') ;
+    //     $from_year = $request->input('from') ;
+    //     $to_year = $request->input('to') ;
+    //     $semester = Semester::where('sem', '=', $sem)->where('from_year', '=', $from_year)->where('to_year', '=', $to_year)->first();
+        
+    //     if ($semester == null) {
+    //         $professors = null;    
+    //         return view('professor',['professors'=>$professors,'layout'=>'professorIndex']);
+
+    //     }
+    //     $professors = Professor::with('subjects')->where('sem_id', '=', $semester->id)->get();;
+    //     // $subjects = Subject::where('sem_id', '=', $semester->id)->get();
+    //     return view('professor',['professors'=>$professors,'layout'=>'professorIndex']);
+    // }
 
     /**
      * Show the form for creating a new resource.

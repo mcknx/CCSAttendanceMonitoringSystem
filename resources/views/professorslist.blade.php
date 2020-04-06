@@ -3,8 +3,7 @@
     <div class="card-body">
         <h5 class="card-title"><b>List of Professors</b></h5>
         <br>
-        <blockquote class="card-text">You can find here all the informations about professors in the system.
-        You can also create a professor <a href="{{ url('/professorCreate/') }}"><b> here.</b></a>
+        <blockquote class="card-text">You can find here all the information about professors in the system.
         </blockquote>
 
         <table class="table table-responsive">
@@ -16,7 +15,7 @@
                 <th scope="col">Middle Name</th>
                 <th scope="col">Professor Code</th>
                 <th scope="col">Subject(s)</th>
-                <th scope="col">Edit</th>
+
                
             </tr>
             </thead>
@@ -29,12 +28,7 @@
                     <td>{{ $professor->Prof_mname }}</td>
                     <td>{{ $professor->Prof_code }}</td>
                     <td>{{ $professor->subjects->count() }}</td>
-                    <td>
 
-                        <a href="{{ url('/professorEdit/'.$professor->id) }}" class="btn btn-sm btn-warning">Edit</a>
-
-                    </td>
-               
 
 
                 </tr>

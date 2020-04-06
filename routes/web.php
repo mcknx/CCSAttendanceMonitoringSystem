@@ -41,6 +41,7 @@ Route::get('userdashboard', 'UserDashboardController@index')->middleware('auth')
 // Professors
 Route::get('/',"ProfessorController@index")->middleware('auth') ;
 Route::get('/professor',"ProfessorController@index")->middleware('auth') ;
+// Route::get('/professor2',"ProfessorController@index2")->middleware('auth') ;
 Route::get('/professorEdit/{id}',"ProfessorController@edit")->middleware('auth') ;
 Route::get('/professorShow/{id}',"ProfessorController@show")->middleware('auth') ;
 Route::get('/professorCreate',"ProfessorController@create")->middleware('auth') ;
@@ -50,6 +51,7 @@ Route::post('/professorDelete/{id}',"ProfessorController@destroy")->middleware('
 
 // Subjects
 Route::get('/subject',"SubjectController@index")->middleware('auth') ;
+Route::post('/subject2',"SubjectController@index2")->middleware('auth') ;
 Route::get('/subjectEdit/{id}',"SubjectController@edit")->middleware('auth') ;
 Route::get('/subjectShow/{id}',"SubjectController@show")->middleware('auth') ;
 Route::get('/showSubjectSem',"SubjectController@showSubjectSem")->middleware('auth') ;

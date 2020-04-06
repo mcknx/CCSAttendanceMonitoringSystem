@@ -172,12 +172,33 @@
 
                 <div class="card mb-3">
                     <div class="card-body">
-                        <blockquote class="card-title">Enter the informations of the new subject</blockquote>
+                        <blockquote class="card-title">Enter the information of the new subject</blockquote>
                         <br>
                         <form action="{{ url('/subjectStore') }}" method="post">
                             @csrf
                             <br>
                             <br>
+                            <div class="form-group">
+                            <label>Assign Semester</label>
+                                <div class="form-group col-12">
+                                    <label for="sem">Select Semester</label>
+                                    <select name="sem" class="btn btn-sm btn-outline-dark " required>
+                                        <option value="1">1st Semester</option>
+                                        <option value="2">2nd Semester</option>
+                                        <option value="3">Summer</option>
+                                    </select><br>
+                                </div>
+                                
+                                <div class="form-group col-6">
+                                    <label for="from">From Year</label>
+                                        <input type="text" id="date-from" name="from" class="btn btn-sm btn-outline-dark d-inline" value="2020" required>
+                                </div>
+
+                                <div class="form-group col-6">
+                                    <label for="to">To Year</label><br>
+                                        <input type="text" id="date-to" name="to" class="btn btn-sm btn-outline-dark d-inline" value="2020" required><br>
+                                </div>
+                            </div>
                             <div class="form-group">
                                 <label>Subject Title</label>
                                 <input name="Subj_title" type="text" class="form-control"  placeholder="Enter Subject Title" required>

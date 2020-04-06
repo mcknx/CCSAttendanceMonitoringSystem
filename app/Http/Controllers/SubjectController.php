@@ -24,11 +24,36 @@ class SubjectController extends Controller
         // $semester = Semester::all() ;
         // $semester = $semester->where('sem', '=', $sem)->where('from_year', '=', $from)->where('to_year', '=', $to);
         // dd($semester);
-        $subjects = Subject::all() ;
+        // $subjects = Subject::all() ;
+        $subjects = null;
         // $subjects = $subjects->where('sem', '=', $sem)->where('from_year', '=', $from)->where('to_year', '=', $to);
-        $professors = Professor::all() ;
-        return view('subject',['subjects'=>$subjects,'professors'=>$professors,'layout'=>'subjectIndex']);
+        // $professors = Professor::all() ;
+        // return view('subject',['subjects'=>$subjects,'professors'=>$professors,'layout'=>'subjectIndex']);
+        return view('subject',['subjects'=>$subjects,'layout'=>'subjectIndex']);
     }
+
+    public function index2(Request $request)
+    {
+        $sem = $request->input('sem') ;
+        $from_year = $request->input('from') ;
+        $to_year = $request->input('to') ;
+        $semester = Semester::where('sem', '=', $sem)->where('from_year', '=', $from_year)->where('to_year', '=', $to_year)->first();
+        
+        if ($semester == null) {
+            $subjects = null;    
+            return view('subject',['subjects'=>$subjects,'layout'=>'subjectIndex']);
+            // return view('record',['records'=>$records,'layout'=>'recordIndex']);
+
+        }
+        
+        $subjects = Subject::where('sem_id', '=', $semester->id)->get();
+        
+        // dd($records);
+        return view('subject',['subjects'=>$subjects,'layout'=>'subjectIndex']);
+        // return view('record',['semester'=>$semester, 'records'=>$records,'layout'=>'recordIndex']);
+        // return view('record',['layout'=>'recordIndex']);
+    }
+
     public function showSubjectSem(Request $res)
     {
         $sem = $res->input('sem');
@@ -68,6 +93,19 @@ class SubjectController extends Controller
         $professor = Professor::where('prof_code', $request->input('Prof_code'))->first();
         $subject = new Subject() ;
         $subject->prof_id = $professor->id;
+        $sem = $request->input('sem') ;
+        $from_year = $request->input('from') ;
+        $to_year = $request->input('to') ;
+        
+        // $semester = Semester::all() ;
+        $semester = Semester::where('sem', '=', $sem)->where('from_year', '=', $from_year)->where('to_year', '=', $to_year)->first();
+        if ($semester == null) {
+            // $subjects = null;    
+            return redirect()->back();
+            // return view('record',['records'=>$records,'layout'=>'recordIndex']);
+
+        }
+        $subject->sem_id = $semester->id;
         $subject->Subj_title = $request->input('Subj_title') ;
         $subject->Subj_dayM = $request->input('Subj_dayM') ;
         $subject->Subj_dayT = $request->input('Subj_dayT') ;
