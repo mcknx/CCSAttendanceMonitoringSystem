@@ -6,18 +6,6 @@
   <title>CCS Attendance</title>
   <!-- Tell the browser to be responsive to screen width -->
   <meta name="viewport" content="width=device-width, initial-scale=1">
-
-
-  <!-- Stylesheets -->
-  <link rel="stylesheet" href="{{asset('solmusic/css/bootstrap.min.css')}}" />
-  <link rel="stylesheet" href="{{asset('solmusic/css/font-awesome.min.css')}}" />
-  <link rel="stylesheet" href="{{asset('solmusic/css/owl.carousel.min.css')}}" />
-  <link rel="stylesheet" href="{{asset('solmusic/css/slicknav.min.css')}}" />
-
-  <!-- Main Stylesheets -->
-  <link rel="stylesheet" href="{{asset('solmusic/css/style.css')}}" />
-
-
   <!-- Font Awesome -->
   <!-- <link rel="stylesheet" href="plugins/fontawesome-free/css/all.min.css"> -->
   <link rel="stylesheet" href="{{asset('/AdminLTE-master/plugins/fontawesome-free/css/all.min.css')}}">
@@ -56,27 +44,38 @@
   
 
 </head>
-<script type="text/javascript">
-  function zoom() {
-      document.body.style.zoom = "100%" 
-  }
-</script>
-<body onload="zoom()" class="hold-transition sidebar-mini layout-fixed">
-  <!-- Page Preloder -->
- <div id="preloder">
-    <div class="loader"></div>
-  </div>
-<div class="wrapper">
+<body class="hold-transition sidebar-mini layout-fixed">
 <div class="wrapper">
 
   <!-- Navbar -->
-  @include("navbar")
+  <nav class="main-header navbar navbar-expand navbar-white navbar-light">
+    <!-- Left navbar links -->
+    <ul class="navbar-nav">
+      <li class="nav-item">
+        <a class="nav-link" data-widget="pushmenu" href="#"><i class="fas fa-bars"></i></a>
+      </li>
+      <li class="nav-item d-none d-sm-inline-block">
+        <a href="#" class="nav-link">Home</a>
+      </li>
+    </ul>
+    <!-- SEARCH FORM -->
+    <form action="/searchSubject" class="form-inline ml-3">
+      <div class="input-group input-group-sm">
+        <input class="form-control form-control-navbar" name="search" type="search" placeholder="Search Subject Title" aria-label="Search">
+        <div class="input-group-append">
+          <button class="btn btn-navbar" type="submit">
+            <i class="fas fa-search"></i>
+          </button>
+        </div>
+      </div>
+    </form>
+  </nav>
   <!-- /.navbar -->
 
   <!-- Main Sidebar Container -->
   <aside class="main-sidebar sidebar-dark-primary elevation-4">
     <!-- Brand Logo -->
-    <a href="{{url('/dashboard')}}" class="brand-link">
+    <a href="#" class="brand-link">
       <img src="/AdminLTE-master/dist/img/AdminLTELogo.png" alt="AdminLTE Logo" class="brand-image img-circle elevation-3"
            style="opacity: .8">
       <span class="brand-text font-weight-light">CCS Attendance</span>
@@ -86,11 +85,11 @@
     <div class="sidebar">
       <!-- Sidebar user panel (optional) -->
       <div class="user-panel mt-3 pb-3 mb-3 d-flex">
-        <!-- <div class="image">
+        <div class="image">
           <img src="/AdminLTE-master/dist/img/asma.jpg" class="img-circle elevation-2" alt="User Image">
-        </div> -->
+        </div>
         <div class="info">
-          <span class="text-white">Welcome! {{ ucfirst(Auth()->user()->name) }}</span>
+          <a href="#" class="d-block">Mckeen Asma</a>
         </div>
       </div>
 
@@ -100,7 +99,7 @@
           <!-- Add icons to the links using the .nav-icon class
                with font-awesome or any other icon font library -->
           <li class="nav-item has-treeview menu-open">
-            <a href="#" class="nav-link active text-white">
+            <a href="#" class="nav-link active">
               <!-- <i class="nav-icon fas fa-tachometer-alt"></!-->
               <p>
                 Dashboard
@@ -109,21 +108,21 @@
             </a>
             <ul class="nav nav-treeview">
               <li class="nav-item">
-                <a href="{{url('/record')}}" class="nav-link text-white">
+                <a href="{{url('/attendance')}}" class="nav-link">
                   <i class="far fa-circle nav-icon"></i>
-                  <p>Attendance Management</p>
+                  <p>Attendance Mgt</p>
                 </a>
               </li>
               <li class="nav-item">
-                <a href="{{url('/professor')}}" class="nav-link text-white">
+                <a href="{{url('/professor')}}" class="nav-link">
                   <i class="far fa-circle nav-icon"></i>
-                  <p>Professor Management</p>
+                  <p>Professor Mgt</p>
                 </a>
               </li>
               <li class="nav-item">
                 <a href="{{url('/subject')}}" class="nav-link active">
                   <i class="far fa-circle nav-icon"></i>
-                  <p>Subject Management</p>
+                  <p>Subject Mgt</p>
                 </a>
             </ul>
           </li>
@@ -172,130 +171,61 @@
 
                 <div class="card mb-3">
                     <div class="card-body">
-                        <blockquote class="card-title">Enter the information of the new subject</blockquote>
+                        <blockquote class="card-title">Enter the informations of the new subject</blockquote>
                         <br>
                         <form action="{{ url('/subjectStore') }}" method="post">
                             @csrf
                             <br>
                             <br>
                             <div class="form-group">
-                            <label>Assign Semester</label>
-                                <div class="form-group col-12">
-                                    <label for="sem">Select Semester</label>
-                                    <select name="sem" class="btn btn-sm btn-outline-dark " required>
-                                        <option value="1">1st Semester</option>
-                                        <option value="2">2nd Semester</option>
-                                        <option value="3">Summer</option>
-                                    </select><br>
-                                </div>
-                                
-                                <div class="form-group col-6">
-                                    <label for="from">From Year</label>
-                                        <input type="text" id="date-from" name="from" class="btn btn-sm btn-outline-dark d-inline" value="2020" required>
-                                </div>
-
-                                <div class="form-group col-6">
-                                    <label for="to">To Year</label><br>
-                                        <input type="text" id="date-to" name="to" class="btn btn-sm btn-outline-dark d-inline" value="2020" required><br>
-                                </div>
-                            </div>
-                            <div class="form-group">
                                 <label>Subject Title</label>
-                                <input name="Subj_title" type="text" class="form-control"  placeholder="Enter Subject Title" required>
+                                <input name="Subj_title" type="text" class="form-control"  placeholder="Enter First Name">
                             </div>
                             <div class="form-group">
                                 <label>Subject Day</label>
-                                <div class="form-group clearfix">
-                                  <blockquote>
-                                  <div class="icheck-primary d-inline">
-                                    <input type="checkbox" id="Mon"  name="Subj_dayM" value="1">
-                                    <label for="Mon">
-                                      Mon
-                                    </label>
-                                  </div>
-                                  <div class="icheck-primary d-inline">
-                                    <input type="checkbox" id="Tue" name="Subj_dayT" value="1">
-                                    <label for="Tue">
-                                      Tue
-                                    </label>
-                                  </div>
-                                  <div class="icheck-primary d-inline">
-                                    <input type="checkbox" id="Wed" name="Subj_dayW" value="1">
-                                    <label for="Wed">
-                                      Wed
-                                    </label>
-                                  </div>
-                                  <div class="icheck-primary d-inline">
-                                    <input type="checkbox" id="Thu" name="Subj_dayTH" value="1">
-                                    <label for="Thu">
-                                      Thu
-                                    </label>
-                                  </div>
-                                  <div class="icheck-primary d-inline">
-                                    <input type="checkbox" id="Fri" name="Subj_dayF" value="1">
-                                    <label for="Fri">
-                                      Fri
-                                    </label>
-                                  </div>
-                                  <div class="icheck-primary d-inline">
-                                    <input type="checkbox" id="Sat" name="Subj_dayS" value="1">
-                                    <label for="Sat">
-                                    Sat
-                                    </label>
-                                  </div>
-                                  <div class="icheck-primary d-inline">
-                                    <input type="checkbox" id="Sun" name="Subj_daySu" value="1">
-                                    <label for="Sun">
-                                    Sun
-                                    </label>
-                                  </div>
-                                  </blockquote>
-                                </div>
-                                
-                                <!-- <input name="Subj_day" type="text" class="form-control"  placeholder="Enter Subject Day"> -->
+                                <input name="Subj_day" type="text" class="form-control"  placeholder="Enter Last Name">
                             </div>
 
                             
                             <div class="form-group">
-                                <label>Subject Time</label><br>
-                                <blockquote class="d-inline"> From</blockquote>
-                                <input type="time" class="d-inline" name="Subj_timein" required>
-                                <blockquote class="d-inline">to</blockquote><input type="time" class="d-inline" name="Subj_timeout" required>
-                                <!-- <input name="Subj_time" type="text" class="form-control"  placeholder="Enter Subject Time"> -->
+                                <label>Subject Time</label>
+                                <input name="Subj_time" type="text" class="form-control"  placeholder="Enter Middle Name">
                             </div>
                             
                             <div class="form-group">
                                 <label>Subject Description</label>
-                                <input name="Subj_desc" type="text" class="form-control"  placeholder="Subject Description" required>
+                                <input name="Subj_desc" type="text" class="form-control"  placeholder="Enter Subject ID">
                             </div>
 
                             <div class="form-group">
                                 <label>Subject Units</label>
-                                <input name="Subj_units" type="number" class="form-control"  placeholder="Subject Units" required>
+                                <input name="Subj_units" type="text" class="form-control"  placeholder="Enter Subject ID">
                             </div>
 
                             <div class="form-group">
                                 <label>Subject Room</label>
-                                <input name="Subj_room" type="text" class="form-control"  placeholder="Subject Room" required>
+                                <input name="Subj_room" type="text" class="form-control"  placeholder="Enter Subject ID">
                             </div>
 
                             <div class="form-group">
-                                <label>Subject Year & Section</label>
-                                <input name="Subj_yr_sec" type="text" class="form-control"  placeholder="Subject Year & Section" required>
+                                <label>Subject Yr & Sec</label>
+                                <input name="Subj_yr_sec" type="text" class="form-control"  placeholder="Enter Subject ID">
                             </div>
 
                             <div class="form-group">
-                                <label>Professor Code</label>
-                                <select id="code" name="Prof_code" class="form-control" >
-                                <!-- <input name="Prof_code" type="text" class="form-control"  placeholder="Professor Code"> -->
-                                @foreach($professors as $professor)
-                                  <option value="{{$professor->Prof_code}}">{{$professor->Prof_code}}</option>
-                                @endforeach
+                                <label>Professor</label>
+                                <!-- <input  type="number" class="form-control"  placeholder="Enter Subject ID"> -->
+                                <br>
+                                <select name="Prof_ID">
+                                  @foreach($professors as $professor)
+                                  <!-- <option value="">{{ $professor->Prof_fname.' '.$professor->Prof_mname.' '.$professor->Prof_lname }}</option> -->
+                                  <option value="">{{ $professor->id }}</option>
+                                  @endforeach
                                 </select>
                             </div>
 
                             <input type="submit" class="btn btn-info" value="Save">
-                            <!-- <input type="reset" class="btn btn-warning" value="Reset"> -->
+                            <input type="reset" class="btn btn-warning" value="Reset">
                         </form>
                     </div>
                 </div>
@@ -305,6 +235,7 @@
     </div>
 @elseif($layout == 'subjectShow')
     <div class="container-fluid mt-4">
+      <h6 class='$classname'>{{$message}}</h6>
         <div class="row">
             <section class="col">
                 @include("subjectslist")
@@ -328,101 +259,46 @@
                             <br>
                             <div class="form-group">
                                 <label>Subject Title</label>
-                                <input value="{{ $subject->Subj_title }}" name="Subj_title" type="text" class="form-control"  placeholder="Enter First Name" required>
+                                <input value="{{ $subject->Subj_title }}" name="Subj_title" type="text" class="form-control"  placeholder="Enter First Name">
                             </div>
                             <div class="form-group">
                                 <label>Subject Day</label>
-                                <div class="form-group clearfix">
-                                  <blockquote>
-                                  <div class="icheck-primary d-inline">
-                                    <input type="checkbox" id="Mon"  name="Subj_dayM" value="1" @if($subject->Subj_dayM == 1 ) checked @endif>
-                                    <label for="Mon">
-                                      Mon
-                                    </label>
-                                  </div>
-                                  <div class="icheck-primary d-inline">
-                                    <input type="checkbox" id="Tue" name="Subj_dayT" value="1" @if($subject->Subj_dayT == 1 ) checked @endif>
-                                    <label for="Tue">
-                                      Tue
-                                    </label>
-                                  </div>
-                                  <div class="icheck-primary d-inline">
-                                    <input type="checkbox" id="Wed" name="Subj_dayW" value="1" @if($subject->Subj_dayW == 1 ) checked @endif>
-                                    <label for="Wed">
-                                      Wed
-                                    </label>
-                                  </div>
-                                  <div class="icheck-primary d-inline">
-                                    <input type="checkbox" id="Thu" name="Subj_dayTH" value="1" @if($subject->Subj_dayTH == 1 ) checked @endif>
-                                    <label for="Thu">
-                                      Thu
-                                    </label>
-                                  </div>
-                                  <div class="icheck-primary d-inline">
-                                    <input type="checkbox" id="Fri" name="Subj_dayF" value="1" @if($subject->Subj_dayF == 1 ) checked @endif>
-                                    <label for="Fri">
-                                      Fri
-                                    </label>
-                                  </div>
-                                  <div class="icheck-primary d-inline">
-                                    <input type="checkbox" id="Sat" name="Subj_dayS" value="1" @if($subject->Subj_dayS == 1 ) checked @endif>
-                                    <label for="Sat">
-                                    Sat
-                                    </label>
-                                  </div>
-                                  <div class="icheck-primary d-inline">
-                                    <input type="checkbox" id="Sun" name="Subj_daySu" value="1" @if($subject->Subj_daySu == 1 ) checked @endif>
-                                    <label for="Sun">
-                                    Sun
-                                    </label>
-                                  </div>
-                                  </blockquote>
-                                </div>
-                                <!-- <input  name="Subj_day" type="text" class="form-control"  placeholder="Enter Last Name"> -->
+                                <input value="{{ $subject->Subj_day }}" name="Subj_day" type="text" class="form-control"  placeholder="Enter Last Name">
                             </div>
 
                             
                             <div class="form-group">
-                                <label>Subject Time</label><br>
-                                <blockquote class="d-inline"> From</blockquote>
-                                <input type="time" class="d-inline" value="{{ $subject->Subj_timein }}" name="Subj_timein" required>
-                                <blockquote class="d-inline">to</blockquote><input type="time" class="d-inline" value="{{ $subject->Subj_timeout }}" name="Subj_timeout" required>
-                                <!-- <input name="Subj_time" type="text" class="form-control"  placeholder="Enter Middle Name"> -->
+                                <label>Subject Time</label>
+                                <input value="{{ $subject->Subj_time }}"name="Subj_time" type="text" class="form-control"  placeholder="Enter Middle Name">
                             </div>
                             
                             <div class="form-group">
                                 <label>Subject Description</label>
-                                <input value="{{ $subject->Subj_desc }}" name="Subj_desc" type="text" class="form-control"  placeholder="Subject Description" required>
+                                <input value="{{ $subject->Subj_desc }}" name="Subj_desc" type="text" class="form-control"  placeholder="Enter Subject ID">
                             </div>
 
                             <div class="form-group">
                                 <label>Subject Units</label>
-                                <input value="{{ $subject->Subj_units }}" name="Subj_units" type="number" class="form-control"  placeholder="Subject Units" required>
+                                <input value="{{ $subject->Subj_units }}" name="Subj_units" type="text" class="form-control"  placeholder="Enter Subject ID">
                             </div>
 
                             <div class="form-group">
                                 <label>Subject Room</label>
-                                <input value="{{ $subject->Subj_room }}" name="Subj_room" type="text" class="form-control"  placeholder="Subject Room" required>
+                                <input value="{{ $subject->Subj_room }}" name="Subj_room" type="text" class="form-control"  placeholder="Enter Subject ID">
                             </div>
 
                             <div class="form-group">
-                                <label>Subject Year & Section</label>
-                                <input value="{{ $subject->Subj_yr_sec }}" name="Subj_yr_sec" type="text" class="form-control"  placeholder="Subject Year & Section" required>
+                                <label>Subject Yr & Sec</label>
+                                <input value="{{ $subject->Subj_yr_sec }}" name="Subj_yr_sec" type="text" class="form-control"  placeholder="Enter Subject ID">
                             </div>
 
                             <div class="form-group">
-                                <label>Professor Code</label>
-                                <select id="code" class="form-control" name="Prof_code">
-                                  <option value="{{ $subject->Prof_code }}">{{ $subject->Prof_code }}</option>
-                                  @foreach($professors as $professor)
-                                    <option value="{{$professor->Prof_code}}">{{$professor->Prof_code}}</option>
-                                  @endforeach
-                                </select>
-                                <!-- <input  name="Prof_code" type="text" class="form-control"  placeholder="Professor Code"> -->
+                                <label>Professor ID</label>
+                                <input value="{{ $subject->Prof_ID }}" name="Prof_ID" type="number" class="form-control"  placeholder="Enter Subject ID">
                             </div>
 
                             <input type="submit" class="btn btn-info" value="Update">
-                            <input type="submit" onclick="return confirm('Are you sure?')"  class="btn btn-danger" formaction="{{ url('/subjectDelete/'.$subject->id) }}" value="Delete">
+                            <input type="reset" class="btn btn-warning" value="Reset">
 
                         </form>
                     </div>
@@ -530,12 +406,5 @@
 <!-- <script src="dist/js/demo.js"></script> -->
 <script src="{{asset('/AdminLTE-master/dist/js/demo.js')}}"></script>
 
-<!--====== Javascripts & Jquery ======-->
-<script src="{{asset('/solmusic/js/jquery-3.2.1.min.js')}}"></script>
-<script src="{{asset('/solmusic/js/bootstrap.min.js')}}"></script>
-<script src="{{asset('/solmusic/js/jquery.slicknav.min.js')}}"></script>
-<script src="{{asset('/solmusic/js/owl.carousel.min.js')}}"></script>
-<script src="{{asset('/solmusic/js/mixitup.min.js')}}"></script>
-<script src="{{asset('/solmusic/js/main.js')}}"></script>
 </body>
 </html>

@@ -1,65 +1,41 @@
-<div class="content-wrapper">
-    <!-- Content Header (Page header) -->
-    <section class="content-header">
-      <div class="container-fluid">
-        <div class="row mb-2">
-          <div class="col-sm-6">
-            <h1>Attendance Management</h1>
-          </div>
-          <div class="col-sm-6">
-            <ol class="breadcrumb float-sm-right">
-              <li class="breadcrumb-item"><a href="">Home</a></li>
-              <li class="breadcrumb-item active">Attendance Management</li>
-            </ol>
-          </div>
-        </div>
-      </div><!-- /.container-fluid -->
-    </section>
-    @if($layout == 'attendanceIndex')
-    <div class="container-fluid mt-4">
-        <div class="container-fluid mt-4">
-            <div class="row justify-content-center">
-                <section class="col-md-12">
-                    @include("attendancelist")
-                </section>
-            </div>
-        </div>
-    </div>
-@elseif($layout == 'attendanceCreate')
-    <div class="container-fluid mt-4 " id="create-form">
+<section class="content">
+    <div class="card card-solid">
+    @if($layout == 'index')
+        @include("professorslist")
+    @elseif($layout == 'create')
+        <!-- @include("professorslist") -->
+        <div class="container-fluid mt-4 " id="create-form">
         <div class="row">
             <section class="col-md-7">
-                @include("attendancelist")
+                @include("professorslist")
             </section>
             <section class="col-md-5">
 
                 <div class="card mb-3">
+                    <img src="https://marketplace.canva.com/MAB7yqsko0c/1/screen_2x/canva-smart-little-schoolgirl--MAB7yqsko0c.jpg" class="card-img-top" alt="...">
                     <div class="card-body">
-                        <blockquote class="card-title">Enter the informations of the new attendance</blockquote>
-                        <br>
-                        <form action="{{ url('/attendanceStore') }}" method="post">
+                        <h5 class="card-title">Enter the informations of the new Professor</h5>
+                        <form action="{{ url('/store') }}" method="post">
                             @csrf
-                            <br>
-                            <br>
                             <div class="form-group">
-                                <label>First Name</label>
+                                <label>Prof_fname</label>
                                 <input name="Prof_fname" type="text" class="form-control"  placeholder="Enter First Name">
                             </div>
                             <div class="form-group">
-                                <label>Last Name</label>
+                                <label>Prof_lname</label>
                                 <input name="Prof_lname" type="text" class="form-control"  placeholder="Enter Last Name">
                             </div>
 
                             
                             <div class="form-group">
-                                <label>Middle Name</label>
+                                <label>Prof_mname</label>
                                 <input name="Prof_mname" type="text" class="form-control"  placeholder="Enter Middle Name">
                             </div>
                             
-                            <!-- <div class="form-group">
-                                <label>Subject(s)</label>
+                            <div class="form-group">
+                                <label>Subj_ID</label>
                                 <input name="Subj_ID" type="text" class="form-control"  placeholder="Enter Subject ID">
-                            </div> -->
+                            </div>
                             
                             <input type="submit" class="btn btn-info" value="Save">
                             <input type="reset" class="btn btn-warning" value="Reset">
@@ -70,48 +46,48 @@
             </section>
         </div>
     </div>
-@elseif($layout == 'attendanceShow')
+    @elseif($layout == 'show')
     <div class="container-fluid mt-4">
         <div class="row">
             <section class="col">
-                @include("attendancelist")
+                @include("professorslist")
             </section>
             <section class="col"></section>
         </div>
     </div>
-@elseif($layout == 'attendanceEdit')
+@elseif($layout == 'edit')
     <div class="container-fluid mt-4">
         <div class="row">
             <section class="col-md-7">
-                @include("attendancelist")
+                @include("professorslist")
             </section>
             <section class="col-md-5">
 
                 <div class="card mb-3">
+                    <img src="https://marketplace.canva.com/MAB7yqsko0c/1/screen_2x/canva-smart-little-schoolgirl--MAB7yqsko0c.jpg" class="card-img-top" alt="...">
                     <div class="card-body">
-                        <h5 class="card-title">Update informations of attendance</h5>
-                        <form action="{{ url('/attendanceUpdate/'.$attendance->id) }}" method="post">
+                        <h5 class="card-title">Update informations of professor</h5>
+                        <form action="{{ url('/update/'.$professor->id) }}" method="post">
                             @csrf
-                            <br>
                             <div class="form-group">
-                                <label>First Name</label>
-                                <input value="{{ $attendance->Prof_fname }}" name="Prof_fname" type="text" class="form-control"  placeholder="Enter First Name">
+                                <label>Prof_fname</label>
+                                <input value="{{ $professor->Prof_fname }}" name="Prof_fname" type="text" class="form-control"  placeholder="Enter First Name">
                             </div>
                             <div class="form-group">
-                                <label>Last Name</label>
-                                <input value="{{ $attendance->Prof_lname }}" name="Prof_lname" type="text" class="form-control"  placeholder="Enter Last Name">
+                                <label>Prof_lname</label>
+                                <input value="{{ $professor->Prof_lname }}" name="Prof_lname" type="text" class="form-control"  placeholder="Enter Last Name">
                             </div>
 
                             
                             <div class="form-group">
-                                <label>Middle Name</label>
-                                <input value="{{ $attendance->Prof_mname }}" name="Prof_mname" type="text" class="form-control"  placeholder="Enter Middle Name">
+                                <label>Prof_mname</label>
+                                <input value="{{ $professor->Prof_mname }}" name="Prof_mname" type="text" class="form-control"  placeholder="Enter Middle Name">
                             </div>
                             
-                            <!-- <div class="form-group">
-                                <label>Subject(s)</label>
-                                <input value="{{ $attendance->Subj_ID }}" name="Subj_ID" type="text" class="form-control"  placeholder="Enter Subject ID">
-                            </div> -->
+                            <div class="form-group">
+                                <label>Subj_ID</label>
+                                <input value="{{ $professor->Subj_ID }}" name="Subj_ID" type="text" class="form-control"  placeholder="Enter Subject ID">
+                            </div>
 
                             <input type="submit" class="btn btn-info" value="Update">
                             <input type="reset" class="btn btn-warning" value="Reset">

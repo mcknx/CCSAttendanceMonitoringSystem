@@ -1,41 +1,44 @@
-
-<div class="card mb-3">
-    <div class="card-body">
-        <h5 class="card-title"><b>List of attendances</b></h5>
-        <br>
-        <blockquote class="card-text">You can find here all the informations about attendances in the system.
-        You can also create a attendance <a href="{{ url('/attendanceCreate/') }}"><b> here.</b></a>
-        </blockquote>
-
-        <table class="table">
-            <thead class="thead-light">
-            <tr>
-                <th scope="col">attendance ID</th>
-                <th scope="col">First Name</th>
-                <th scope="col">Last Name</th>
-                <th scope="col">Middle Name</th>
-                <th scope="col">Subject(s)</th>
-                <th scope="col">Action</th>
-            </tr>
-            </thead>
-            <tbody>
-            @foreach($attendances as $attendance)
-                <tr>
-                    <td>{{ $attendance->id }}</td>
-                    <td>{{ $attendance->Prof_fname }}</td>
-                    <td>{{ $attendance->Prof_lname }}</td>
-                    <td>{{ $attendance->Prof_mname }}</td>
-                    <td>{{ $attendance->Subj_ID }}</td>
-                    <td>
-
-                        <a href="{{ url('/attendanceEdit/'.$attendance->id) }}" class="btn btn-sm btn-warning">Edit</a>
-
-                    </td>
-
-
-                </tr>
-            @endforeach
-            </tbody>
-        </table>
-    </div>
-</div>
+@foreach($professors as $professor)
+      <!-- Default box -->
+        <div class="card-body pb-0">
+          <div class="row d-flex align-items-stretch">
+            <div class="col-12 col-sm-6 col-md-4 d-flex align-items-stretch">
+              <div class="card bg-light">
+                <div class="card-header text-muted border-bottom-0">
+                  Teacher
+                </div>
+                <div class="card-body pt-0">
+                  <div class="row">
+                    <div class="col-7">
+                      <h2 class="lead"><b>{{ $professor->Prof_fname }} {{ $professor->Prof_mname }} {{ $professor->Prof_lname }}</b></h2>
+                      <p class="text-muted text-sm"><b>About: </b> (Subjects) </p>
+                      <ul class="ml-4 mb-0 fa-ul text-muted">
+                        <!-- <li class="small"><span class="fa-li"><i class="fas fa-lg fa-building"></i></span> Address: Demo Street 123, Demo City 04312, NJ</li>
+                        <li class="small"><span class="fa-li"><i class="fas fa-lg fa-phone"></i></span> Phone #: + 800 - 12 12 23 52</li> -->
+                      </ul>
+                    </div>
+                    <div class="col-5 text-center">
+                      <img src="/AdminLTE-master/dist/img/AdminLTELogo.png" alt="" class="img-circle img-fluid">
+                    </div>
+                  </div>
+                </div>
+                <a href="{{ url('/edit/'.$professor->id) }}" class="btn btn-sm btn-warning">Edit</a>
+                <div class="card-footer">
+                  <div class="text-right">
+                    <a href="{{ url('/edit/'.$professor->id) }}" class="btn btn-sm bg-teal">
+                    Present
+                    </a>
+                    <a href="#" class="btn btn-sm btn-warning">
+                      Absent
+                    </a>
+                    <a href="#" class="btn btn-sm btn-danger">
+                      Late
+                    </a>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+        @endforeach
+        <!-- /.card-body -->

@@ -19,4 +19,4 @@
         </div>
       </div>
     </form>
-  </nav>
+  </nav><?php /**PATH C:\xampp\htdocs\pm\trial_error1\resources\views/navbar.blade.php ENDPATH**/ ?>

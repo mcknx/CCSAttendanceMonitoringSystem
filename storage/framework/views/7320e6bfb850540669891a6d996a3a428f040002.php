@@ -3,41 +3,41 @@
 <head>
   <meta charset="utf-8">
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
-  <title>CCS Attendance</title>
+  <title>AdminLTE 3 | Dashboard</title>
   <!-- Tell the browser to be responsive to screen width -->
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <!-- Font Awesome -->
   <!-- <link rel="stylesheet" href="plugins/fontawesome-free/css/all.min.css"> -->
-  <link rel="stylesheet" href="{{asset('/AdminLTE-master/plugins/fontawesome-free/css/all.min.css')}}">
+  <link rel="stylesheet" href="<?php echo e(asset('/AdminLTE-master/plugins/fontawesome-free/css/all.min.css')); ?>">
 
   <!-- Ionicons -->
   <link rel="stylesheet" href="https://code.ionicframework.com/ionicons/2.0.1/css/ionicons.min.css">
   <!-- Tempusdominus Bbootstrap 4 -->
   <!-- <link rel="stylesheet" href="plugins/tempusdominus-bootstrap-4/css/tempusdominus-bootstrap-4.min.css"> -->
-  <link rel="stylesheet" href="{{asset('/AdminLTE-master/plugins/tempusdominus-bootstrap-4/css/tempusdominus-bootstrap-4.min.css')}}">
+  <link rel="stylesheet" href="<?php echo e(asset('/AdminLTE-master/plugins/tempusdominus-bootstrap-4/css/tempusdominus-bootstrap-4.min.css')); ?>">
   <!-- iCheck -->
   <!-- <link rel="stylesheet" href="plugins/icheck-bootstrap/icheck-bootstrap.min.css"> -->
-  <link rel="stylesheet" href="{{asset('/AdminLTE-master/plugins/icheck-bootstrap/icheck-bootstrap.min.css')}}">
+  <link rel="stylesheet" href="<?php echo e(asset('/AdminLTE-master/plugins/icheck-bootstrap/icheck-bootstrap.min.css')); ?>">
 
   <!-- JQVMap -->
   <!-- <link rel="stylesheet" href="plugins/jqvmap/jqvmap.min.css"> -->
-  <link rel="stylesheet" href="{{asset('/AdminLTE-master/plugins/jqvmap/jqvmap.min.css')}}">
+  <link rel="stylesheet" href="<?php echo e(asset('/AdminLTE-master/plugins/jqvmap/jqvmap.min.css')); ?>">
 
   <!-- Theme style -->
   <!-- <link rel="stylesheet" href="dist/css/adminlte.min.css"> -->
-  <link rel="stylesheet" href="{{asset('/AdminLTE-master/dist/css/adminlte.min.css')}}">
+  <link rel="stylesheet" href="<?php echo e(asset('/AdminLTE-master/dist/css/adminlte.min.css')); ?>">
 
   <!-- overlayScrollbars -->
   <!-- <link rel="stylesheet" href="plugins/overlayScrollbars/css/OverlayScrollbars.min.css"> -->
-  <link rel="stylesheet" href="{{asset('/AdminLTE-master/plugins/overlayScrollbars/css/OverlayScrollbars.min.css')}}">
+  <link rel="stylesheet" href="<?php echo e(asset('/AdminLTE-master/plugins/overlayScrollbars/css/OverlayScrollbars.min.css')); ?>">
 
   <!-- Daterange picker -->
   <!-- <link rel="stylesheet" href="plugins/daterangepicker/daterangepicker.css"> -->
-  <link rel="stylesheet" href="{{asset('/AdminLTE-master/plugins/daterangepicker/daterangepicker.css')}}">
+  <link rel="stylesheet" href="<?php echo e(asset('/AdminLTE-master/plugins/daterangepicker/daterangepicker.css')); ?>">
 
   <!-- summernote -->
   <!-- <link rel="stylesheet" href="plugins/summernote/summernote-bs4.css"> -->
-  <link rel="stylesheet" href="{{asset('/AdminLTE-master/plugins/summernote/summernote-bs4.css')}}">
+  <link rel="stylesheet" href="<?php echo e(asset('/AdminLTE-master/plugins/summernote/summernote-bs4.css')); ?>">
 
   <!-- Google Font: Source Sans Pro -->
   <link href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,400i,700" rel="stylesheet">
@@ -48,7 +48,7 @@
 <div class="wrapper">
 
   <!-- Navbar -->
-  @include("navbar")
+  <?php echo $__env->make("navbar", \Illuminate\Support\Arr::except(get_defined_vars(), ['__data', '__path']))->render(); ?>
   <!-- /.navbar -->
 
   <!-- Main Sidebar Container -->
@@ -57,7 +57,7 @@
     <a href="#" class="brand-link">
       <img src="/AdminLTE-master/dist/img/AdminLTELogo.png" alt="AdminLTE Logo" class="brand-image img-circle elevation-3"
            style="opacity: .8">
-      <span class="brand-text font-weight-light">CCS Attendance</span>
+      <span class="brand-text font-weight-light">Home</span>
     </a>
 
     <!-- Sidebar -->
@@ -65,7 +65,7 @@
       <!-- Sidebar user panel (optional) -->
       <div class="user-panel mt-3 pb-3 mb-3 d-flex">
         <div class="image">
-          <img src="/AdminLTE-master/dist/img/asma.jpg" class="img-circle elevation-2" alt="User Image">
+          <img src="/AdminLTE-master/dist/img/AdminLTELogo.png" class="img-circle elevation-2" alt="User Image">
         </div>
         <div class="info">
           <a href="#" class="d-block">Mckeen Asma</a>
@@ -87,22 +87,23 @@
             </a>
             <ul class="nav nav-treeview">
               <li class="nav-item">
-                <a href="{{url('/attendance')}}" class="nav-link">
-                  <i class="far fa-circle nav-icon"></i>
+                <a href="/" class="nav-link">
+                  <i class="far fa-circle nav-icon active"></i>
                   <p>Attendance Mgt</p>
                 </a>
               </li>
               <li class="nav-item">
-                <a href="{{url('/professor')}}" class="nav-link active">
+                <a href="<?php echo e(url('/create')); ?>" class="nav-link">
                   <i class="far fa-circle nav-icon"></i>
                   <p>Professor Mgt</p>
                 </a>
               </li>
-              <li class="nav-item">
-                <a href="{{url('/subject')}}" class="nav-link">
+              <!-- <li class="nav-item">
+                <a href="/AdminLTE-master/index3.html" class="nav-link">
                   <i class="far fa-circle nav-icon"></i>
-                  <p>Subject Mgt</p>
+                  <p>Dashboard v3</p>
                 </a>
+              </!--> -->
             </ul>
           </li>
         </ul>
@@ -113,16 +114,34 @@
   </aside>
 
   <!-- Content Wrapper. Contains page content -->
-  <section class="content">
+  <div class="content-wrapper">
+    <!-- Content Header (Page header) -->
+    <section class="content-header">
+      <div class="container-fluid">
+        <div class="row mb-2">
+          <div class="col-sm-6">
+            <h1>Attendance Management</h1>
+          </div>
+          <div class="col-sm-6">
+            <ol class="breadcrumb float-sm-right">
+              <li class="breadcrumb-item"><a href="#">Home</a></li>
+              <li class="breadcrumb-item active">Attendance Management</li>
+            </ol>
+          </div>
+        </div>
+      </div><!-- /.container-fluid -->
+    </section>
+    
+    <section class="content">
     <div class="card card-solid">
-    @if($layout == 'index')
-        @include("professorslist")
-    @elseif($layout == 'create')
-        <!-- @include("professorslist") -->
+    <?php if($layout == 'index'): ?>
+        <?php echo $__env->make("professorslist", \Illuminate\Support\Arr::except(get_defined_vars(), ['__data', '__path']))->render(); ?>
+    <?php elseif($layout == 'create'): ?>
+        <!-- <?php echo $__env->make("professorslist", \Illuminate\Support\Arr::except(get_defined_vars(), ['__data', '__path']))->render(); ?> -->
         <div class="container-fluid mt-4 " id="create-form">
         <div class="row">
             <section class="col-md-7">
-                @include("professorslist")
+                <?php echo $__env->make("professorslist", \Illuminate\Support\Arr::except(get_defined_vars(), ['__data', '__path']))->render(); ?>
             </section>
             <section class="col-md-5">
 
@@ -130,8 +149,8 @@
                     <img src="https://marketplace.canva.com/MAB7yqsko0c/1/screen_2x/canva-smart-little-schoolgirl--MAB7yqsko0c.jpg" class="card-img-top" alt="...">
                     <div class="card-body">
                         <h5 class="card-title">Enter the informations of the new Professor</h5>
-                        <form action="{{ url('/store') }}" method="post">
-                            @csrf
+                        <form action="<?php echo e(url('/store')); ?>" method="post">
+                            <?php echo csrf_field(); ?>
                             <div class="form-group">
                                 <label>Prof_fname</label>
                                 <input name="Prof_fname" type="text" class="form-control"  placeholder="Enter First Name">
@@ -161,20 +180,20 @@
             </section>
         </div>
     </div>
-    @elseif($layout == 'show')
+    <?php elseif($layout == 'show'): ?>
     <div class="container-fluid mt-4">
         <div class="row">
             <section class="col">
-                @include("professorslist")
+                <?php echo $__env->make("professorslist", \Illuminate\Support\Arr::except(get_defined_vars(), ['__data', '__path']))->render(); ?>
             </section>
             <section class="col"></section>
         </div>
     </div>
-@elseif($layout == 'edit')
+<?php elseif($layout == 'edit'): ?>
     <div class="container-fluid mt-4">
         <div class="row">
             <section class="col-md-7">
-                @include("professorslist")
+                <?php echo $__env->make("professorslist", \Illuminate\Support\Arr::except(get_defined_vars(), ['__data', '__path']))->render(); ?>
             </section>
             <section class="col-md-5">
 
@@ -182,26 +201,26 @@
                     <img src="https://marketplace.canva.com/MAB7yqsko0c/1/screen_2x/canva-smart-little-schoolgirl--MAB7yqsko0c.jpg" class="card-img-top" alt="...">
                     <div class="card-body">
                         <h5 class="card-title">Update informations of professor</h5>
-                        <form action="{{ url('/update/'.$professor->id) }}" method="post">
-                            @csrf
+                        <form action="<?php echo e(url('/update/'.$professor->id)); ?>" method="post">
+                            <?php echo csrf_field(); ?>
                             <div class="form-group">
                                 <label>Prof_fname</label>
-                                <input value="{{ $professor->Prof_fname }}" name="Prof_fname" type="text" class="form-control"  placeholder="Enter First Name">
+                                <input value="<?php echo e($professor->Prof_fname); ?>" name="Prof_fname" type="text" class="form-control"  placeholder="Enter First Name">
                             </div>
                             <div class="form-group">
                                 <label>Prof_lname</label>
-                                <input value="{{ $professor->Prof_lname }}" name="Prof_lname" type="text" class="form-control"  placeholder="Enter Last Name">
+                                <input value="<?php echo e($professor->Prof_lname); ?>" name="Prof_lname" type="text" class="form-control"  placeholder="Enter Last Name">
                             </div>
 
                             
                             <div class="form-group">
                                 <label>Prof_mname</label>
-                                <input value="{{ $professor->Prof_mname }}" name="Prof_mname" type="text" class="form-control"  placeholder="Enter Middle Name">
+                                <input value="<?php echo e($professor->Prof_mname); ?>" name="Prof_mname" type="text" class="form-control"  placeholder="Enter Middle Name">
                             </div>
                             
                             <div class="form-group">
                                 <label>Subj_ID</label>
-                                <input value="{{ $professor->Subj_ID }}" name="Subj_ID" type="text" class="form-control"  placeholder="Enter Subject ID">
+                                <input value="<?php echo e($professor->Subj_ID); ?>" name="Subj_ID" type="text" class="form-control"  placeholder="Enter Subject ID">
                             </div>
 
                             <input type="submit" class="btn btn-info" value="Update">
@@ -214,9 +233,9 @@
             </section>
         </div>
     </div>
-@endif
-        <!-- @include("professorslist") -->
-        <!-- <div class="card-footer">
+<?php endif; ?>
+        <!-- <?php echo $__env->make("professorslist", \Illuminate\Support\Arr::except(get_defined_vars(), ['__data', '__path']))->render(); ?> -->
+        <div class="card-footer">
           <nav aria-label="Contacts Page Navigation">
             <ul class="pagination justify-content-center m-0">
               <li class="page-item active"><a class="page-link" href="#">1</a></li>
@@ -229,14 +248,14 @@
               <li class="page-item"><a class="page-link" href="#">8</a></li>
             </ul>
           </nav>
-        </div> -->
+        </div>
         <!-- /.card-footer -->
         </section>
     </div>
     </div>
 
   <!-- /.content-wrapper -->
-  @include("footer")
+  <?php echo $__env->make("footer", \Illuminate\Support\Arr::except(get_defined_vars(), ['__data', '__path']))->render(); ?>
   
 
   <!-- Control Sidebar -->
@@ -249,11 +268,11 @@
 
 <!-- jQuery -->
 <!-- <script src="plugins/jquery/jquery.min.js"></script> -->
-<script src="{{asset('/AdminLTE-master/plugins/jquery/jquery.min.js')}}"></script>
+<script src="<?php echo e(asset('/AdminLTE-master/plugins/jquery/jquery.min.js')); ?>"></script>
 
 <!-- jQuery UI 1.11.4 -->
 <!-- <script src="plugins/jquery-ui/jquery-ui.min.js"></script> -->
-<script src="{{asset('/AdminLTE-master/plugins/jquery-ui/jquery-ui.min.js')}}"></script>
+<script src="<?php echo e(asset('/AdminLTE-master/plugins/jquery-ui/jquery-ui.min.js')); ?>"></script>
 
 <!-- Resolve conflict in jQuery UI tooltip with Bootstrap tooltip -->
 <script>
@@ -261,57 +280,58 @@
 </script>
 <!-- Bootstrap 4 -->
 <!-- <script src="plugins/bootstrap/js/bootstrap.bundle.min.js"></script> -->
-<script src="{{asset('/AdminLTE-master/plugins/bootstrap/js/bootstrap.bundle.min.js')}}"></script>
+<script src="<?php echo e(asset('/AdminLTE-master/plugins/bootstrap/js/bootstrap.bundle.min.js')); ?>"></script>
 
 <!-- ChartJS -->
 <!-- <script src="plugins/chart.js/Chart.min.js"></script> -->
-<script src="{{asset('/AdminLTE-master/plugins/chart.js/Chart.min.js')}}"></script>
+<script src="<?php echo e(asset('/AdminLTE-master/plugins/chart.js/Chart.min.js')); ?>"></script>
 
 <!-- Sparkline -->
 <!-- <script src="plugins/sparklines/sparkline.js"></script> -->
-<script src="{{asset('/AdminLTE-master/plugins/sparklines/sparkline.js')}}"></script>
+<script src="<?php echo e(asset('/AdminLTE-master/plugins/sparklines/sparkline.js')); ?>"></script>
 
 <!-- JQVMap -->
 <!-- <script src="plugins/jqvmap/jquery.vmap.min.js"></script> -->
-<script src="{{asset('/AdminLTE-master/plugins/jqvmap/jquery.vmap.min.js')}}"></script>
+<script src="<?php echo e(asset('/AdminLTE-master/plugins/jqvmap/jquery.vmap.min.js')); ?>"></script>
 
 <!-- <script src="plugins/jqvmap/maps/jquery.vmap.usa.js"></script> -->
-<script src="{{asset('/AdminLTE-master/plugins/jqvmap/maps/jquery.vmap.usa.js')}}"></script>
+<script src="<?php echo e(asset('/AdminLTE-master/plugins/jqvmap/maps/jquery.vmap.usa.js')); ?>"></script>
 
 <!-- jQuery Knob Chart -->
 <!-- <script src="plugins/jquery-knob/jquery.knob.min.js"></script> -->
-<script src="{{asset('/AdminLTE-master/plugins/jquery-knob/jquery.knob.min.js')}}"></script>
+<script src="<?php echo e(asset('/AdminLTE-master/plugins/jquery-knob/jquery.knob.min.js')); ?>"></script>
 
 <!-- daterangepicker -->
 <!-- <script src="plugins/moment/moment.min.js"></script> -->
-<script src="{{asset('/AdminLTE-master/plugins/moment/moment.min.js')}}"></script>
+<script src="<?php echo e(asset('/AdminLTE-master/plugins/moment/moment.min.js')); ?>"></script>
 
 <!-- <script src="plugins/daterangepicker/daterangepicker.js"></script> -->
-<script src="{{asset('/AdminLTE-master/plugins/daterangepicker/daterangepicker.js')}}"></script>
+<script src="<?php echo e(asset('/AdminLTE-master/plugins/daterangepicker/daterangepicker.js')); ?>"></script>
 
 <!-- Tempusdominus Bootstrap 4 -->
 <!-- <script src="plugins/tempusdominus-bootstrap-4/js/tempusdominus-bootstrap-4.min.js"></script> -->
-<script src="{{asset('/AdminLTE-master/plugins/tempusdominus-bootstrap-4/js/tempusdominus-bootstrap-4.min.js')}}"></script>
+<script src="<?php echo e(asset('/AdminLTE-master/plugins/tempusdominus-bootstrap-4/js/tempusdominus-bootstrap-4.min.js')); ?>"></script>
 
 <!-- Summernote -->
 <!-- <script src="plugins/summernote/summernote-bs4.min.js"></script> -->
-<script src="{{asset('/AdminLTE-master/plugins/summernote/summernote-bs4.min.js')}}"></script>
+<script src="<?php echo e(asset('/AdminLTE-master/plugins/summernote/summernote-bs4.min.js')); ?>"></script>
 
 <!-- overlayScrollbars -->
 <!-- <script src="plugins/overlayScrollbars/js/jquery.overlayScrollbars.min.js"></script> -->
-<script src="{{asset('/AdminLTE-master/plugins/overlayScrollbars/js/jquery.overlayScrollbars.min.js')}}"></script>
+<script src="<?php echo e(asset('/AdminLTE-master/plugins/overlayScrollbars/js/jquery.overlayScrollbars.min.js')); ?>"></script>
 
 <!-- AdminLTE App -->
 <!-- <script src="dist/js/adminlte.js"></script> -->
-<script src="{{asset('/AdminLTE-master/dist/js/adminlte.js')}}"></script>
+<script src="<?php echo e(asset('/AdminLTE-master/dist/js/adminlte.js')); ?>"></script>
 
 <!-- AdminLTE dashboard demo (This is only for demo purposes) -->
 <!-- <script src="dist/js/pages/dashboard.js"></script> -->
-<script src="{{asset('/AdminLTE-master/dist/js/pages/dashboard.js')}}"></script>
+<script src="<?php echo e(asset('/AdminLTE-master/dist/js/pages/dashboard.js')); ?>"></script>
 
 <!-- AdminLTE for demo purposes -->
 <!-- <script src="dist/js/demo.js"></script> -->
-<script src="{{asset('/AdminLTE-master/dist/js/demo.js')}}"></script>
+<script src="<?php echo e(asset('/AdminLTE-master/dist/js/demo.js')); ?>"></script>
 
 </body>
 </html>
+<?php /**PATH C:\xampp\htdocs\project-management\pm\trial_error1\resources\views/attendance.blade.php ENDPATH**/ ?>

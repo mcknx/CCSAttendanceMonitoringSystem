@@ -15,16 +15,11 @@ class CreateProfessorsTable extends Migration
     {
         Schema::create('professors', function (Blueprint $table) {
             $table->bigIncrements('id');
-            $table->unsignedBigInteger('user_id');
             $table->string('Prof_fname') ;
             $table->string('Prof_lname') ;
             $table->string('Prof_mname') ;
-            $table->string('Prof_gender') ;
-            $table->string('Prof_code') ;
-            // $table->integer('Subj_count') ;
-            // $table->timestamps();
-            
-            $table->foreign('user_id')->references('id')->on('users');
+            $table->integer('Subj_ID') ;
+          $table->timestamps();
         });
     }
 

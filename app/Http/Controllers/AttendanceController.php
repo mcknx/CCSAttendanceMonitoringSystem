@@ -1,10 +1,11 @@
 <?php
 
 namespace App\Http\Controllers;
-use App\Attendance;
+
+use App\Professor;
 use Illuminate\Http\Request;
 
-class AttendanceController extends Controller
+class ProfessorController extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -13,8 +14,8 @@ class AttendanceController extends Controller
      */
     public function index()
     {
-        $attendances = Attendance::all() ;
-        return view('record',['attendances'=>$attendances,'layout'=>'attendanceIndex']);
+        $professors = Professor::all() ;
+        return view('professor',['professors'=>$professors,'layout'=>'professorIndex']);
     }
 
     /**
@@ -24,8 +25,8 @@ class AttendanceController extends Controller
      */
     public function create()
     {
-        $attendances = Attendance::all() ;
-        return view('record',['attendances'=>$attendances,'layout'=>'attendanceCreate']);
+        $professors = Professor::all() ;
+        return view('professor',['professors'=>$professors,'layout'=>'professorCreate']);
     }
 
     /**
@@ -36,10 +37,15 @@ class AttendanceController extends Controller
      */
     public function store(Request $request)
     {
+        $professor = new Professor() ;
+        $professor->Prof_fname = $request->input('Prof_fname') ;
+        $professor->Prof_lname = $request->input('Prof_lname') ;
+        $professor->Prof_mname = $request->input('Prof_mname') ;
+        $professor->Subj_ID = 0;
         
-        // $attendance->Subj_ID = $request->input('Subj_ID') ;
-        $attendance->save() ;
-        return redirect('/record') ;
+        // $professor->Subj_ID = $request->input('Subj_ID') ;
+        $professor->save() ;
+        return redirect('/professor') ;
     }
 
     /**
@@ -50,9 +56,9 @@ class AttendanceController extends Controller
      */
     public function show($id)
     {
-        $attendance = Attendance::find($id);
-        $attendances = Attendance::all() ;
-        return view('record',['attendances'=>$attendances,'attendance'=>$attendance,'layout'=>'attendanceShow']);
+        $professor = Professor::find($id);
+        $professors = Professor::all() ;
+        return view('professor',['professors'=>$professors,'professor'=>$professor,'layout'=>'professorShow']);
     }
 
     /**
@@ -63,9 +69,9 @@ class AttendanceController extends Controller
      */
     public function edit($id)
     {
-        $attendance = Attendance::find($id);
-        $attendances = Attendance::all() ;
-        return view('record',['attendances'=>$attendances,'attendance'=>$attendance,'layout'=>'attendanceEdit']);
+        $professor = Professor::find($id);
+        $professors = Professor::all() ;
+        return view('professor',['professors'=>$professors,'professor'=>$professor,'layout'=>'professorEdit']);
     }
 
     /**
@@ -77,14 +83,14 @@ class AttendanceController extends Controller
      */
     public function update(Request $request, $id)
     {
-        $attendance = Attendance::find($id);
-        $attendance->Prof_fname = $request->input('Prof_fname') ;
-        $attendance->Prof_lname = $request->input('Prof_lname') ;
-        $attendance->Prof_mname = $request->input('Prof_mname') ;
-        $attendance->Subj_ID = 0;
-        // $attendance->Subj_ID = $request->input('Subj_ID') ;
-        $attendance->save() ;
-        return redirect('/record') ;
+        $professor = Professor::find($id);
+        $professor->Prof_fname = $request->input('Prof_fname') ;
+        $professor->Prof_lname = $request->input('Prof_lname') ;
+        $professor->Prof_mname = $request->input('Prof_mname') ;
+        $professor->Subj_ID = 0;
+        // $professor->Subj_ID = $request->input('Subj_ID') ;
+        $professor->save() ;
+        return redirect('/professor') ;
     }
 
     /**
@@ -95,8 +101,8 @@ class AttendanceController extends Controller
      */
     public function destroy($id)
     {
-        $attendance = Attendance::find($id);
-        $attendance->delete() ;
-        return redirect('/record') ;
+        $professor = Professor::find($id);
+        $professor->delete() ;
+        return redirect('/professor') ;
     }
 }

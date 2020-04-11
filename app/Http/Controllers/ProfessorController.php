@@ -3,12 +3,8 @@
 namespace App\Http\Controllers;
 
 use App\Professor;
-use App\User;
-use App\Semester;
-use Auth;
-use App\Subject;
 use Illuminate\Http\Request;
-use Illuminate\Support\Facades\Hash;
+use Illuminate\Support\Facades\DB;
 
 class ProfessorController extends Controller
 {
@@ -19,45 +15,9 @@ class ProfessorController extends Controller
      */
     public function index()
     {
-        $professors = Professor::with('subjects')->get();
-        // $professors = null;
-        // foreach ($professors as $professor){
-        //     var_dump($professor->subjects->count());
-        // }
-        // dd($professors);
-        
-        // foreach ($professors as $professor) {
-
-        //     $subject = Subject::where('Prof_code', '=', $professor->Prof_code);
-        //     if ($subject->Prof_code === null) {
-        //         $professor->Subj_count = 0;
-        //     }
-        //     if ($subject->Prof_code === $professor->Prof_code) {
-        //         $professor->Subj_count += 1;
-        //     }
-        //     if ($subject) {
-        //     }
-        //     $professor->save();
-        // }
+        $professors = Professor::all() ;
         return view('professor',['professors'=>$professors,'layout'=>'professorIndex']);
     }
-
-    // public function index2(Request $request)
-    // {
-    //     $sem = $request->input('sem') ;
-    //     $from_year = $request->input('from') ;
-    //     $to_year = $request->input('to') ;
-    //     $semester = Semester::where('sem', '=', $sem)->where('from_year', '=', $from_year)->where('to_year', '=', $to_year)->first();
-        
-    //     if ($semester == null) {
-    //         $professors = null;    
-    //         return view('professor',['professors'=>$professors,'layout'=>'professorIndex']);
-
-    //     }
-    //     $professors = Professor::with('subjects')->where('sem_id', '=', $semester->id)->get();;
-    //     // $subjects = Subject::where('sem_id', '=', $semester->id)->get();
-    //     return view('professor',['professors'=>$professors,'layout'=>'professorIndex']);
-    // }
 
     /**
      * Show the form for creating a new resource.
@@ -70,6 +30,14 @@ class ProfessorController extends Controller
         return view('professor',['professors'=>$professors,'layout'=>'professorCreate']);
     }
 
+    public function search(Request $request)
+    {
+        $search = $request->get('search');
+        $professors = DB::table('professors')->where('Prof_lname', 'like', '%' .$search. '%')->paginate(5);
+        return view('professor',['professors'=>$professors,'layout'=>'professorIndex']);
+        // return view('professorslist', ['professors' => $professors]);
+    }
+
     /**
      * Store a newly created resource in storage.
      *
@@ -78,22 +46,13 @@ class ProfessorController extends Controller
      */
     public function store(Request $request)
     {
-        $user = User::create([
-            'name' => $request->input('Prof_fname') ." ". $request->input('Prof_mname') ." ". $request->input('Prof_lname'),
-            'username' => $request->input('Prof_code'),
-            'password' => Hash::make($request->input('Prof_code')),
-            'role' => 2
-          ]);
-
         $professor = new Professor() ;
-        $professor->user_id = $user->id;
-        $professor->Prof_fname = $request->input('Prof_fname');
-        $professor->Prof_lname = $request->input('Prof_lname');
-        $professor->Prof_mname = $request->input('Prof_mname');
-        $professor->Prof_code = $request->input('Prof_code');
-        $professor->Prof_code = $request->input('Prof_gender') ;
-        // $professor->Subj_count = 0;        
-        // $professor->Subj_count = $request->input('Subj_count') ;
+        $professor->Prof_fname = $request->input('Prof_fname') ;
+        $professor->Prof_lname = $request->input('Prof_lname') ;
+        $professor->Prof_mname = $request->input('Prof_mname') ;
+        $professor->Subj_ID = 0;
+        
+        // $professor->Subj_ID = $request->input('Subj_ID') ;
         $professor->save() ;
         return redirect('/professor') ;
     }
@@ -137,10 +96,8 @@ class ProfessorController extends Controller
         $professor->Prof_fname = $request->input('Prof_fname') ;
         $professor->Prof_lname = $request->input('Prof_lname') ;
         $professor->Prof_mname = $request->input('Prof_mname') ;
-        $professor->Prof_code = $request->input('Prof_code') ;
-        $professor->Prof_code = $request->input('Prof_gender') ;
-        $professor->Subj_count = 0;
-        // $professor->Subj_count = $request->input('Subj_count') ;
+        $professor->Subj_ID = 0;
+        // $professor->Subj_ID = $request->input('Subj_ID') ;
         $professor->save() ;
         return redirect('/professor') ;
     }

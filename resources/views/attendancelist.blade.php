@@ -1,4 +1,4 @@
-@foreach($attendances as $attendance)
+@foreach($professors as $professor)
       <!-- Default box -->
         <div class="card-body pb-0">
           <div class="row d-flex align-items-stretch">
@@ -10,7 +10,7 @@
                 <div class="card-body pt-0">
                   <div class="row">
                     <div class="col-7">
-                      <h2 class="lead"><b>{{ $attendance->Prof_fname }} {{ $attendance->Prof_mname }} {{ $attendance->Prof_lname }}</b></h2>
+                      <h2 class="lead"><b>{{ $professor->Prof_fname }} {{ $professor->Prof_mname }} {{ $professor->Prof_lname }}</b></h2>
                       <p class="text-muted text-sm"><b>About: </b> (Subjects) </p>
                       <ul class="ml-4 mb-0 fa-ul text-muted">
                         <!-- <li class="small"><span class="fa-li"><i class="fas fa-lg fa-building"></i></span> Address: Demo Street 123, Demo City 04312, NJ</li>
@@ -22,10 +22,10 @@
                     </div>
                   </div>
                 </div>
-                <a href="{{ url('/edit/'.$attendance->id) }}" class="btn btn-sm btn-warning">Edit</a>
+                <a href="{{ url('/edit/'.$professor->id) }}" class="btn btn-sm btn-warning">Edit</a>
                 <div class="card-footer">
                   <div class="text-right">
-                    <a href="{{ url('/edit/'.$attendance->id) }}" class="btn btn-sm bg-teal">
+                    <a href="{{ url('/edit/'.$professor->id) }}" class="btn btn-sm bg-teal">
                     Present
                     </a>
                     <a href="#" class="btn btn-sm btn-warning">
