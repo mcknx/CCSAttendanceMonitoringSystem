@@ -108,7 +108,7 @@
               <i class="nav-icon fas fa-tachometer-alt "></i>
               <p>
                 Dashboard
-                <i class="right fas fa-angle-left"></i>
+                <!-- <i class="right fas fa-angle-left"></i> -->
               </p>
             </a>
             <ul class="nav nav-treeview">
@@ -144,6 +144,17 @@
     <!-- Content Header (Page header) -->
     <section class="content-header">
       <div class="container-fluid">
+      @if (Session::has('message'))
+            <div class="alert alert-danger">
+              {{Session::get('message')}}
+            </div>
+            @endif
+
+            @if (Session::has('success'))
+            <div class="alert alert-success">
+              {{Session::get('success')}}
+            </div>
+            @endif
         <div class="row mb-2">
           <div class="col-sm-6">
             <h1>Dashboard</h1>

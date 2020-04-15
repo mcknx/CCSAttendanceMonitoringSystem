@@ -55,6 +55,7 @@
     </ul>
 </nav>
 
+
 <div class="modal fade" id="modal-default">
     <div class="modal-dialog">
       <div class="modal-content">
@@ -67,9 +68,18 @@
           </div>
           <div class="modal-body">
             <!-- <p>One fine body&hellip;</p> -->
+            @if (Session::has('message'))
+            <div class="alert alert-danger">
+              {{Session::get('message')}}
+            </div>
+            @endif
 
+            @if (Session::has('success'))
+            <div class="alert alert-success">
+              {{Session::get('success')}}
+            </div>
+            @endif
             {{ csrf_field() }}
-
             <div class="form-label-group has-feedback">
               <label for="fname">First Name:</label>
                 <input name="fname" type="text" class="form-control" placeholder="Enter First Name" required>

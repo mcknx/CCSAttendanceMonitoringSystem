@@ -422,7 +422,7 @@
                             </div>
 
                             <input type="submit" class="btn btn-info" value="Update">
-                            <input type="submit" onclick="return confirm('Are you sure?')"  class="btn btn-danger" formaction="{{ url('/subjectDelete/'.$subject->id) }}" value="Delete">
+                            <!-- <input type="submit" onclick="return confirm('Are you sure?')"  class="btn btn-danger" formaction="{{ url('/subjectDelete/'.$subject->id) }}" value="Delete"> -->
 
                         </form>
                     </div>

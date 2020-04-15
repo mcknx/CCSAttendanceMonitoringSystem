@@ -37,6 +37,7 @@ Route::get('/changeCredential/{id}', 'AuthController@changeCredential')->middlew
 
 // User Dashboard
 Route::get('userdashboard', 'UserDashboardController@index')->middleware('auth'); 
+Route::get('/changeCredentialUser/{id}', 'AuthController@changeCredentialUser')->middleware('auth');
 
 // Professors
 Route::get('/',"ProfessorController@index")->middleware('auth') ;

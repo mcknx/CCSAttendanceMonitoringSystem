@@ -122,7 +122,8 @@
                         </div>
                     </div>
                     <div class="form-group">
-                        <label>Enter Date</label><br>
+                        <label>Enter Date (By Month)(Select first and last day of month)<p style="color: red; font-weight: bold;">Required!</p></label><br>
+                        
                         <div class="col d-inline col-sm">
                             <label class=" card-text" for="from" style="margin-top: -5px;">From</label>
                             <input type="date"  value="{{$date}}" name="from-date-pdf">

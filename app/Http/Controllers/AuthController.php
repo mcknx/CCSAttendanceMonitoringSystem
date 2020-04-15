@@ -264,17 +264,65 @@ class AuthController extends Controller
       $pass = $request->input('password') ;
       $cpass = $request->input('password_confirmation') ;
 
-      $username = $first[0] . $last;
-      $user->username = $username;
-      $user->name = $first . $last . $middle;
+      $username = strtolower($first[0] . $last);
+      $user_exist = User::where('username', '=', $username)->first();
+      
+      if ($user_exist != null) {
+        // return "Sorry already exist!";
+        return redirect("record")->withMessage('Sorry admin already exist!');
+        // dd ("Sorry already exist!");  
+      }else {
+        $user->username = $username;
+        $user->name = $first . $last . $middle;
 
-      $res = null;
-      if ($pass == $cpass) {
-        $res = $pass;
-        $user->password = Hash::make($res);
-        $user->save();
-        return back();
+        $res = null;
+        if ($pass == $cpass) {
+          $res = $pass;
+          $user->password = Hash::make($res);
+          $user->save();
+          return redirect("record")->withSuccess('Successfully changed!');
+          // return "Successful!";;
+        }
       }
-      return back();
-  }
+      // dd ($user_exist);
+      // return back();
+    }
+
+    public function changeCredentialUser(Request $request, $id) {
+      $user = User::find($id);
+      $first = $request->input('fname') ;
+      $last = $request->input('lname') ;
+      $middle = $request->input('mname') ;
+      $pass = $request->input('password') ;
+      $cpass = $request->input('password_confirmation') ;
+
+      $username = strtolower($first[0] . $last);
+      $professor = Professor::where('Prof_code', '=', $user->username)->first();
+      $professor->Prof_fname = $first;
+      $professor->Prof_lname = $last;
+      $professor->Prof_mname = $middle;
+      $professor->Prof_code = $username;
+      $professor->save();
+      $user_exist = User::where('username', '=', $username)->first();
+      
+      if ($user_exist != null) {
+        // return "Sorry already exist!";
+        return redirect("userdashboard")->withMessage('Sorry user already exist!');
+        // dd ("Sorry already exist!");  
+      }else {
+        $user->username = $username;
+        $user->name = $first . $last . $middle;
+
+        $res = null;
+        if ($pass == $cpass) {
+          $res = $pass;
+          $user->password = Hash::make($res);
+          $user->save();
+          return redirect("userdashboard")->withSuccess('Successfully changed!');
+          // return "Successful!";;
+        }
+      }
+      // dd ($user_exist);
+      // return back();
+    }
 }

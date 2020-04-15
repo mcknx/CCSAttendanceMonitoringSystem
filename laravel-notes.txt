@@ -53,4 +53,15 @@ Edit create_subjects_table
 >php artisan make:controller ActivityRequestController --resource
 
 >composer dump-autoload
+
+>composer install
+>composer update
+
+>php artisan migrate
 >php artisan db:seed
+>php artisan key:generate
+>php artisan serve
+
+login
+user: mdarlyn
+pass: uicmdarlyn2020
