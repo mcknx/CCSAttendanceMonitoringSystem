@@ -103,7 +103,7 @@
           <img src="/AdminLTE-master/dist/img/asma.jpg" class="img-circle elevation-2" alt="User Image">
         </div> -->
       <div class="info">
-        <span class="text-white">Welcome! {{ ucfirst(Auth()->user()->name) }}</span>
+        <span class="text-white"> {{ ucfirst(Auth()->user()->name) }}</span>
       </div>
           
       </div>

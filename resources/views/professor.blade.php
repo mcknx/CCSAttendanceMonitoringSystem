@@ -90,7 +90,7 @@
           <a href="#" class="d-block">Mckeen Asma</a>
         </div> -->
         <div class="info">
-          <span class="text-white">Welcome! {{ ucfirst(Auth()->user()->name) }}</span>
+          <span class="text-white"> {{ ucfirst(Auth()->user()->name) }}</span>
         </div>
       </div>
 
