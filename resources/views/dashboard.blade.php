@@ -160,6 +160,17 @@
   <div class="content-wrapper">
   <!-- Content Header (Page header) -->
   <section class="content-header">
+  @if (Session::has('message'))
+      <div class="alert alert-danger">
+        {{Session::get('message')}}
+      </div>
+      @endif
+
+      @if (Session::has('success'))
+      <div class="alert alert-success">
+        {{Session::get('success')}}
+      </div>
+      @endif
       <div class="container-fluid">
         <div class="row mb-2">
           <div class="col-sm-6">

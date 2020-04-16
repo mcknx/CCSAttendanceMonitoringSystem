@@ -1,3 +1,4 @@
+
 <nav class="main-header navbar navbar-expand navbar-white navbar-light">
   <!-- Left navbar links -->
   <ul class="navbar-nav">
@@ -67,6 +68,7 @@
             </button>
           </div>
           <div class="modal-body">
+            <div class="alert alert-warning">Note: Only change one credential at a time.</div>
             <!-- <p>One fine body&hellip;</p> -->
             @if (Session::has('message'))
             <div class="alert alert-danger">
@@ -81,16 +83,26 @@
             @endif
             {{ csrf_field() }}
             <div class="form-label-group has-feedback">
-              <label for="fname">First Name:</label>
-                <input name="fname" type="text" class="form-control" placeholder="Enter First Name" required>
+
+            <center><a id="c_detail" class="btn btn-primary text-white">Change User Details <i class="fas fa-arrow-down"></i></a></center>
+            <div id="show_c_detail">
+              <label for="fname">Name:</label>
+                <input name="fname" type="text" class="form-control" placeholder="Enter First Name"  autocomplete ="off">
               <label for="mname">Middle Name:</label>
-                <input name="mname" type="text" class="form-control" placeholder="Enter Middle Name" required>
+                <input name="mname" type="text" class="form-control" placeholder="Enter Middle Name"  autocomplete ="off">
               <label for="lname">Last Name:</label>
-                <input name="lname" type="text" class="form-control" placeholder="Enter Last Name" required>
-              <label for="inputPassword">Password</label>
-                <input id="password" type="password" name="password" id="inputPassword" class="form-control" placeholder="Enter Password" required>
-              <label for="confirmPassword">Confirm Password</label>
-                <input id="password-confirm" type="password" name="password_confirmation" id="confirmPassword" class="form-control" placeholder="Enter Confirm Password" required>
+                <input name="lname" type="text" class="form-control" placeholder="Enter Last Name"  autocomplete ="off">
+
+              </div>
+                <br>
+              <center><a id="c_pass" class="btn btn-primary text-white">Change Password <i class="fas fa-arrow-down"></i></a></center>
+              
+              <div id="show_c_pass">
+                <label for="inputPassword">Password</label>
+                  <input id="password" type="password" name="password" id="inputPassword" class="form-control" placeholder="Enter Password" >
+                <label for="confirmPassword">Confirm Password</label>
+                  <input id="password-confirm" type="password" name="password_confirmation" id="confirmPassword" class="form-control" placeholder="Enter Confirm Password" >
+              </div>
             </div>
             
           </div>
@@ -103,6 +115,20 @@
       <!-- /.modal-content -->
     </div>
     <!-- /.modal-dialog -->
-  </div>
+</div>
   <!-- $('.modal-backdrop').remove(); -->
   <!-- /.modal -->
+
+  <script>
+  $("#show_c_pass").hide();
+  $(document).ready(function(){
+    $("#c_pass").click(function(){
+      $("#show_c_pass").toggle();
+    });
+  });
+  $(document).ready(function(){
+    $("#c_detail").click(function(){
+      $("#show_c_detail").toggle();
+    });
+  });
+</script>

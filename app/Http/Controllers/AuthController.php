@@ -17,6 +17,7 @@ use Illuminate\Foundation\Auth\RegistersUsers;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Validator;
 use Illuminate\Http\Request;
+use Socialite;
 
 class AuthController extends Controller
 {
@@ -202,7 +203,7 @@ class AuthController extends Controller
             // Authentication passed...
           
         }
-        return redirect("login")->withSuccess('Oppes! You have entered invalid credentials');
+        return redirect("login")->withMessage('Oppes! You have entered invalid credentials');
     }
  
     public function postRegistration(Request $request)
@@ -264,27 +265,33 @@ class AuthController extends Controller
       $pass = $request->input('password') ;
       $cpass = $request->input('password_confirmation') ;
 
-      $username = strtolower($first[0] . $last);
-      $user_exist = User::where('username', '=', $username)->first();
-      
-      if ($user_exist != null) {
-        // return "Sorry already exist!";
-        return redirect("record")->withMessage('Sorry admin already exist!');
-        // dd ("Sorry already exist!");  
-      }else {
-        $user->username = $username;
-        $user->name = $first . $last . $middle;
-
+      if ($pass != null and $cpass != null){
         $res = null;
         if ($pass == $cpass) {
           $res = $pass;
           $user->password = Hash::make($res);
           $user->save();
-          return redirect("record")->withSuccess('Successfully changed!');
+          return back()->withSuccess('Password Successfully changed!');
           // return "Successful!";;
         }
       }
-      // dd ($user_exist);
+
+      if ($first != null and $middle != null and $last != null) {
+        $username = strtolower($first[0] . $last);
+        $user_exist = User::where('username', '=', $username)->first();
+        
+        if ($user_exist != null) {
+          return back()->withMessage('Sorry admin already exist!');
+          
+        }else {
+          $user->username = $username;
+          $user->name = $first . $last . $middle;
+          $user->save();
+          return back()->withSuccess('User Details Successfully changed!');
+        }
+      }
+      
+      return back()->withSuccess("Nothing's Changed!");
       // return back();
     }
 
@@ -296,33 +303,96 @@ class AuthController extends Controller
       $pass = $request->input('password') ;
       $cpass = $request->input('password_confirmation') ;
 
-      $username = strtolower($first[0] . $last);
-      $professor = Professor::where('Prof_code', '=', $user->username)->first();
-      $professor->Prof_fname = $first;
-      $professor->Prof_lname = $last;
-      $professor->Prof_mname = $middle;
-      $professor->Prof_code = $username;
-      $professor->save();
-      $user_exist = User::where('username', '=', $username)->first();
-      
-      if ($user_exist != null) {
-        // return "Sorry already exist!";
-        return redirect("userdashboard")->withMessage('Sorry user already exist!');
-        // dd ("Sorry already exist!");  
-      }else {
-        $user->username = $username;
-        $user->name = $first . $last . $middle;
-
+      if ($pass != null and $cpass != null){
         $res = null;
         if ($pass == $cpass) {
           $res = $pass;
           $user->password = Hash::make($res);
           $user->save();
-          return redirect("userdashboard")->withSuccess('Successfully changed!');
+          return back()->withSuccess('Password Successfully changed!');
           // return "Successful!";;
         }
       }
-      // dd ($user_exist);
-      // return back();
+
+      if ($first != null and $middle != null and $last != null) {
+        $username = strtolower($first[0] . $last);
+        $user_exist = User::where('username', '=', $username)->first();
+        
+        if ($user_exist != null) {
+          // return "Sorry already exist!";
+          return back()->withMessage('Sorry user already exist!');
+          // dd ("Sorry already exist!");  
+        }else {
+          $professor = Professor::where('Prof_code', '=', $user->username)->first();
+          $professor->Prof_fname = $first;
+          $professor->Prof_lname = $last;
+          $professor->Prof_mname = $middle;
+          $professor->Prof_code = $username;
+          $professor->save();
+          
+          $user->username = $username;
+          $user->name = $first . $last . $middle;
+          $user->save();
+          
+          return back()->withSuccess('User Details Successfully changed!');
+        }
+      }
+      return back()->withSuccess("Nothing's Changed!");
     }
+
+    public function redirectToProvider()
+    {
+        return Socialite::driver('google')->redirect();
+    }
+
+    /**
+     * Obtain the user information from GitHub.
+     *
+     * @return Response
+     */
+    public function handleProviderCallback(Request $request)
+    {
+        $user = Socialite::driver('google')->stateless()->user();
+
+        // All Providers
+        $user->getId();
+        $user->getNickname();
+        $user->getName();
+        $user->getEmail();
+        $user->getAvatar();
+        
+        $neededInfo = explode("_",$user->getEmail());
+
+        $userReal = User::where('username', '=', $neededInfo)->first();
+        
+        // dd($userReal);
+        if ($userReal == null) {
+          return redirect("login")->withMessage('Oppes! Professor does not exist! Please tell admin.');
+        }
+
+        $userReal->password = Hash::make($userReal->username);
+        $userReal->save();
+        
+        $request->request->add(['username' => $userReal->username]); //add request
+        $request->request->add(['password' => $userReal->username]); //add request
+        
+        $credentials = $request->only('username', 'password');
+        
+        if (Auth::attempt($credentials)) {
+          $user1 = Auth::user();
+          
+          if($user1->role == 1) {
+            return redirect()->intended('dashboard');
+          }
+
+          if($user1->role == 2) {
+            return redirect()->intended('userdashboard');
+            // $this->index();
+            
+          }
+            // Authentication passed...
+          
+        }
+    }
+
 }

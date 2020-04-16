@@ -90,3 +90,7 @@ Route::get('/showActivityRequest/{id}', "ActivityRequestController@show")->middl
 Route::post('/editActivityRequest/{id}', "ActivityRequestController@edit")->middleware('auth') ;
 Route::get('/deleteActivityRequest/{id}', "ActivityRequestController@destroy")->middleware('auth') ;
 Route::post('/markActivityRequest/{id}', "ActivityRequestController@mark")->middleware('auth') ;
+
+// Google Oauth
+Route::get('auth/google', 'AuthController@redirectToProvider');
+Route::get('auth/google/callback', 'AuthController@handleProviderCallback');

@@ -13,6 +13,7 @@
         "fideloper/proxy": "^4.0",
         "laravel-admin-ext/daterangepicker": "^1.0",
         "laravel/framework": "^6.2",
+        "laravel/socialite": "^4.3",
         "laravel/tinker": "^2.0",
         "maatwebsite/excel": "^3.1",
         "realrashid/sweet-alert": "^3.1"

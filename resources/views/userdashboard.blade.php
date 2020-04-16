@@ -179,9 +179,21 @@
             <div class="card card-primary card-outline">
               <div class="card-body box-profile">
                 <div class="text-center">
+                <?php
+                use App\Professor;
+                $professor = Professor::where('user_id', '=', Auth()->user()->id)->first();
+                $waw = $professor->Prof_gender;
+                ?>
+                @if ($waw == 'm')
                   <img class="profile-user-img img-fluid img-circle"
-                       src="/AdminLTE-master/dist/img/avatar5.png"
+                       src="/AdminLTE-master/dist/img/user.png"
                        alt="User profile picture">
+                @endif
+                @if ($waw == 'f')
+                  <img class="profile-user-img img-fluid img-circle"
+                       src="/AdminLTE-master/dist/img/user1.png"
+                       alt="User profile picture">
+                @endif
                 </div>
 
                 <h3 class="profile-username text-center">{{ ucfirst(Auth()->user()->name) }}</h3>
@@ -516,9 +528,11 @@
                           <div class="post clearfix timeline-item">
                           <div class="timeline-body">
                             <div class="user-block">
-                              <img class="img-circle img-bordered-sm" src="/AdminLTE-master/dist/img/avatar5.png" alt="user image">
+                              <img class="img-circle img-bordered-sm" src="/AdminLTE-master/dist/img/AdminLTELogo.png" alt="user image">
                                 <span class="username">
-                                  <p class="text-primary"><strong>Maam Darlyn</strong></p>
+                                Admin: 
+                                <p class="text-primary"><strong>
+                                </strong></p>
                                   <!-- <a href="#" class="float-right btn-tool"><i class="fas fa-times"></i></a> -->
                                 </span>
 

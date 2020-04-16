@@ -12,7 +12,7 @@
   <link rel="stylesheet" href="{{asset('solmusic/css/font-awesome.min.css')}}" />
   <link rel="stylesheet" href="{{asset('solmusic/css/owl.carousel.min.css')}}" />
   <link rel="stylesheet" href="{{asset('solmusic/css/slicknav.min.css')}}" />
-
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
   <!-- Main Stylesheets -->
   <link rel="stylesheet" href="{{asset('solmusic/css/style.css')}}" />
   <!-- Font Awesome -->
@@ -138,6 +138,17 @@
   <div class="content-wrapper">
     <!-- Content Header (Page header) -->
     <section class="content-header">
+    @if (Session::has('message'))
+      <div class="alert alert-danger">
+        {{Session::get('message')}}
+      </div>
+      @endif
+
+      @if (Session::has('success'))
+      <div class="alert alert-success">
+        {{Session::get('success')}}
+      </div>
+      @endif
       <div class="container-fluid">
         <div class="row mb-2">
           <div class="col-sm-6">

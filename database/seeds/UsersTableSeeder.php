@@ -17,5 +17,11 @@ class UsersTableSeeder extends Seeder
             'password' => Hash::make('uicmdarlyn2020'),
             'role' => '1'
         ]);
+        // DB::table('users')->insert([
+        //     'name' => 'Mckeen Asma',
+        //     'username' => 'masma',
+        //     'password' => Hash::make('uicmasma2020'),
+        //     'role' => '1'
+        // ]);
     }
 }
