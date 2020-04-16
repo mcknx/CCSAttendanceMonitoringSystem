@@ -25,7 +25,7 @@ class ProfessorsImport implements ToModel
         $e = $row[4];
         // dd($d);
         $user = User::create([
-            'name' => $a ." ". $c ." ". $b,
+            'name' => $a ." ". $b ." ". $c,
             'username' => $d,
             'password' => Hash::make($d),
             'role' => 2

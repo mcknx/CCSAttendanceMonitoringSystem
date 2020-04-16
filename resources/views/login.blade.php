@@ -39,7 +39,7 @@
               </div>
               @endif
 
-              <div class="alert alert-warning">Note: If you login using google, the password will be changed.</div>
+              <!-- <div class="alert alert-warning">Note: If you login using google, the password will be changed.</div> -->
                <form action="{{url('post-login')}}" method="POST" id="logForm">
  
                  {{ csrf_field() }}

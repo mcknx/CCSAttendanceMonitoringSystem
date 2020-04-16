@@ -10,7 +10,7 @@
   <div class="card-body pb-0" >
     <p class="text-danger"><strong>Please reload the page for updates</strong></p>  
     <h5><blockquote><?= $day ?> Schedules</blockquote></h5>
-    <a href="/showUserData/3"wa></a>
+    <a href="/showUserData/3"></a>
     
     
     <div class="row d-flex justify-content-center">
@@ -90,8 +90,8 @@
                 </p>
               </div>
               <div class="col-7 text-center">
-                @if($session->subject->professor->Prof_gender == 'm')
-                  <a href="" data-toggle="modal" data-target="#modal-user" onclick="onClickUserView( '{{$session->id}}')" data-placement="top" title="View Profile"><img src="/AdminLTE-master/dist/img/user.png" alt="" width="60px;" class="img-circle img-fluid"></a>
+                @if ($session->subject->professor->user->avatar)
+                <a href="" data-toggle="modal" data-target="#modal-user" onclick="onClickUserView( '{{$session->id}}')" data-placement="top" title="View Profile"><img src="{{ $session->subject->professor->user->avatar }}" alt="" width="60px;" class="img-circle img-fluid"></a>
                   <?php
                     $count = 0;
                     foreach ($session->subject->activity_requests as $activity_request){
@@ -106,20 +106,38 @@
                   <i data-toggle="modal" data-target="#modal-user" onclick="onClickUserView( '{{$session->id}}')" class="far fa-bell pull-right" data-placement="top" title="New Notification!" style="cursor: pointer;"></i>
                 @endif
 
-                @if($session->subject->professor->Prof_gender == 'f')
-                  <a href="" data-toggle="modal" data-target="#modal-user" onclick="onClickUserView( '{{$session->id}}')" data-placement="top" title="View Profile"><img src="/AdminLTE-master/dist/img/user1.png" alt="" width="60px;" class="img-circle img-fluid"></a>
-                  <?php
-                    $count = 0;
-                    foreach ($session->subject->activity_requests as $activity_request){
-                      if ($activity_request->notified == 0) {
-                        $count++;
+                @if ($session->subject->professor->user->avatar == null)
+                  @if($session->subject->professor->Prof_gender == 'm')
+                    <a href="" data-toggle="modal" data-target="#modal-user" onclick="onClickUserView( '{{$session->id}}')" data-placement="top" title="View Profile"><img src="/AdminLTE-master/dist/img/user.png" alt="" width="60px;" class="img-circle img-fluid"></a>
+                    <?php
+                      $count = 0;
+                      foreach ($session->subject->activity_requests as $activity_request){
+                        if ($activity_request->notified == 0) {
+                          $count++;
+                        }
                       }
-                    }
-                  ?>
-                  @if ($count != 0)
-                  <span class="badge badge-warning navbar-badge ">{{$count}}</span>
+                    ?>
+                    @if ($count != 0)
+                    <span class="badge badge-warning navbar-badge ">{{$count}}</span>
+                    @endif
+                    <i data-toggle="modal" data-target="#modal-user" onclick="onClickUserView( '{{$session->id}}')" class="far fa-bell pull-right" data-placement="top" title="New Notification!" style="cursor: pointer;"></i>
                   @endif
-                  <i data-toggle="modal" data-target="#modal-user" onclick="onClickUserView( '{{$session->id}}')" class="far fa-bell pull-right" data-placement="top" title="New Notification!" style="cursor: pointer;"></i>
+
+                  @if($session->subject->professor->Prof_gender == 'f')
+                    <a href="" data-toggle="modal" data-target="#modal-user" onclick="onClickUserView( '{{$session->id}}')" data-placement="top" title="View Profile"><img src="/AdminLTE-master/dist/img/user1.png" alt="" width="60px;" class="img-circle img-fluid"></a>
+                    <?php
+                      $count = 0;
+                      foreach ($session->subject->activity_requests as $activity_request){
+                        if ($activity_request->notified == 0) {
+                          $count++;
+                        }
+                      }
+                    ?>
+                    @if ($count != 0)
+                    <span class="badge badge-warning navbar-badge ">{{$count}}</span>
+                    @endif
+                    <i data-toggle="modal" data-target="#modal-user" onclick="onClickUserView( '{{$session->id}}')" class="far fa-bell pull-right" data-placement="top" title="New Notification!" style="cursor: pointer;"></i>
+                  @endif
                 @endif
                 
                 <h2 class="lead"><b>{{ucfirst($session->subject->professor->Prof_fname)}} {{ucfirst($session->subject->professor->Prof_lname)}}</b></h2>

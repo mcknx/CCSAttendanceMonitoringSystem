@@ -65,7 +65,6 @@
             </button>
           </div>
           <div class="modal-body">
-            <div class="alert alert-warning">Note: Only change one credential at a time.</div>
             <!-- <p>One fine body&hellip;</p> -->
             @if (Session::has('message'))
             <div class="alert alert-danger">
@@ -80,7 +79,42 @@
             @endif
             {{ csrf_field() }}
             <div class="form-label-group has-feedback">
+            <div class="card-body box-profile">
+                <div class="text-center">
+                <?php
+                use App\Professor;
+                $professor = Professor::where('user_id', '=', Auth()->user()->id)->first();
+                $waw = $professor->Prof_gender;
+                ?>
+                @if (Auth()->user()->avatar)
+                <img class="profile-user-img img-fluid img-circle"
+                       src="{{ Auth()->user()->avatar }}"
+                       alt="User profile picture">
+                @endif
 
+                @if (Auth()->user()->avatar == null)
+                  @if ($waw == 'm')
+                    <img class="profile-user-img img-fluid img-circle"
+                        src="/AdminLTE-master/dist/img/user.png"
+                        alt="User profile picture">
+                  @endif
+                  @if ($waw == 'f')
+                    <img class="profile-user-img img-fluid img-circle"
+                        src="/AdminLTE-master/dist/img/user1.png"
+                        alt="User profile picture">
+                  @endif
+                @endif
+
+                
+                </div>
+
+                <h3 class="profile-username text-center">{{ ucfirst(Auth()->user()->name) }}</h3>
+                <p class="text-muted text-center">{{ Auth()->user()->email }}</p>
+                <p class="text-muted text-center">Professor</p>
+                
+              </div>
+              <hr>
+              <div class="alert alert-warning">Note: Only change one credential at a time.</div>
             <center><a id="c_detail" class="btn btn-primary text-white">Change User Details <i class="fas fa-arrow-down"></i></a></center>
             <div id="show_c_detail">
               <label for="fname">Name:</label>
@@ -116,6 +150,7 @@
 
 <script>
   $("#show_c_pass").hide();
+  $("#show_c_detail").hide();
   $(document).ready(function(){
     $("#c_pass").click(function(){
       $("#show_c_pass").toggle();

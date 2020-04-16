@@ -352,7 +352,31 @@ class AuthController extends Controller
      */
     public function handleProviderCallback(Request $request)
     {
+      try {
         $user = Socialite::driver('google')->stateless()->user();
+      } catch (Exception $e) {
+        return redirect("login")->withMessage('Oppes! Something went wrong.');
+      }
+
+      $neededInfo = explode("_",$user->getEmail());
+      $userReal = User::where('username', '=', $neededInfo[0])->first();
+      
+      if ($userReal == null) {
+        return redirect("login")->withMessage('Oppes! Admin did not recognize you prof..?');
+      }
+
+      $authUser = $this->updateUser($user, $userReal->username);
+
+      Auth::login($authUser, true);
+
+      if($authUser->role == 1) {
+        return redirect()->intended('dashboard')->withSuccess('Maligayang pag dating!');
+      }
+
+      if($authUser->role == 2) {
+        return redirect()->intended('userdashboard')->withSuccess('Maligayang pag dating!');
+        // $this->index();
+      }
 
         // All Providers
         $user->getId();
@@ -361,38 +385,66 @@ class AuthController extends Controller
         $user->getEmail();
         $user->getAvatar();
         
-        $neededInfo = explode("_",$user->getEmail());
+        // $neededInfo = explode("_",$user->getEmail());
 
-        $userReal = User::where('username', '=', $neededInfo)->first();
+        // $userReal = User::where('username', '=', $neededInfo)->first();
         
-        // dd($userReal);
-        if ($userReal == null) {
-          return redirect("login")->withMessage('Oppes! Professor does not exist! Please tell admin.');
-        }
+        // // dd($userReal);
+        // if ($userReal == null) {
+        //   return redirect("login")->withMessage('Oppes! Professor does not exist! Please tell admin.');
+        // }
 
-        $userReal->password = Hash::make($userReal->username);
-        $userReal->save();
+        // if($user1->role == 1) {
+        //   return redirect()->intended('dashboard');
+        // }
+
+        // if($user1->role == 2) {
+        //   return redirect()->intended('userdashboard');
+        //   // $this->index();
+        // }
+
         
-        $request->request->add(['username' => $userReal->username]); //add request
-        $request->request->add(['password' => $userReal->username]); //add request
+
+        // $userReal->password = Hash::make($userReal->username);
+        // $userReal->save();
         
-        $credentials = $request->only('username', 'password');
+        // $request->request->add(['username' => $userReal->username]); //add request
+        // $request->request->add(['password' => $userReal->username]); //add request
         
-        if (Auth::attempt($credentials)) {
-          $user1 = Auth::user();
+        // $credentials = $request->only('username', 'password');
+        
+        // if (Auth::attempt($credentials)) {
+        //   $user1 = Auth::user();
           
-          if($user1->role == 1) {
-            return redirect()->intended('dashboard');
-          }
+        //   if($user1->role == 1) {
+        //     return redirect()->intended('dashboard');
+        //   }
 
-          if($user1->role == 2) {
-            return redirect()->intended('userdashboard');
-            // $this->index();
-            
-          }
+        //   if($user1->role == 2) {
+        //     return redirect()->intended('userdashboard');
+        //     // $this->index();
+        //   }
             // Authentication passed...
           
-        }
+        // }
+    }
+
+    public function updateUser($user, $username) {
+      $authUser = User::where('google_id', $user->id)->first();
+
+      if ($authUser) {
+        return $authUser;
+      }
+
+      $authUser = User::where('username', $username)->first();
+
+      // $authUser->name = $user->getName();
+      $authUser->google_id = $user->getId();
+      $authUser->email = $user->getEmail();
+      $authUser->avatar = $user->getAvatar();
+      $authUser->save();
+
+      return $authUser;
     }
 
 }

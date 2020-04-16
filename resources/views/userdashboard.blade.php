@@ -184,16 +184,26 @@
                 $professor = Professor::where('user_id', '=', Auth()->user()->id)->first();
                 $waw = $professor->Prof_gender;
                 ?>
-                @if ($waw == 'm')
-                  <img class="profile-user-img img-fluid img-circle"
-                       src="/AdminLTE-master/dist/img/user.png"
+                @if (Auth()->user()->avatar)
+                <img class="profile-user-img img-fluid img-circle"
+                       src="{{ Auth()->user()->avatar }}"
                        alt="User profile picture">
                 @endif
-                @if ($waw == 'f')
-                  <img class="profile-user-img img-fluid img-circle"
-                       src="/AdminLTE-master/dist/img/user1.png"
-                       alt="User profile picture">
+
+                @if (Auth()->user()->avatar == null)
+                  @if ($waw == 'm')
+                    <img class="profile-user-img img-fluid img-circle"
+                        src="/AdminLTE-master/dist/img/user.png"
+                        alt="User profile picture">
+                  @endif
+                  @if ($waw == 'f')
+                    <img class="profile-user-img img-fluid img-circle"
+                        src="/AdminLTE-master/dist/img/user1.png"
+                        alt="User profile picture">
+                  @endif
                 @endif
+
+                
                 </div>
 
                 <h3 class="profile-username text-center">{{ ucfirst(Auth()->user()->name) }}</h3>
